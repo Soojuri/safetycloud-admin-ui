@@ -1,0 +1,29 @@
+.g-dialog{
+  .el-dialog__header{
+    padding: 14px 16px 12px;
+    border-bottom: solid 1px $--border-color-base;
+  }
+  .el-dialog__headerbtn{
+    top: 14px;
+    right: 16px;
+  }
+  .el-dialog__body{
+    padding: 20px 16px;
+  }
+  .el-dialog__close{
+    display: inline-block;
+    vertical-align: top;
+    width: 24px;
+    text-align: center;
+    color: $--color-text-regular;
+    line-height: 24px;
+    font-size: 16px;
+    border-radius: 50%;
+    box-shadow: 0 0 0 1px currentcolor inset;
+  }
+  .g-card-s.el-tabs--border-card{
+    padding: 0;
+    box-shadow: none;
+    border-radius: $g-radius;
+  }
+}

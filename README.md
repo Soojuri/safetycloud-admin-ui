@@ -20,7 +20,7 @@ cloud-ui                                -- UI工程
 ├    └── svg                            -- SVG资源
 ├    └── util                           -- 网上下载的工具
 ├    └── favicon.ico                    -- 网站图标
-├    └── index.html                     -- 网站工作台，也是唯一的一张页面
+├    └── index.html                     -- 网站首页，也是唯一的一张页面
 ├── src                                 -- 源码目录
 ├    └── api                            -- 和后端交互的API相关
 ├    ├── components                     -- 自己封装的组件
@@ -59,10 +59,10 @@ cloud-ui                                -- UI工程
 
 ```bash
 # 克隆项目
-git clone https://git.linewellcloud.com/nlinks/minielectric/iot/video-analysis-ui.git
+git clone https://git.linewellcloud.com/nlinks/minielectric/iot/linewell-iot-ui.git
 
 # 进入项目目录
-cd video-analysis-ui
+cd linewell-iot-ui
 
 # 安装依赖
 npm install

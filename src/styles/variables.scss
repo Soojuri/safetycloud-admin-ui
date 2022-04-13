@@ -1,0 +1,85 @@
+//main
+$mainBg: #f00;
+
+// element本体变量覆盖
+
+$--color-primary: #2975ff;
+
+$--color-success: #27d098;
+$--color-warning: #f58a44;
+$--color-danger: #ff3b30;
+$--color-info: #999;
+
+$--color-text-primary: #333;
+$--color-text-regular: #666;
+$--color-text-secondary: #999;
+$--color-text-placeholder: #bbb;
+
+$--border-color-base: #e0e0e0;
+// $--border-color-light:        $--border-color-base;
+// $--border-color-lighter:      $--border-color-base;
+// $--border-color-extra-light:  $--border-color-base;
+
+$--color-white: #fff;
+$--color-black: #000;
+
+$--background-color-base: #f2f5f5;
+
+// element本体变量覆盖 end
+
+// 自定义全局变量
+$--color-primary-hover: lighten($--color-primary, 10%);
+$g-inner-gap: 12px;
+$g-card-padding: 16px;
+$g-head-height: 64px;
+$g-radius: 3px;
+
+//字号
+$font-size-micro: 12px;
+$font-size-small: 14px;
+$font-size-base: 16px;
+$font-size-large: 18px;
+$font-size-larger: 20px;
+
+$vw: 100vw/1920;
+// 全局mixin
+
+@mixin scrollbar(
+  $barWidth: 8px,
+  $barHeight: 8px,
+  $barColor: #c1c1c1,
+  $barBg: #fafafa
+) {
+  &::-webkit-scrollbar {
+    width: $barWidth;
+    height: $barHeight;
+    background: $barBg;
+  }
+  &::-webkit-scrollbar-thumb {
+    margin: 3px;
+    background: $barColor;
+    border-radius: 8px;
+  }
+}
+@mixin g-tit-s {
+  display: flex;
+  align-items: center;
+  margin: 12px 0;
+  font-size: 16px;
+  span {
+    position: relative;
+    flex: 1 1 0;
+    padding-left: 16px;
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 50%;
+      margin-top: -7px;
+      height: 14px;
+      width: 6px;
+      background: $--color-primary;
+      border-radius: 6px;
+    }
+  }
+}

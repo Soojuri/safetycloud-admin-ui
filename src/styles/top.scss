@@ -1,0 +1,191 @@
+.avue-top {
+  padding: 0 20px;
+  position: relative;
+  box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
+  color: rgba(0, 0, 0, 0.65);
+  font-size: 28px;
+  height: 64px;
+  box-sizing: border-box;
+  white-space: nowrap;
+  .el-menu-item {
+    i,
+    span {
+      font-size: 13px;
+    }
+  }
+}
+.avue-breadcrumb {
+  height: 100%;
+  i {
+    font-size: 30px !important;
+  }
+  &--active {
+    transform: rotate(90deg);
+  }
+}
+
+.top-menu {
+  box-sizing: border-box;
+  .el-menu-item {
+    padding: 0 10px;
+    border: none !important;
+  }
+}
+
+.top-search {
+  line-height: 64px;
+  position: absolute !important;
+  left: 20px;
+  top: 0;
+  width: 400px !important;
+  .el-input__inner {
+    font-size: 13px;
+    border: none;
+    background-color: transparent;
+  }
+}
+
+.top-bar__img {
+  margin: 0 8px 0 5px;
+  padding: 2px;
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  box-sizing: border-box;
+  border: 1px solid #eee;
+  vertical-align: middle;
+}
+
+.top-bar__left,
+.top-bar__right {
+  height: 64px;
+  position: absolute;
+  top: 0;
+  i {
+    line-height: 64px;
+  }
+}
+
+.top-bar__left {
+  left: 20px;
+}
+
+.top-bar__right {
+  right: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.top-bar__item {
+  position: relative;
+  display: inline-block;
+  height: 64px;
+  margin: 0 10px;
+  font-size: 16px;
+  &--show {
+    display: inline-block !important;
+  }
+  .el-badge__content.is-fixed {
+    top: 12px;
+    right: 5px;
+  }
+}
+
+.top-bar__title {
+  height: 100%;
+  padding: 0 40px;
+  box-sizing: border-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: inherit;
+  font-weight: 400;
+}
+
+// 头部改造
+body {
+  .avue-header {
+    z-index: 1995;
+    position: relative;
+    margin-bottom: 0;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    background: linear-gradient(to bottom, #1d2e4a, #0e1a2d);
+    .avue-top {
+      display: flex;
+      align-items: stretch;
+      color: white;
+    }
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      margin-right: 24px;
+      height: $g-head-height;
+      white-space: nowrap;
+      font-size: 24px;
+      vertical-align: top;
+      color: white;
+      span {
+        margin-left: 12px;
+      }
+    }
+    .top-bar__left,
+    .top-bar__title,
+    .top-bar__right {
+      position: relative;
+      left: auto;
+      right: auto;
+      top: auto;
+      bottom: auto;
+    }
+    .top-bar__title {
+      flex: 1 1 0;
+    }
+    .el-dropdown {
+      color: #fff;
+    }
+    .el-menu {
+      .el-menu-item {
+        height: $g-head-height;
+        font-size: 20px;
+        line-height: $g-head-height;
+        color: rgba(255, 255, 255, 0.5);
+        &:not(.is-disabled):hover,
+        &:not(.is-disabled):focus {
+          color: $--color-primary;
+          span:after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 8px;
+            height: 4px;
+            background: currentColor;
+          }
+        }
+        i {
+          display: none;
+        }
+        span {
+          position: relative;
+          display: inline-block;
+          vertical-align: top;
+          font-size: inherit;
+        }
+      }
+    }
+  }
+  .avue-breadcrumb {
+    &.avue-breadcrumb--active {
+      transform: scaleX(-1);
+    }
+    .icon-navicon {
+      font-size: 20px !important;
+      &:before {
+        content: "\e904";
+        font-family: c-icon-font;
+      }
+    }
+  }
+}
+// 头部改造 end
