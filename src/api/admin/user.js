@@ -62,10 +62,26 @@ export function getDetails(obj) {
   })
 }
 
-// 更改个人信息
+//获取密码提示时间
+export function getPasswordAlertDay(obj) {
+  return request({
+    url: '/admin/user/passwordAlertDay?username=' + obj,
+    method: 'get',
+  })
+}
+
+// 更改个人信息密码
 export function editInfo(obj) {
   return request({
     url: '/admin/user/edit',
+    method: 'put',
+    data: obj
+  })
+}
+// 更改个人信息
+export function editInformation(obj) {
+  return request({
+    url: '/admin/user/editInfo',
     method: 'put',
     data: obj
   })
