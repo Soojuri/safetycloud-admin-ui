@@ -19,9 +19,12 @@ import qs from 'qs'
 
 const scope = 'server'
 
-export const loginByUsername = (username, password, code, randomStr, pass) => {
+export const loginByUsername = (username, password, code, randomStr, pass, systemType) => {
   let grant_type = 'password'
-  let dataObj = qs.stringify({ 'username': username, 'password': password })
+  let dataObj = qs.stringify({
+    'username': username,
+    'password': password
+  })
 
   return request({
     url: '/auth/oauth/token',
@@ -31,7 +34,13 @@ export const loginByUsername = (username, password, code, randomStr, pass) => {
       'Authorization': 'Basic cGlnOnBpZw=='
     },
     method: 'post',
-    params: { randomStr, code, grant_type, pass },
+    params: {
+      randomStr,
+      code,
+      grant_type,
+      pass,
+      systemType
+    },
     data: dataObj
   })
 }
@@ -45,7 +54,11 @@ export const refreshToken = (refresh_token) => {
       'Authorization': 'Basic cGlnOnBpZw=='
     },
     method: 'post',
-    params: { refresh_token, grant_type, scope }
+    params: {
+      refresh_token,
+      grant_type,
+      scope
+    }
   })
 }
 
@@ -59,7 +72,11 @@ export const loginByMobile = (mobile, code) => {
       'Authorization': 'Basic cGlnOnBpZw=='
     },
     method: 'post',
-    params: { mobile: 'SMS@' + mobile, code: code, grant_type }
+    params: {
+      mobile: 'SMS@' + mobile,
+      code: code,
+      grant_type
+    }
   })
 }
 
@@ -73,7 +90,10 @@ export const loginBySocial = (state, code) => {
       'Authorization': 'Basic cGlnOnBpZw=='
     },
     method: 'post',
-    params: { mobile: state + '@' + code, grant_type }
+    params: {
+      mobile: state + '@' + code,
+      grant_type
+    }
   })
 }
 

@@ -1,12 +1,33 @@
-import { getStore, setStore } from '@/util/store'
-import { isURL, validatenull } from '@/util/validate'
-import { loginByMobile, loginBySocial, loginByUsername, getUserInfo, logout, refreshToken } from '@/api/login'
-import { deepClone, encryption } from '@/util/util'
+import {
+  getStore,
+  setStore
+} from '@/util/store'
+import {
+  isURL,
+  validatenull
+} from '@/util/validate'
+import {
+  loginByMobile,
+  loginBySocial,
+  loginByUsername,
+  getUserInfo,
+  logout,
+  refreshToken
+} from '@/api/login'
+import {
+  deepClone,
+  encryption
+} from '@/util/util'
 import webiste from '@/const/website'
-import { resetRouter } from '@/router/router'
-import { getMenu, getTopMenu } from '@/api/admin/menu'
+import {
+  resetRouter
+} from '@/router/router'
+import {
+  getMenu,
+  getTopMenu
+} from '@/api/admin/menu'
 
-function addPath (ele, first) {
+function addPath(ele, first) {
   const menu = webiste.menu
   const propsConfig = menu.props
   const propsDefault = {
@@ -53,14 +74,17 @@ const user = {
   },
   actions: {
     // 根据用户名登录
-    LoginByUsername ({ commit }, userInfo) {
+    LoginByUsername({
+      commit
+    }, userInfo) {
+      const systemType = 2
       const user = encryption({
         data: userInfo,
         key: 'pigxpigxpigxpigx',
         param: ['password']
       })
       return new Promise((resolve, reject) => {
-        loginByUsername(user.username, user.password, user.code, user.randomStr, user.pass).then(response => {
+        loginByUsername(user.username, user.password, user.code, user.randomStr, user.pass, systemType).then(response => {
           const data = response.data
           commit('SET_ACCESS_TOKEN', data.access_token)
           commit('SET_REFRESH_TOKEN', data.refresh_token)
@@ -75,7 +99,9 @@ const user = {
       })
     },
     // 根据手机号登录
-    LoginByPhone ({ commit }, userInfo) {
+    LoginByPhone({
+      commit
+    }, userInfo) {
       return new Promise((resolve, reject) => {
         loginByMobile(userInfo.mobile, userInfo.code).then(response => {
           const data = response.data
@@ -92,7 +118,9 @@ const user = {
       })
     },
     // 根据OpenId登录
-    LoginBySocial ({ commit }, param) {
+    LoginBySocial({
+      commit
+    }, param) {
       return new Promise((resolve, reject) => {
         loginBySocial(param.state, param.code).then(response => {
           const data = response.data
@@ -109,7 +137,10 @@ const user = {
       })
     },
     // 刷新token
-    RefreshToken ({ commit, state }) {
+    RefreshToken({
+      commit,
+      state
+    }) {
       return new Promise((resolve, reject) => {
         refreshToken(state.refresh_token).then(response => {
           const data = response.data
@@ -124,7 +155,9 @@ const user = {
       })
     },
     // 查询用户信息
-    GetUserInfo ({ commit }) {
+    GetUserInfo({
+      commit
+    }) {
       return new Promise((resolve, reject) => {
         getUserInfo().then((res) => {
           const data = res.data.data || {}
@@ -138,7 +171,9 @@ const user = {
       })
     },
     // 登出
-    LogOut ({ commit }) {
+    LogOut({
+      commit
+    }) {
       return new Promise((resolve, reject) => {
         logout().then(() => {
           resetRouter()
@@ -158,7 +193,9 @@ const user = {
       })
     },
     // 注销session
-    FedLogOut ({ commit }) {
+    FedLogOut({
+      commit
+    }) {
       return new Promise(resolve => {
         resetRouter()
         commit('SET_MENU', [])
@@ -173,7 +210,9 @@ const user = {
       })
     },
     // 获取系统菜单
-    GetMenu ({ commit }, obj) {
+    GetMenu({
+      commit
+    }, obj) {
       return new Promise(resolve => {
         getMenu(obj.id).then((res) => {
           const data = res.data.data
@@ -182,13 +221,16 @@ const user = {
             addPath(ele)
           })
           let type = obj.type
-          commit('SET_MENU', { type, menu })
+          commit('SET_MENU', {
+            type,
+            menu
+          })
           resolve(menu)
         })
       })
     },
     //顶部菜单
-    GetTopMenu () {
+    GetTopMenu() {
       return new Promise(resolve => {
         getTopMenu().then((res) => {
           const data = res.data.data || []
@@ -231,7 +273,10 @@ const user = {
       })
     },
     SET_MENU: (state, params = {}) => {
-      let { menu, type } = params
+      let {
+        menu,
+        type
+      } = params
       if (type !== false) state.menu = menu
       setStore({
         name: 'menu',
