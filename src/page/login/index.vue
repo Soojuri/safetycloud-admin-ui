@@ -32,7 +32,7 @@ import userLogin from './userlogin'
 import { mapGetters } from 'vuex'
 import { getStore, setStore } from '@/util/store'
 import topColor from '@/page/index/top/top-color'
-
+import { tenantId } from '@/config/env'
 export default {
   name: 'Login',
   components: {
@@ -79,7 +79,7 @@ export default {
   created() {
     this.watermark()
     this.getTenantList()
-    this.handleCommand('2')
+    this.handleCommand(tenantId)
     this.active = getStore({ name: 'tenantId_video' })
   },
   mounted() {},

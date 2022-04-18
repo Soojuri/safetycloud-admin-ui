@@ -5,7 +5,6 @@ import common from './modules/common'
 import tags from './modules/tags'
 import logs from './modules/logs'
 import getters from './getters'
-import device from './modules/device'
 Vue.use(Vuex)
 const store = new Vuex.Store({
   modules: {
@@ -13,7 +12,6 @@ const store = new Vuex.Store({
     common,
     logs,
     tags,
-    device
   },
   getters
 })

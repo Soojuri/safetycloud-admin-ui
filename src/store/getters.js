@@ -22,15 +22,6 @@ const getters = {
   menuAll: state => state.user.menuAll,
   logsList: state => state.logs.logsList,
   logsLen: state => state.logs.logsList.length || 0,
-  productAllList: state => state.device.productAllList,
-  deviceAllList: state => state.device.deviceAllList,
-  units: state => state.device.units,
-  productDetailData: state => (id) => {
-    return state.device.productAllList.filter(v => v.productId === id)
-  },
-  deviceDetailData: state => (id) => {
-    return state.device.deviceAllList.filter(v => v.deviceId === id)
-  },
   logsFlag: (state, getters) => getters.logsLen === 0,
 
 }
