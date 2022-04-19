@@ -14,7 +14,7 @@ const actUrl = `${window.location.origin}/act/modeler.html?modelId=`
 if (env.NODE_ENV === 'development') {
   imagePath = 'https://sc-img-t.xdwsinfo.com'
   nodeRedPath = 'http://39.108.217.65:1880/#flow/'
-  tenantId = '553'
+  tenantId = '2'
 }
 // 生产环境
 else if (env.NODE_ENV === 'production') {
