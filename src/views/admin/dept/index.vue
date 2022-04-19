@@ -31,8 +31,8 @@
 
       <el-row>
         <el-col :span="8" style="margin-top:15px;">
-          <el-tree :data="treeData" :props="defaultProps" :filter-node-method="filterNode" class="filter-tree" node-key="id" highlight-current
-                   default-expand-all @node-click="getNodeData" />
+          <el-tree :data="treeData" :props="defaultProps" :filter-node-method="filterNode" class="filter-tree"
+                   node-key="id" highlight-current default-expand-all @node-click="getNodeData" />
         </el-col>
         <el-col :span="16" style="margin-top:15px;">
           <el-card class="box-card">
@@ -73,7 +73,7 @@ import { mapGetters } from 'vuex'
 
 export default {
   name: 'Dept',
-  data () {
+  data() {
     return {
       list: null,
       total: null,
@@ -83,88 +83,79 @@ export default {
       typeOptions: ['0', '1'],
       methodOptions: ['GET', 'POST', 'PUT', 'DELETE'],
       listQuery: {
-        name: undefined
+        name: undefined,
       },
       treeData: [],
       defaultProps: {
         children: 'children',
-        label: 'name'
+        label: 'name',
       },
       rules: {
-        parentId: [
-          { required: true, message: '请输入父级节点', trigger: 'blur' }
-        ],
-        deptId: [
-          { required: true, message: '请输入节点编号', trigger: 'blur' }
-        ],
+        parentId: [{ required: true, message: '请输入父级节点', trigger: 'blur' }],
+        deptId: [{ required: true, message: '请输入节点编号', trigger: 'blur' }],
         name: [
           { required: true, message: '请输入部门名称', trigger: 'blur' },
-          { min: 3, max: 32, message: '长度在 3 到 32 个字符', trigger: 'blur' }
+          { min: 3, max: 32, message: '长度在 3 到 32 个字符', trigger: 'blur' },
         ],
-        sort: [
-          { required: true, message: '请输入排序值', trigger: 'blur' }
-        ]
+        sort: [{ required: true, message: '请输入排序值', trigger: 'blur' }],
       },
       labelPosition: 'right',
       form: {
         name: undefined,
         sort: undefined,
         parentId: undefined,
-        deptId: undefined
+        deptId: undefined,
       },
       currentId: 0,
       deptManager_btn_add: false,
       deptManager_btn_edit: false,
-      deptManager_btn_del: false
+      deptManager_btn_del: false,
     }
   },
-  created () {
+  created() {
     this.getList()
     this.deptManager_btn_add = this.permissions['sys_dept_add']
     this.deptManager_btn_edit = this.permissions['sys_dept_edit']
     this.deptManager_btn_del = this.permissions['sys_dept_del']
   },
   computed: {
-    ...mapGetters([
-      'elements',
-      'permissions'
-    ])
+    ...mapGetters(['elements', 'permissions']),
   },
   methods: {
-    getList () {
-      fetchTree(this.listQuery).then(response => {
+    getList() {
+      fetchTree(this.listQuery).then((response) => {
         this.treeData = response.data.data
       })
     },
-    filterNode (value, data) {
+    filterNode(value, data) {
       if (!value) return true
       return data.label.indexOf(value) !== -1
     },
-    getNodeData (data) {
+    getNodeData(data) {
       if (!this.formEdit) {
         this.formStatus = 'update'
       }
-      getObj(data.id).then(response => {
+      getObj(data.id).then((response) => {
         this.form = response.data.data
       })
       this.currentId = data.id
     },
-    handlerEdit () {
+    handlerEdit() {
       if (this.form.deptId) {
         this.formEdit = false
         this.formStatus = 'update'
       }
     },
-    handlerAdd () {
+    handlerAdd() {
       this.resetForm()
       this.formEdit = false
       this.formStatus = 'create'
     },
-    handleDelete () {
+    handleDelete() {
       this.$confirm('此操作将永久删除, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
-        type: 'warning'
+        type: 'warning',
       }).then(() => {
         delObj(this.currentId).then(() => {
           this.getList()
@@ -174,7 +165,7 @@ export default {
         })
       })
     },
-    update () {
+    update() {
       this.$refs.form.validate((valid) => {
         if (!valid) return
         putObj(this.form).then(() => {
@@ -184,7 +175,7 @@ export default {
         })
       })
     },
-    create () {
+    create() {
       this.$refs.form.validate((valid) => {
         if (!valid) return
         addObj(this.form).then(() => {
@@ -194,16 +185,16 @@ export default {
         })
       })
     },
-    onCancel () {
+    onCancel() {
       this.formEdit = true
       this.formStatus = ''
     },
-    resetForm () {
+    resetForm() {
       this.form = {
-        parentId: this.currentId
+        parentId: this.currentId,
       }
-    }
-  }
+    },
+  },
 }
 </script>
 

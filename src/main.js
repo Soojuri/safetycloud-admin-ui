@@ -5,7 +5,7 @@ import axios from './router/axios'
 import VueAxios from 'vue-axios'
 import App from './App'
 import './permission' // 权限
-// import './error' // 日志
+import './error' // 日志
 import './cache' //页面缓冲
 import router from './router/router'
 import store from './store'

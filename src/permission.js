@@ -60,6 +60,6 @@ router.afterEach(() => {
   console.timeEnd('testForRouter');
   NProgress.done()
   let title = store.getters.tag.label;
-  if (!store.getters.access_token) title = '物联通平台';
+  if (!store.getters.access_token) title = '统一运营管理平台';
   router.$avueRouter.setTitle(title)
 })

@@ -59,10 +59,10 @@ cloud-ui                                -- UI工程
 
 ```bash
 # 克隆项目
-git clone https://git.linewellcloud.com/nlinks/minielectric/iot/linewell-iot-ui.git
+git clone https://git.linewellcloud.com/nlinks/minielectric/safetycloud-group/safetycloud-admin-ui
 
 # 进入项目目录
-cd linewell-iot-ui
+cd safetycloud-admin-ui
 
 # 安装依赖
 npm install

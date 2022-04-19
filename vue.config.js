@@ -6,7 +6,7 @@ const url = "http://192.168.10.13:9999"; // lmq
 //const url = "http://39.108.217.65:9999"; // test
 //const url = 'http://192.168.105.11:9999' // dz
 //const url = 'http://192.168.105.4:9999' // su
-const name = "物联通平台";
+const name = "统一运营管理平台";
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 function resolve(dir) {
@@ -50,19 +50,7 @@ module.exports = {
         "@": resolve("src")
       }
     },
-    plugins: [
-      new CopyWebpackPlugin([{
-          from: 'node_modules/@liveqing/liveplayer/dist/component/crossdomain.xml'
-        },
-        {
-          from: 'node_modules/@liveqing/liveplayer/dist/component/liveplayer.swf'
-        },
-        {
-          from: 'node_modules/@liveqing/liveplayer/dist/component/liveplayer-lib.min.js',
-          to: 'video/'
-        },
-      ])
-    ]
+    plugins: []
   },
   chainWebpack(config) {
     config.plugins.delete("preload"); // TODO: need test
