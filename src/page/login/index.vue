@@ -1,5 +1,5 @@
 <template>
-  <div class="login-container">
+  <!-- <div class="login-container">
     <div class="login-img">
       <img :src="require('@/assets/img/login-class.png')" />
     </div>
@@ -7,13 +7,13 @@
       <p class="login-tip">{{ website.title}}</p>
       <div class="login-border">
         <div class="login-main">
-          <h4 class="login-title">
-            <!-- <el-select v-model="active" class="login-select animated fadeIn" placeholder="点击选择租户"
+          <h4 class="login-title"> -->
+  <!-- <el-select v-model="active" class="login-select animated fadeIn" placeholder="点击选择租户"
                        @change="handleCommand">
               <el-option v-for="tenant in tenantList" :key="tenant.id" :label="tenant.name" :value="tenant.id">
               </el-option>
             </el-select> -->
-          </h4>
+  <!-- </h4>
           <userLogin />
         </div>
       </div>
@@ -22,6 +22,16 @@
       {{ website.copyright}}
     </div>
     <top-color v-show="false" />
+  </div> -->
+  <div class="page">
+    <img class="bg-img" src="../../assets/images/logins/login-418.png" alt="" />
+    <div class="img-box">
+      <img src="../../assets/images/logins/cha-tu2.png" alt="" />
+    </div>
+    <div class="form-box">
+      <h2>{{ website.title}}</h2>
+      <userLogin />
+    </div>
   </div>
 </template>
 <script>
@@ -128,6 +138,6 @@ export default {
 }
 </script>
 
-<style lang="scss">
-@import '@/styles/login.scss';
+<style lang="scss" scoped>
+@import '@/styles/login-418';
 </style>
