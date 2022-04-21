@@ -26,7 +26,7 @@ export default [{
     redirect: '/wel/index',
     children: [{
       path: 'index',
-      name: '首页',
+      name: '工作台',
       component: () =>
         import( /* webpackChunkName: "views" */ '@/page/home/index')
     }]
@@ -36,17 +36,6 @@ export default [{
     name: '锁屏页',
     component: () =>
       import( /* webpackChunkName: "page" */ '@/page/lock/index'),
-    meta: {
-      keepAlive: true,
-      isTab: false,
-      isAuth: false
-    }
-  },
-  {
-    path: '/example-db',
-    name: '静态页面-数据大屏',
-    component: () =>
-      import( /* webpackChunkName: "page" */ '@/page/index/example-db'),
     meta: {
       keepAlive: true,
       isTab: false,

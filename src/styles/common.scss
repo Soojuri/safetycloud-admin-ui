@@ -39,7 +39,7 @@ a {
 
 // 关于 图标 CSS 的设置
 [class^="icon-"] {
-  font-family: "iconfont" !important;
+  font-family: "iconfont", sans-serif !important;
   /* 以下内容参照第三方图标库本身的规则 */
   font-size: 18px !important;
   font-style: normal;
@@ -49,7 +49,7 @@ a {
 
 .avue-input-icon__item i,
 .sub-page__icon--small {
-  font-family: "iconfont" !important;
+  font-family: "iconfont", sans-serif !important;
   /* 以下内容参照第三方图标库本身的规则 */
   font-size: 24px !important;
   font-style: normal;
@@ -73,17 +73,17 @@ a {
   font-size: 18px;
 }
 
-.el-select-dropdown {
-  max-width: 243px;
-}
+// .el-select-dropdown {
+//   max-width: 243px;
+// }
 
-.el-select-dropdown__item {
-  display: inline-block;
-  width: 100%;
-}
+// .el-select-dropdown__item {
+//   display: inline-block;
+//   width: 100%;
+// }
 
-.el-select-dropdown__item span {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  word-wrap: normal;
-}
+// .el-select-dropdown__item span {
+//   overflow: hidden;
+//   text-overflow: ellipsis;
+//   word-wrap: normal;
+// }

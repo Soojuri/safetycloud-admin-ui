@@ -3,7 +3,8 @@
     <div class="lock-form animated bounceInDown">
       <div class="animated" :class="{'shake':passwdError,'bounceOut':pass}">
         <h3 class="title">{{userInfo.username}}</h3>
-        <el-input placeholder="请输入登录密码" type="password" class="input-with-select animated" v-model="passwd" @keyup.enter.native="handleLogin">
+        <el-input placeholder="请输入登录密码" type="password" class="input-with-select animated" v-model="passwd"
+                  @keyup.enter.native="handleLogin">
           <el-button slot="append" icon="icon-jiesuo" @click="handleLogin"></el-button>
           <el-button slot="append" icon="icon-tuichu" @click="handleLogout"></el-button>
         </el-input>
@@ -13,43 +14,43 @@
   </div>
 </template>
 <script>
-import { mapGetters, mapState } from "vuex"
+import { mapGetters, mapState } from 'vuex'
 export default {
-  name: "lock",
-  data () {
+  name: 'lock',
+  data() {
     return {
-      passwd: "",
+      passwd: '',
       passwdError: false,
-      pass: false
+      pass: false,
     }
   },
-  created () { },
-  mounted () { },
+  created() {},
+  mounted() {},
   computed: {
     ...mapState({
-      userInfo: state => state.user.userInfo
+      userInfo: (state) => state.user.userInfo,
     }),
-    ...mapGetters(["tag", "lockPasswd"])
+    ...mapGetters(['tag', 'lockPasswd']),
   },
   props: [],
   methods: {
-    handleLogout () {
-      this.$confirm("是否退出系统, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
+    handleLogout() {
+      this.$confirm('是否退出系统, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
       }).then(() => {
-        this.$store.dispatch("LogOut").then(() => {
-          this.$router.push({ path: "/login" })
+        this.$store.dispatch('LogOut').then(() => {
+          this.$router.push({ path: '/login' })
         })
       })
     },
-    handleLogin () {
+    handleLogin() {
       if (this.passwd != this.lockPasswd) {
-        this.passwd = ""
+        this.passwd = ''
         this.$notify({
-          message: "解锁密码错误,请重新输入",
-          type: "error"
+          message: '解锁密码错误,请重新输入',
+          type: 'error',
         })
         this.passwdError = true
         setTimeout(() => {
@@ -59,15 +60,15 @@ export default {
       }
       this.pass = true
       setTimeout(() => {
-        this.$store.commit("CLEAR_LOCK")
+        this.$store.commit('CLEAR_LOCK')
         this.$router.push({
-          path: this.$router.$avueRouter.getPath({ src: this.tag.value })
+          path: this.$router.$avueRouter.getPath({ src: this.tag.value }),
         })
       }, 1000)
-    }
+    },
   },
-  components: {}
-};
+  components: {},
+}
 </script>
 
 <style lang="scss" scoped>
@@ -84,13 +85,13 @@ export default {
 }
 .lock-container::before {
   z-index: -999;
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  background-image: url("../../assets/img/bg/login.png");
+  background-image: url('../../assets/images/login.png');
   background-size: cover;
 }
 .lock-form {

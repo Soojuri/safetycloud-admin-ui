@@ -4,17 +4,17 @@
             :imgSize="{ width: '330px', height: '155px' }" ref="verify" />
     <el-form ref="loginForm" :rules="loginRules" :model="loginForm" class="login-form" status-icon label-width="0">
       <el-form-item prop="username">
-        <el-input v-model="loginForm.username" size="small" auto-complete="off" placeholder="请输入用户名"
+        <el-input v-model="loginForm.username" size="small" autocomplete="off" placeholder="请输入用户名"
                   @keyup.enter.native="handleLogin">
           <!-- <i slot="prefix" class="icon-yonghuming" /> -->
           <div class="cus-icon-user" slot="prefix"></div>
         </el-input>
       </el-form-item>
       <el-form-item prop="password">
-        <el-input :type="passwordType" v-model="loginForm.password" size="small" auto-complete="off" placeholder="请输入密码"
+        <el-input :type="passwordType" v-model="loginForm.password" autocomplete="off" size="small" placeholder="请输入密码"
                   @keyup.enter.native="handleLogin">
-          <div class="cus-icon-pwd" slot="prefix"></div>
           <i slot="suffix" class="el-icon-view el-input__icon" @click="showPassword" />
+          <div class="cus-icon-pwd" slot="prefix"></div>
           <!-- <i slot="prefix" class="icon-mima"></i> -->
         </el-input>
       </el-form-item>

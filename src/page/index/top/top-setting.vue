@@ -1,12 +1,7 @@
 <template>
   <span class="setting">
-    <div
-      :class="{'setting__shade--show':isShade}"
-      class="setting__shade"
-      @click="close"/>
-    <div
-      :class="{'setting__content--show':box}"
-      class="setting__content">
+    <div :class="{'setting__shade--show':isShade}" class="setting__shade" @click="close" />
+    <div :class="{'setting__content--show':box}" class="setting__content">
       <div class="setting__header">版权信息</div>
       <div class="setting__body setting__about">
         <p>Version：linewell 4.1</p>
@@ -17,9 +12,7 @@
       </div>
       <el-scrollbar style="height:500px">
         <div class="setting__body setting__form">
-          <avue-form
-            v-model="form"
-            :option="option"/>
+          <avue-form v-model="form" :option="option" />
         </div>
       </el-scrollbar>
     </div>
@@ -35,22 +28,22 @@ export default {
       box: false,
       form: {},
       list: list,
-      option: option(this)
+      option: option(this),
     }
   },
   computed: {
     ...mapGetters(['isShade']),
     ...mapState({
-      showTag: state => state.common.showTag,
-      showDebug: state => state.common.showDebug,
-      showLock: state => state.common.showLock,
-      showColor: state => state.common.showColor,
-      showFullScreen: state => state.common.showFullScreen,
-      showCollapse: state => state.common.showCollapse,
-      showSearch: state => state.common.showSearch,
-      showMenu: state => state.common.showMenu,
-      showTheme: state => state.common.showTheme
-    })
+      showTag: (state) => state.common.showTag,
+      showDebug: (state) => state.common.showDebug,
+      showLock: (state) => state.common.showLock,
+      showColor: (state) => state.common.showColor,
+      showFullScreen: (state) => state.common.showFullScreen,
+      showCollapse: (state) => state.common.showCollapse,
+      showSearch: (state) => state.common.showSearch,
+      showMenu: (state) => state.common.showMenu,
+      showTheme: (state) => state.common.showTheme,
+    }),
   },
   created() {
     setTimeout(() => {
@@ -64,13 +57,13 @@ export default {
     },
     set(key) {
       const ele = this.find(key)
-      this.$store.commit(ele.commit, eval(this.form[ele.key]))
+      this.$store.commit(ele.commit, this.form[ele.key])
     },
     find(key) {
-      return this.list.filter(ele => ele.key === key)[0]
+      return this.list.filter((ele) => ele.key === key)[0]
     },
     init() {
-      this.list.forEach(ele => {
+      this.list.forEach((ele) => {
         this.form[ele.key] = this.validatenull(this[ele.key]) ? 'true' : this[ele.key] + ''
         this.set(ele.key)
       })
@@ -78,8 +71,8 @@ export default {
     open() {
       this.box = true
       this.$store.commit('SET_SHADE', true)
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -87,7 +80,7 @@ export default {
 .setting {
   margin-left: 10px;
   &__icon {
-    color:#fff;
+    color: #fff;
     font-size: 20px;
     transform: rotate(90deg);
   }

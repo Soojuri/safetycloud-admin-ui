@@ -1,16 +1,10 @@
 <template>
   <div class="top-menu">
-    <el-menu
-      :default-active="activeIndex"
-      mode="horizontal"
-      text-color="#333">
+    <el-menu :default-active="activeIndex" mode="horizontal" text-color="#333">
       <template v-for="(item,index) in items">
-        <el-menu-item
-          :index="item.parentId+''"
-          :key="index"
-          @click.native="openMenu(item)">
+        <el-menu-item :index="item.parentId+''" :key="index" @click.native="openMenu(item)">
           <template slot="title">
-            <i :class="item.icon"/>
+            <i :class="item.icon" />
             <span>{{ item.label }}</span>
           </template>
         </el-menu-item>
@@ -23,11 +17,11 @@
 import { mapGetters } from 'vuex'
 export default {
   name: 'TopMenu',
-  inject: ["Index"],
+  inject: ['Index'],
   data() {
     return {
       activeIndex: '0',
-      items: []
+      items: [],
     }
   },
   created() {
@@ -37,13 +31,13 @@ export default {
     this.getUserInfo()
   },
   computed: {
-    ...mapGetters(['menu'])
+    ...mapGetters(['menu']),
   },
   methods: {
     getTopMenu() {
-      this.$store.dispatch("GetTopMenu").then(res => {
-          this.items = res;
-      });
+      this.$store.dispatch('GetTopMenu').then((res) => {
+        this.items = res
+      })
     },
     openMenu(item) {
       this.Index.openMenu(item)
@@ -51,7 +45,7 @@ export default {
     getUserInfo() {
       // 更新sessionStore 权限信息
       this.$store.dispatch('GetUserInfo')
-    }
-  }
+    },
+  },
 }
 </script>

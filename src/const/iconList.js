@@ -1,5 +1,4 @@
-export default [
-  {
+export default [{
     label: '阿里云图标',
     list: [
       'icon-quanxianguanli',
@@ -59,8 +58,7 @@ export default [
   },
   {
     label: '自定义图标',
-    list: [
-      {
+    list: [{
         label: '导航菜单',
         value: 'cus-icon-index'
       },
@@ -103,6 +101,38 @@ export default [
       {
         label: '规则引擎',
         value: 'cus-icon-guizeyinqing'
+      },
+      {
+        label: '工作台',
+        value: 'cus-icon-gzt'
+      },
+      {
+        label: '事件审核',
+        value: 'cus-icon-sjsh'
+      },
+      {
+        label: '算法管理',
+        value: 'cus-icon-sfgl'
+      },
+      {
+        label: '摄像头管理',
+        value: 'cus-icon-sxtgl'
+      },
+      {
+        label: '任务作业管理',
+        value: 'cus-icon-rwzygl'
+      },
+      {
+        label: '规则配置管理',
+        value: 'cus-icon-gzpzgl'
+      },
+      {
+        label: '边缘计算管理',
+        value: 'cus-icon-byjsgl'
+      },
+      {
+        label: '系统管理',
+        value: 'cus-icon-xtgl'
       },
     ]
   }

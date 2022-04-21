@@ -1,25 +1,14 @@
-/*
- *    Copyright (c) 2018-2025, linewell All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- * Redistributions of source code must retain the above copyright notice,
- * this list of conditions and the following disclaimer.
- * Redistributions in binary form must reproduce the above copyright
- * notice, this list of conditions and the following disclaimer in the
- * documentation and/or other materials provided with the distribution.
- * Neither the name of the pig4cloud.com developer nor the names of its
- * contributors may be used to endorse or promote products derived from
- * this software without specific prior written permission.
- * Author: linewell
- */
 import {
   getDetails
 } from '@/api/admin/user'
-
-
+import {
+  rule
+} from "@/util/validateRules"
+var username = ''
+var passwdMaxDays = undefined
+var passwdMinDays = undefined
 var validateUsername = (rule, value, callback) => {
+  username = value
   getDetails(value).then(response => {
     if (window.boxType === 'edit') callback()
     const result = response.data.data
@@ -30,6 +19,30 @@ var validateUsername = (rule, value, callback) => {
     }
   })
 }
+var validatePassword = (rule, value, callback) => {
+  if (username == value) {
+    callback(new Error('用户名与密码一致'))
+  } else {
+    callback()
+  }
+}
+var validatePasswdMinDays = (rule, value, callback) => {
+  passwdMinDays = value
+  if (value > passwdMaxDays && passwdMaxDays != 0) {
+    callback(new Error('最短使用期限不能大于最长使用期限'))
+  } else {
+    callback()
+  }
+}
+var validatePasswdMaxDays = (rule, value, callback) => {
+  passwdMaxDays = value
+  if (value != 0 && !value && passwdMinDays) {
+    callback(new Error('请输入最长使用期限'))
+  } else {
+    callback()
+  }
+}
+
 export const tableOption = {
   border: true,
   index: true,
@@ -37,6 +50,8 @@ export const tableOption = {
   stripe: true,
   menuAlign: 'center',
   searchMenuSpan: 6,
+  searchSpan: 8,
+  labelWidth: 150,
   editBtn: false,
   delBtn: false,
   align: 'center',
@@ -45,114 +60,177 @@ export const tableOption = {
   columnBtn: false,
   labelSuffix: ' ',
   searchShowBtn: false,
+  dialogCloseBtn: false,
+  dialogEscape: false,
   column: [{
-    fixed: true,
-    label: 'id',
-    prop: 'userId',
-    span: 24,
-    hide: true,
-    editDisabled: true,
-    addDisplay: false
-  }, {
-    fixed: true,
-    label: '用户名',
-    prop: 'username',
-    editDisabled: true,
-    slot: true,
-    search: true,
-    span: 24,
-    rules: [{
-        required: true,
-        message: '请输入用户名'
-      },
-      {
-        min: 3,
-        max: 20,
-        message: '长度在 3 到 20 个字符',
-        trigger: 'blur'
-      },
-      {
-        validator: validateUsername,
-        trigger: 'blur'
-      }
-    ]
-  }, {
-    label: '密码',
-    prop: 'password',
-    type: 'password',
-    value: '',
-    hide: true,
-    span: 24,
-    rules: [{
-      min: 6,
-      max: 20,
-      message: '长度在 6 到 20 个字符',
-      trigger: 'blur'
-    }]
-  }, {
-    label: '所属部门',
-    prop: 'deptId',
-    formslot: true,
-    slot: true,
-    span: 24,
-    hide: true,
-    dataType: "number",
-    rules: [{
-      required: true,
-      message: '请选择部门',
-      trigger: 'change'
-    }]
-  }, {
-    label: '手机号',
-    prop: 'phone',
-    value: '',
-    span: 24,
-    rules: [{
-      min: 11,
-      max: 11,
-      message: '长度在 11 个字符',
-      trigger: 'blur'
-    }]
-  }, {
-    label: '角色',
-    prop: 'role',
-    formslot: true,
-    slot: true,
-    overHidden: true,
-    span: 24,
-    rules: [{
-      required: true,
-      message: '请选择角色',
-      trigger: 'blur'
-    }]
-  }, {
-    label: '状态',
-    prop: 'lockFlag',
-    type: 'radio',
-    slot: true,
-    border: true,
-    span: 24,
-    rules: [{
-      required: true,
-      message: '请选择状态',
-      trigger: 'blur'
-    }],
-    dicData: [{
-      label: '有效',
-      value: '0'
+      fixed: true,
+      label: 'id',
+      prop: 'userId',
+      span: 24,
+      hide: true,
+      editDisabled: true,
+      addDisplay: false
     }, {
-      label: '锁定',
-      value: '9'
-    }]
-  }, {
-    width: 180,
-    label: '创建时间',
-    prop: 'createTime',
-    type: 'datetime',
-    format: 'yyyy-MM-dd HH:mm',
-    valueFormat: 'yyyy-MM-dd HH:mm:ss',
-    editDisabled: true,
-    addDisplay: false,
-    span: 24
-  }]
+      fixed: true,
+      label: '用户名',
+      prop: 'username',
+      editDisabled: true,
+      slot: true,
+      search: true,
+      span: 24,
+      rules: [{
+          required: true,
+          message: '请输入用户名'
+        },
+        {
+          min: 6,
+          max: 32,
+          message: '长度在 6 到 32 个字符',
+          trigger: 'blur'
+        },
+        {
+          validator: rule.validatorNameCn,
+          trigger: 'blur'
+        },
+        {
+          validator: validateUsername,
+          trigger: 'blur'
+        },
+
+      ]
+    },
+    {
+      label: '密码',
+      prop: 'password',
+      type: 'password',
+      editDisplay: false,
+      value: '',
+      hide: true,
+      span: 24,
+      rules: [{
+        required: true,
+        message: '请输入密码'
+      }, {
+        min: 8,
+        max: 32,
+        message: '长度在 8 到 32 个字符',
+        trigger: 'blur'
+      }, {
+        validator: rule.checkPassword,
+        trigger: 'blur'
+      }, {
+        validator: validatePassword,
+        trigger: 'blur'
+      }, ]
+    },
+    {
+      width: 100,
+      label: "密码最长使用期限(天)",
+      prop: "passwdMaxDays",
+      type: 'number',
+      hide: true,
+      span: 12,
+      mock: {
+        type: 'number',
+        max: 1,
+        min: 2,
+      },
+      valueDefault: 0,
+      minRows: 0,
+      maxRows: 999,
+      row: true,
+      rules: [{
+        required: false,
+        message: '请输入最长使用期限',
+      }, {
+        validator: validatePasswdMaxDays,
+
+      }, ]
+    }, {
+      width: 100,
+      label: "密码最短使用期限(天)",
+      prop: "passwdMinDays",
+      type: 'number',
+      hide: true,
+      span: 12,
+      mock: {
+        type: 'number',
+        max: 1,
+        min: 2,
+      },
+      valueDefault: 3,
+      minRows: 0,
+      maxRows: 998,
+      row: true,
+      rules: [{
+        validator: validatePasswdMinDays,
+
+      }, ]
+    }, {
+      label: '所属部门',
+      prop: 'deptId',
+      formslot: true,
+      slot: true,
+      span: 24,
+      hide: true,
+      dataType: "number",
+      rules: [{
+        required: true,
+        message: '请选择部门',
+        trigger: 'change'
+      }]
+    }, {
+      label: '手机号',
+      prop: 'phone',
+      value: '',
+      span: 24,
+      rules: [{
+        min: 11,
+        max: 11,
+        message: '长度在 11 个字符',
+        trigger: 'blur'
+      }]
+    }, {
+      label: '角色',
+      prop: 'role',
+      formslot: true,
+      slot: true,
+      overHidden: true,
+      span: 24,
+      rules: [{
+        required: true,
+        message: '请选择角色',
+        trigger: 'blur'
+      }]
+    }, {
+      label: '状态',
+      prop: 'lockFlag',
+      type: 'radio',
+      slot: true,
+      border: true,
+      span: 24,
+      rules: [{
+        required: true,
+        message: '请选择状态',
+        trigger: 'blur'
+      }],
+      dicData: [{
+        label: '有效',
+        value: '0'
+      }, {
+        label: '锁定',
+        value: '9'
+      }]
+    }, {
+      width: 180,
+      label: '创建时间',
+      prop: 'createTime',
+      type: 'datetime',
+      format: 'yyyy-MM-dd HH:mm',
+      valueFormat: 'yyyy-MM-dd HH:mm:ss',
+      editDisabled: true,
+      addDisplay: false,
+      span: 24
+    }
+  ]
 }

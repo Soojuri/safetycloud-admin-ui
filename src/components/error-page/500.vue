@@ -5,16 +5,17 @@
         <div class="error500-body-con-title">
           5
           <span class="error500-0-span">
-            <i class="icon-debug"/>
+            <i class="icon-debug" />
           </span>
           <span class="error500-0-span">
-            <i class="icon-debug"/>
+            <i class="icon-debug" />
           </span>
         </div>
         <p class="error500-body-con-message">Oops! the server is wrong</p>
         <div class="error500-btn-con">
-          <el-button size="large" style="width: 200px;" type="text" @click="goHome">返回首页</el-button>
-          <el-button size="large" style="width: 200px;margin-left: 40px;" type="primary" @click="backPage">返回上一页</el-button>
+          <el-button size="large" style="width: 200px;" type="text" @click="goHome">返回工作台</el-button>
+          <el-button size="large" style="width: 200px;margin-left: 40px;" type="primary" @click="backPage">返回上一页
+          </el-button>
         </div>
       </el-card>
     </div>
@@ -30,10 +31,10 @@ export default {
     },
     goHome() {
       this.$router.push({
-        path: '/'
+        path: '/',
       })
-    }
-  }
+    },
+  },
 }
 </script>
 <style lang="scss" scoped>

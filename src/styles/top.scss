@@ -7,18 +7,23 @@
   height: 64px;
   box-sizing: border-box;
   white-space: nowrap;
+
   .el-menu-item {
+
     i,
     span {
       font-size: 13px;
     }
   }
 }
+
 .avue-breadcrumb {
   height: 100%;
+
   i {
     font-size: 30px !important;
   }
+
   &--active {
     transform: rotate(90deg);
   }
@@ -26,6 +31,7 @@
 
 .top-menu {
   box-sizing: border-box;
+
   .el-menu-item {
     padding: 0 10px;
     border: none !important;
@@ -38,6 +44,7 @@
   left: 20px;
   top: 0;
   width: 400px !important;
+
   .el-input__inner {
     font-size: 13px;
     border: none;
@@ -61,6 +68,7 @@
   height: 64px;
   position: absolute;
   top: 0;
+
   i {
     line-height: 64px;
   }
@@ -82,9 +90,11 @@
   height: 64px;
   margin: 0 10px;
   font-size: 16px;
+
   &--show {
     display: inline-block !important;
   }
+
   .el-badge__content.is-fixed {
     top: 12px;
     right: 5px;
@@ -111,11 +121,13 @@ body {
     padding-left: 12px !important;
     padding-right: 12px !important;
     background: linear-gradient(to bottom, #1d2e4a, #0e1a2d);
+
     .avue-top {
       display: flex;
       align-items: stretch;
       color: white;
     }
+
     .logo {
       display: inline-flex;
       align-items: center;
@@ -125,10 +137,12 @@ body {
       font-size: 24px;
       vertical-align: top;
       color: white;
+
       span {
         margin-left: 12px;
       }
     }
+
     .top-bar__left,
     .top-bar__title,
     .top-bar__right {
@@ -138,21 +152,26 @@ body {
       top: auto;
       bottom: auto;
     }
+
     .top-bar__title {
       flex: 1 1 0;
     }
+
     .el-dropdown {
       color: #fff;
     }
+
     .el-menu {
       .el-menu-item {
         height: $g-head-height;
         font-size: 20px;
         line-height: $g-head-height;
         color: rgba(255, 255, 255, 0.5);
+
         &:not(.is-disabled):hover,
         &:not(.is-disabled):focus {
           color: $--color-primary;
+
           span:after {
             content: "";
             position: absolute;
@@ -163,9 +182,11 @@ body {
             background: currentColor;
           }
         }
+
         i {
           display: none;
         }
+
         span {
           position: relative;
           display: inline-block;
@@ -175,17 +196,21 @@ body {
       }
     }
   }
+
   .avue-breadcrumb {
     &.avue-breadcrumb--active {
       transform: scaleX(-1);
     }
+
     .icon-navicon {
       font-size: 20px !important;
+
       &:before {
         content: "\e904";
-        font-family: c-icon-font;
+        font-family: c-icon-font, sans-serif;
       }
     }
   }
 }
+
 // 头部改造 end

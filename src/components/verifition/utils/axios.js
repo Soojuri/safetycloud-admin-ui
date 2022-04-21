@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = process.env.BASE_API;
+axios.defaults.baseURL = process.env.VUE_APP_BASE_API;
 
 const service = axios.create({
   timeout: 40000,
@@ -24,7 +24,6 @@ service.interceptors.response.use(
     const res = response.data;
     return res
   },
-  error => {
-  }
+  error => {}
 )
 export default service

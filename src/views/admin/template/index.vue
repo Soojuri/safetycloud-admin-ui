@@ -9,17 +9,17 @@
 
       <div class="avue-crud">
         <el-table :data="dataList" border v-loading="dataListLoading">
-          <el-table-column prop="id" header-align="center" align="center" label="编号">
+          <el-table-column prop="id" header- label="编号">
           </el-table-column>
-          <el-table-column prop="templateName" header-align="center" align="center" label="模板名称">
+          <el-table-column prop="templateName" header- label="模板名称">
           </el-table-column>
-          <el-table-column prop="fileSize" header-align="center" align="center" label="文件大小">
+          <el-table-column prop="fileSize" header- label="文件大小">
           </el-table-column>
-          <el-table-column prop="createUser" header-align="center" align="center" label="创建用户">
+          <el-table-column prop="createUser" header- label="创建用户">
           </el-table-column>
-          <el-table-column prop="createTime" header-align="center" align="center" label="上传时间">
+          <el-table-column prop="createTime" header- label="上传时间">
           </el-table-column>
-          <el-table-column header-align="center" align="center" label="操作">
+          <el-table-column header- label="操作">
             <template slot-scope="scope">
               <el-button type="text" size="small" icon="el-icon-delete" @click="deleteHandle(scope.row)">删除
               </el-button>
@@ -95,6 +95,7 @@ export default {
     },
     // 新增 / 修改
     addOrUpdateHandle(id) {
+      // if (!this.permissions.template_add) return this.msgWarn('权限不足')
       this.addOrUpdateVisible = true
       this.$nextTick(() => {
         this.$refs.addOrUpdate.init(id)
@@ -102,6 +103,7 @@ export default {
     },
     // 删除
     deleteHandle(row) {
+      if (!this.permissions.template_delete) return this.msgWarn('权限不足')
       this.$confirm(`是否确认删除:${row.templateName}`, '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',

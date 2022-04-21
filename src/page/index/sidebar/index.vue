@@ -16,17 +16,17 @@ import logo from '../logo'
 import sidebarItem from './sidebarItem'
 export default {
   name: 'Sidebar',
-  inject: ["Index"],
+  inject: ['Index'],
   components: { sidebarItem, logo },
-  created () {
+  created() {
     this.Index.openMenu(this.menuId)
   },
   computed: {
     ...mapGetters(['website', 'menu', 'tag', 'keyCollapse', 'screen']),
     nowTagValue: function () {
       return this.$router.$avueRouter.getValue(this.$route)
-    }
-  }
+    },
+  },
 }
 </script>
 

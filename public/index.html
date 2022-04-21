@@ -2,6 +2,11 @@
 <html>
 
 <head>
+  <meta HTTP-EQUIV="Expires" CONTENT="0" />
+  <meta HTTP-EQUIV="Pragma" CONTENT="no-cache" />
+  <meta HTTP-EQUIV="Cache-control" CONTENT="no-cache" />
+  <meta HTTP-EQUIV="Cache" CONTENT="no-cache" />
+  <!-- 禁止页面缓存的代码 -->
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
@@ -11,9 +16,12 @@
   <!--避免微信管理防盗链机制-->
   <meta name="referrer" content="no-referrer" />
   <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+  <link rel="stylesheet" href="<%= BASE_URL %>cdn/openlayers/ol.css" />
+  <link rel="stylesheet" href="<%= BASE_URL %>cdn/openlayers/iclient-ol.min.css" />
   <link rel="stylesheet" href="<%= BASE_URL %>cdn/animate/3.5.2/animate.css" />
   <link rel="stylesheet" href="<%= BASE_URL %>cdn/avue/avue.css" />
   <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
+
   <title>统一运营管理平台</title>
 </head>
 
@@ -36,10 +44,12 @@
     </div>
   </div>
 </body>
-<!-- <script src="<%= BASE_URL %>video/index.js"></script> -->
-<!-- <script src="<%= BASE_URL %>video/liveplayer-lib.min.js"></script> -->
-<!-- 用于RSA加密 -->
-<!-- <script src="<%= BASE_URL %>video/jsencrypt.min.js"></script> -->
-<!-- 用于前端与插件交互 -->
+<script src="<%= BASE_URL %>jessibuca/index.js">
+  //限制缓存
+  response.setHeader("Cache-Control", "no-cache");
+  response.setHeader("Pragma", "no-cache");
+  response.setDateHeader("Expires", 0);
+
+</script>
 
 </html>

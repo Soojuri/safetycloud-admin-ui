@@ -68,6 +68,9 @@ const user = {
     access_token: getStore({
       name: 'access_token'
     }) || '',
+    login_type: getStore({
+      name: 'login_type'
+    }) || '',
     refresh_token: getStore({
       name: 'refresh_token'
     }) || ''
@@ -91,6 +94,7 @@ const user = {
           commit('SET_EXPIRES_IN', data.expires_in)
           commit('SET_USER_INFO', data.user_info)
           commit('SET_PERMISSIONS', data.user_info.authorities || [])
+          commit('SET_LOGIN_TYPE', 'user')
           commit('CLEAR_LOCK')
           resolve()
         }).catch(error => {
@@ -110,6 +114,7 @@ const user = {
           commit('SET_EXPIRES_IN', data.expires_in)
           commit('SET_USER_INFO', data.user_info)
           commit('SET_PERMISSIONS', data.user_info.authorities || [])
+          commit('SET_LOGIN_TYPE', 'phone')
           commit('CLEAR_LOCK')
           resolve()
         }).catch(error => {
@@ -129,6 +134,7 @@ const user = {
           commit('SET_EXPIRES_IN', data.expires_in)
           commit('SET_USER_INFO', data.user_info)
           commit('SET_PERMISSIONS', data.user_info.authorities || [])
+          commit('SET_LOGIN_TYPE', 'openId')
           commit('CLEAR_LOCK')
           resolve()
         }).catch(error => {
@@ -313,6 +319,14 @@ const user = {
       setStore({
         name: 'permissions',
         content: list,
+        type: 'session'
+      })
+    },
+    SET_LOGIN_TYPE: (state, type) => {
+      state.login_type = type
+      setStore({
+        name: 'login_type',
+        content: state.login_type,
         type: 'session'
       })
     }

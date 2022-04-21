@@ -25,7 +25,7 @@ ul {
 
 // 常用间距
 .mt-s {
-  margin-top: 4px;
+  margin-top: 5px;
 }
 
 .mt-n {
@@ -153,7 +153,7 @@ body a {
     position: absolute;
     right: 0;
     top: 50%;
-    font-family: c-icon-font;
+    font-family: c-icon-font, sans-serif;
     font-size: 0.875em;
     transform: translateY(-50%);
   }
@@ -488,7 +488,7 @@ body {
   }
 
   .el-form-item {
-    flex: 0 0 33.33%;
+    flex: 0 0 20%;
     margin-bottom: $form-line-gap;
 
     .el-select,
@@ -530,7 +530,7 @@ body {
 // 分页
 .g-page-x {
   display: flex;
-  justify-content: right;
+  justify-content: flex-end;
 }
 
 // 分页 end
@@ -916,7 +916,7 @@ body {
     margin-bottom: 0px !important;
 
     .el-date-editor--datetime {
-      padding-left: 30px;
+      // padding-left: 30px;
     }
 
     .el-date-editor--datetime {
@@ -949,3 +949,69 @@ body {
 }
 
 // 铺满的图表 end
+
+// 全局状态标签基类
+.red {
+  color: $--color-danger;
+}
+
+.green {
+  color: $--color-success;
+}
+
+.orange {
+  color: $--color-warning;
+}
+
+.blue {
+  color: $--color-primary;
+}
+
+.grey {
+  color: $--color-text-regular;
+}
+
+.g-state-label {
+  white-space: nowrap;
+  border: solid 1px;
+  border-radius: $g-radius;
+
+  &.round-style {
+    display: inline-block;
+    vertical-align: top;
+    padding: 0.25em 2em;
+    border-radius: 40px;
+
+    &.red {
+      background: fade-out($--color-danger, 0.9);
+    }
+
+    &.orange {
+      background: fade-out($--color-warning, 0.9);
+    }
+
+    &.green {
+      background: fade-out($--color-success, 0.9);
+    }
+
+    &.blue {
+      background: fade-out($--color-primary, 0.9);
+    }
+
+    &.grey {
+      background: fade-out($--color-text-regular, 0.9);
+    }
+  }
+}
+
+.red,
+.orange,
+.green,
+.blue,
+.grey {
+  &.el-input.is-disabled .el-input__inner {
+    color: inherit;
+  }
+}
+
+// 全局状态标签基类 end

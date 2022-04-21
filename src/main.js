@@ -26,7 +26,6 @@ import {
 import * as urls from '@/config/env'
 import Avue from "@smallwei/avue"
 import VueAMap from "vue-amap"
-import JsonViewer from 'vue-json-viewer'
 import "@smallwei/avue/lib/index.css"
 import './styles/icon-font.css'
 import {
@@ -41,16 +40,22 @@ import * as filters from './filters' // 全局filter
 import ElementUI from 'element-ui'
 // import 'element-ui/lib/theme-chalk/index.css'
 import './styles/common.scss'
-import AvueFormDesign from '@sscfaith/avue-form-design'
 import Pagination from "@/components/Pagination"
 import basicContainer from './components/basic-container/main'
 // 插件 json 展示
 Vue.use(router)
-Vue.use(AvueFormDesign)
+Vue.use(VueAMap)
+// 初始化高德地图
+VueAMap.initAMapApiLoader({
+  key: "bdf413cfa0b6de1e621478589abd2c41",
+  plugin: ["AMap.Autocomplete", "AMap.Geocoder", "AMap.Geolocation"],
+  v: "1.4.15",
+  uiVersion: "1.1"
+})
 Vue.config.silent = true
 window.axios = axios
 Vue.use(VueAxios, axios)
-Vue.use(JsonViewer)
+
 Vue.prototype.resetForm = resetForm
 Vue.prototype.getDicts = remote
 Vue.prototype.selectDictLabel = selectDictLabel
@@ -63,14 +68,6 @@ Vue.prototype.$formRules = rule
 Vue.use(ElementUI, {
   size: 'small',
   menuType: 'text'
-})
-Vue.use(VueAMap)
-// 初始化高德地图
-VueAMap.initAMapApiLoader({
-  key: "bdf413cfa0b6de1e621478589abd2c41",
-  plugin: ["AMap.Autocomplete", "AMap.Geocoder", "AMap.Geolocation"],
-  v: "1.4.15",
-  uiVersion: "1.1"
 })
 Vue.use(Avue, {
   size: 'small',

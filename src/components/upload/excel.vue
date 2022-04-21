@@ -2,7 +2,7 @@
   <div>
     <!-- 导入对话框 -->
     <el-dialog :title="title" :visible.sync="upload.open" width="400px" append-to-body>
-      <el-upload ref="upload" :limit="1" accept=".xlsx, .xls" :headers="headers" :action="url"
+      <el-upload ref="upload" :limit="1" accept=".xlsx, .xls" :headers="headers" :action="url" :data="data"
                  :disabled="upload.isUploading" :on-progress="handleFileUploadProgress" :on-success="handleFileSuccess"
                  :auto-upload="false" drag>
         <i class="el-icon-upload"></i>
@@ -33,6 +33,9 @@
           </template>
         </el-table-column>
       </el-table>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="cancel">返 回</el-button>
+      </div>
     </el-dialog>
   </div>
 </template>
@@ -55,6 +58,12 @@ export default {
     },
     tempName: {
       type: String,
+    },
+    data: {
+      type: Object,
+      default: () => {
+        return {}
+      },
     },
   },
   data() {
@@ -97,6 +106,10 @@ export default {
         // 刷新表格
         this.$emit('refreshDataList')
       }
+    },
+    cancel() {
+      this.errorVisible = false
+      this.upload.open = true
     },
     submitFileForm() {
       this.$refs.upload.submit()

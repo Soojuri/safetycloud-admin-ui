@@ -1,4 +1,6 @@
-import {validatenull} from '@/util/validate'
+import {
+  validatenull
+} from '@/util/validate'
 import website from '@/const/website'
 
 const keyName = website.key + '-'
@@ -53,7 +55,7 @@ export const getStore = (params = {}) => {
   } else if (obj.dataType === 'number') {
     content = Number(obj.content)
   } else if (obj.dataType === 'boolean') {
-    content = eval(obj.content)
+    content = Boolean(obj.content)
   } else if (obj.dataType === 'object') {
     content = obj.content
   }
@@ -110,7 +112,9 @@ export const getAllStore = (params = {}) => {
  * 清空全部localStorage
  */
 export const clearStore = (params = {}) => {
-  const {type} = params
+  const {
+    type
+  } = params
   if (type) {
     window.sessionStorage.clear()
   } else {

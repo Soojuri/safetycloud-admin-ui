@@ -1,5 +1,5 @@
 <template>
-  <div/>
+  <div />
 </template>
 
 <script>
@@ -10,7 +10,7 @@ import { mapGetters } from 'vuex'
 export default {
   name: 'Authredirect',
   computed: {
-    ...mapGetters(['tagWel'])
+    ...mapGetters(['tagWel']),
   },
   created() {
     const url = window.location.href.replace('#/authredirect', '')
@@ -20,28 +20,29 @@ export default {
     state = state.split('-')[0]
     // 登录请求
     if (type === 'LOGIN') {
-      window.opener.location.href = `${window.location.origin}/#/login?state=${state}&code=${code}&time=` + new Date().getTime()
+      window.opener.location.href =
+        `${window.location.origin}/#/login?state=${state}&code=${code}&time=` + new Date().getTime()
       window.close()
     } else {
       this.bind(state, code)
     }
   },
   methods: {
-    bind: function(state, code) {
+    bind: function (state, code) {
       request({
         url: '/admin/social/bind',
         method: 'post',
-        params: { state, code }
+        params: { state, code },
       }).then(() => {
         this.$alert('社交账号绑定成功', '成功', {
           confirmButtonText: '确定',
           callback: () => {
             window.close()
-          }
+          },
         })
       })
-    }
-  }
+    },
+  },
 }
 </script>
 

@@ -1,28 +1,4 @@
 <template>
-  <!-- <div class="login-container">
-    <div class="login-img">
-      <img :src="require('@/assets/img/login-class.png')" />
-    </div>
-    <div class="login-weaper  animated bounceInDown">
-      <p class="login-tip">{{ website.title}}</p>
-      <div class="login-border">
-        <div class="login-main">
-          <h4 class="login-title"> -->
-  <!-- <el-select v-model="active" class="login-select animated fadeIn" placeholder="点击选择租户"
-                       @change="handleCommand">
-              <el-option v-for="tenant in tenantList" :key="tenant.id" :label="tenant.name" :value="tenant.id">
-              </el-option>
-            </el-select> -->
-  <!-- </h4>
-          <userLogin />
-        </div>
-      </div>
-    </div>
-    <div class="login-copyright">
-      {{ website.copyright}}
-    </div>
-    <top-color v-show="false" />
-  </div> -->
   <div class="page">
     <img class="bg-img" src="../../assets/images/logins/login-418.png" alt="" />
     <div class="img-box">
@@ -38,7 +14,7 @@
 import { fetchList } from '@/api/admin/tenant'
 import userLogin from './userlogin'
 // import codeLogin from './codelogin'
-// import thirdLogin from './thirdlogin'
+import thirdLogin from './thirdlogin'
 import { mapGetters } from 'vuex'
 import { getStore, setStore } from '@/util/store'
 import topColor from '@/page/index/top/top-color'
@@ -48,7 +24,7 @@ export default {
   components: {
     userLogin,
     // codeLogin,
-    // thirdLogin,
+    thirdLogin,
     topColor,
   },
   data() {
@@ -57,6 +33,10 @@ export default {
       active: '',
       activeName: 'user',
       socialForm: {},
+      ruleForm: {
+        user: '',
+        password: '',
+      },
     }
   },
   watch: {
@@ -138,6 +118,6 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-@import '@/styles/login-418';
+<style lang="scss" scoped="scoped">
+@import '@/styles/login-418.scss';
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="avue-top">
     <div class="logo">
-      <img :src="require('@/assets/img/logo-top.png')" alt="">
+      <img height="35" :src="require('@/assets/images/logo-top.png')" alt="">
       <span>统一运营管理平台</span>
     </div>
     <div class="top-bar__left">
@@ -41,7 +41,11 @@
         </div>
       </el-tooltip>
       <el-tooltip v-if="userInfo.avatar" effect="dark" content="用户头像" placement="bottom">
-        <img :src="IMAGE_PATH + userInfo.avatar" class="top-bar__img">
+        <el-image :src="IMAGE_PATH + userInfo.avatar" class="top-bar__img">
+          <div slot="error">
+            <img :src="require('@/assets/images/user.png')" class="image-slot">
+          </div>
+        </el-image>
       </el-tooltip>
       <el-dropdown>
         <span class="el-dropdown-link">
@@ -50,7 +54,7 @@
         </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item divided>
-            <router-link to="/">首页</router-link>
+            <router-link to="/">工作台</router-link>
           </el-dropdown-item>
           <el-dropdown-item divided>
             <router-link to="/info/index">个人信息</router-link>
@@ -98,6 +102,7 @@ export default {
       showCollapse: (state) => state.common.showCollapse,
       showMenu: (state) => state.common.showMenu,
       showColor: (state) => state.common.showColor,
+      loginType: (state) => state.user.login_type,
     }),
     ...mapGetters(['userInfo', 'isFullScreen', 'tagWel', 'tagList', 'isCollapse', 'tag', 'logsLen', 'logsFlag']),
   },
@@ -122,7 +127,16 @@ export default {
         type: 'warning',
       }).then(() => {
         this.$store.dispatch('LogOut').then(() => {
-          this.$router.push({ path: '/login' })
+          const redirect_uri = window.location.origin
+          console.log(redirect_uri)
+          if (this.loginType === 'openId') {
+            // 跳转华为退出登陆地址
+            const client_id = 'dcvideo'
+            const url = `https://oneaccess.smartcity.com:8443/idp/profile/OAUTH2/Redirect/GLO?redirctToUrl=${redirect_uri}&redirectToLogin=true&entityId=${client_id}`
+            window.location.href = url
+          } else {
+            this.$router.push({ path: '/login' })
+          }
         })
       })
     },
@@ -131,4 +145,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.image-slot {
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  box-sizing: border-box;
+  border: 1px solid #eee;
+  vertical-align: middle;
+  margin: -22px 0px 0 -3px;
+}
 </style>

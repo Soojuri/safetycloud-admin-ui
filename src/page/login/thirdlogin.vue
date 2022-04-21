@@ -1,52 +1,32 @@
 <template>
   <div class="social-container">
-    <div
-      class="box"
-      @click="handleClick('wechat')">
-      <span
-        :style="{backgroundColor:'#6ba2d6'}"
-        class="container">
-        <i
-          icon-class="wechat"
-          class="iconfont icon-weixin"/>
+    <!-- <div class="box" @click="handleClick('wechat')">
+      <span :style="{ backgroundColor: '#6ba2d6' }" class="container">
+        <i icon-class="wechat" class="iconfont icon-weixin" />
       </span>
       <p class="title">微信</p>
     </div>
-    <div
-      class="box"
-      @click="handleClick('tencent')">
-      <span
-        :style="{backgroundColor:'#8dc349'}"
-        class="container">
-        <i
-          icon-class="qq"
-          class="iconfont icon-qq"/>
+    <div class="box" @click="handleClick('tencent')">
+      <span :style="{ backgroundColor: '#8dc349' }" class="container">
+        <i icon-class="qq" class="iconfont icon-qq" />
       </span>
       <p class="title">QQ</p>
     </div>
-    <div
-      class="box"
-      @click="handleClick('gitee')">
-      <span
-        :style="{backgroundColor:'#bf3030'}"
-        class="container">
-        <i
-          icon-class="qq"
-          class="iconfont icon-logo_gitee_icon"/>
+    <div class="box" @click="handleClick('gitee')">
+      <span :style="{ backgroundColor: '#bf3030' }" class="container">
+        <i icon-class="qq" class="iconfont icon-logo_gitee_icon" />
       </span>
       <p class="title">Gitee</p>
     </div>
-    <div
-      class="box"
-      @click="handleClick('osc')">
-      <span
-        :style="{backgroundColor:'#007B25'}"
-        class="container">
-        <i
-          icon-class="qq"
-          class="iconfont icon-OSChina_logo_"/>
+    <div class="box" @click="handleClick('osc')">
+      <span :style="{ backgroundColor: '#007B25' }" class="container">
+        <i icon-class="qq" class="iconfont icon-OSChina_logo_" />
       </span>
       <p class="title">开源中国</p>
+    </div> -->
+    <div class="box" @click="handleClick('iam')">
+      <el-image style="height:30px" :src="require('@/assets/images/huawei.png')"></el-image>
+      <p class="title">使用华为IAM帐号登录</p>
     </div>
   </div>
 </template>
@@ -71,43 +51,55 @@ export default {
         url = `https://gitee.com/oauth/authorize?response_type=code&client_id=${client_id}&state=GITEE-LOGIN&redirect_uri=${redirect_uri}`
       } else if (thirdpart === 'osc') {
         const client_id = 'uLJ41IGu7qAGmzSVHwF4'
-        url = `https://www.oschina.net/action/oauth2/authorize?response_type=code&client_id=${client_id}'&state=OSC-LOGIN&redirect_uri=${redirect_uri}`
+        url = `https://www.oschina.net/action/oauth2/authorize?response_type=code&client_id=${client_id}&state=OSC-LOGIN&redirect_uri=${redirect_uri}`
+      } else if (thirdpart === 'iam') {
+        const client_id = 'dcvideo'
+        url = `https://oneaccess.smartcity.com:8443/idp/oauth2/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}&response_type=code&state=HWIAM-LOGIN`
       }
-      openWindow(url, thirdpart, 540, 540)
-    }
-  }
+      openWindow(url, thirdpart, 760, 540)
+    },
+  },
 }
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-  .social-container {
-    margin: 20px 0;
+.social-container {
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  .box {
+    cursor: pointer;
     display: flex;
-    align-items: center;
-    justify-content: space-around;
-
-    .box {
-      cursor: pointer;
-    }
-
-    .iconfont {
-      color: #fff;
-      font-size: 30px;
-    }
-
-    .container {
-      $height: 50px;
-      display: inline-block;
-      width: $height;
-      height: $height;
-      line-height: $height;
-      text-align: center;
-      border-radius: 4px;
-      margin-bottom: 10px;
-    }
-
-    .title {
-      text-align: center;
-    }
   }
+
+  .iconfont {
+    color: #fff;
+    font-size: 30px;
+  }
+
+  .container {
+    $height: 50px;
+    display: inline-block;
+    width: $height;
+    height: $height;
+    line-height: $height;
+    text-align: center;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+
+  .title {
+    text-align: center;
+    color: #333;
+    font-size: 14px;
+    height: 30px;
+    line-height: 30px;
+    padding-left: 10px;
+  }
+  // .title:hover {
+  //   color: #2975ff;
+  // }
+}
 </style>

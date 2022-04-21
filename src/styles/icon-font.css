@@ -4,7 +4,7 @@
 }
 
 [class*='cus-icon-']::before {
-  font-family: c-icon-font;
+  font-family: c-icon-font, Sans-serif;
 }
 
 .cus-icon-arrow-up::before {
@@ -148,3 +148,44 @@
 }
 
 /* 导航菜单 end */
+
+
+/* 工作台 */
+.cus-icon-gzt::before {
+  content: "\e934";
+}
+
+/* 事件审核 */
+.cus-icon-sjsh::before {
+  content: "\e935";
+}
+
+/* 算法管理 */
+.cus-icon-sfgl::before {
+  content: "\e936";
+}
+
+/* 摄像头管理 */
+.cus-icon-sxtgl::before {
+  content: "\e937";
+}
+
+/* 任务作业管理 */
+.cus-icon-rwzygl::before {
+  content: "\e938";
+}
+
+/* 规则配置管理 */
+.cus-icon-gzpzgl::before {
+  content: "\e939";
+}
+
+/* 边缘计算管理 */
+.cus-icon-byjsgl::before {
+  content: "\e93a";
+}
+
+/* 系统管理 */
+.cus-icon-xtgl::before {
+  content: "\e93b";
+}

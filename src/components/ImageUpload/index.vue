@@ -30,6 +30,7 @@
 
 <script>
 import store from '@/store'
+import { getStore, setStore } from '@/util/store'
 export default {
   data() {
     return {
@@ -42,11 +43,11 @@ export default {
       default: '',
     },
   },
-  watch: {},
   computed: {
     headers: function () {
       return {
         Authorization: 'Bearer ' + store.getters.access_token,
+        'TENANT-ID': getStore({ name: 'tenantId_video' }),
       }
     },
   },
@@ -88,7 +89,6 @@ export default {
       this.loading.close()
     },
   },
-  watch: {},
 }
 </script>
 

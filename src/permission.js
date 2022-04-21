@@ -14,7 +14,7 @@ NProgress.configure({
 })
 
 router.beforeEach((to, from, next) => {
-  console.time('testForRouter');
+
   NProgress.start()
   const meta = to.meta || {}
   if (store.getters.access_token) {
@@ -57,7 +57,6 @@ router.beforeEach((to, from, next) => {
 })
 
 router.afterEach(() => {
-  console.timeEnd('testForRouter');
   NProgress.done()
   let title = store.getters.tag.label;
   if (!store.getters.access_token) title = '统一运营管理平台';

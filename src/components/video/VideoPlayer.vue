@@ -10,7 +10,7 @@
       </video>
 
       <div class="control" v-show="isShowControls">
-        <div class="control-progress common-progress" v-if="duration && !isFlv">
+        <div class="control-progress common-progress" v-if="duration && isM3u8">
           <div>
             <div class="buffer-bar" :style="{'width':bufferedLength}"></div>
             <el-slider v-model="currentTime" @input="hInput" input-size="small" :step="0.1" :max="duration"
@@ -19,15 +19,15 @@
         </div>
         <div>
           <span class="control-time"
-                v-if="duration && !isFlv">{{`${getFormatVideoTime(currentTime)} / ${getFormatVideoTime(duration)}`}}</span>
-          <i v-show="!isFlv" :class="(playing ? 'el-icon-video-pause' : 'el-icon-video-play') + ' controls-btn'"
+                v-if="duration && isM3u8">{{`${getFormatVideoTime(currentTime)} / ${getFormatVideoTime(duration)}`}}</span>
+          <i v-show="isM3u8" :class="(playing ? 'el-icon-video-pause' : 'el-icon-video-play') + ' controls-btn'"
              @click="handlePlayOrPause"></i>
-          <div class="fr" style="height:27px" v-show="!isFlv">
+          <!-- <div class="fr" style="height:27px" v-show="isM3u8">
             <i :class="(isNotMute ? 'icon-shengyin' : 'icon-shengyinguanbi') + ' controls-btn ' "
                @click="handleMute"></i>
             <el-slider class="volume-slider" v-model="volume" width="100px" @change="volumeChange">
             </el-slider>
-          </div>
+          </div> -->
         </div>
         <div class="controls-box-right">
           <i class="el-icon-camera-solid controls-btn" style="font-size: 1rem !important" @click="handleSnap"></i>
@@ -43,7 +43,7 @@
 <script>
 import Hls from 'hls.js'
 import Flv from 'flv.js'
-
+import { uploadFile } from '@/api/app/common'
 export default {
   name: 'videoPlayer',
   props: ['videoSrc', 'height'],
@@ -66,22 +66,32 @@ export default {
     videoSrc(val) {
       if (val.indexOf('.m3u8') !== -1) {
         this.playHls()
-      }
-      if (val.indexOf('.flv') !== -1) {
+      } else {
         this.playFlv()
       }
     },
   },
   computed: {
-    isFlv() {
-      if (this.videoSrc) return this.videoSrc.indexOf('.flv') !== -1
+    isM3u8() {
+      if (this.videoSrc) return this.videoSrc.indexOf('.m3u8') !== -1
       else return false
     },
+  },
+  beforeDestroy() {
+    if (this.hls) {
+      this.hls.destroy()
+      this.hls = null
+    }
+    if (this.flvPlayer) {
+      this.flvPlayer.destroy()
+      this.flvPlayer = null
+    }
+    console.log('destroyed')
   },
   mounted() {
     const that = this
     document.addEventListener('visibilitychange', function () {
-      if (document.visibilityState == 'visible' && !that.isFlv) {
+      if (document.visibilityState == 'visible' && that.isM3u8) {
         const video = that.$refs.video
         let buffered = video.buffered
         if (buffered && buffered.length > 0) {
@@ -176,6 +186,11 @@ export default {
                 that.hls.destroy()
                 break
             }
+          } else {
+            that.playing = false
+            that.loading = false
+            that.msgError('加载失败')
+            that.hls.destroy()
           }
         })
       } else {
@@ -186,6 +201,12 @@ export default {
       const that = this
       that.$nextTick(() => {
         const video = that.$refs.video
+        video.addEventListener('play', (event) => {
+          console.log('开始播放')
+          setTimeout(() => {
+            that.uploadImage()
+          }, 2000)
+        })
         video.addEventListener('timeupdate', function () {
           that.currentTime = video.currentTime
           that.duration = video.duration
@@ -249,6 +270,35 @@ export default {
         this.$refs.video.muted = true
         this.isNotMute = false
       }
+    },
+    // 上传截图
+    uploadImage() {
+      let videoCanvas = document.createElement('canvas')
+      let video = this.$refs.video
+      videoCanvas.setAttribute('width', video.videoWidth)
+      videoCanvas.setAttribute('height', video.videoHeight)
+      videoCanvas.getContext('2d').drawImage(video, 0, 0, video.videoWidth, video.videoHeight)
+      const canvasLink = videoCanvas.toDataURL('image/jpeg')
+      const file = this.base64ToBlob(canvasLink)
+      if (file && file.size == 0) return // 截图为空时不上传
+      var formData = new FormData(document.forms[0])
+      formData.append('file', file, 'image.png')
+      uploadFile(formData).then((res) => {
+        if (res.data.data) {
+          this.$emit('uploadUrl', res.data.data.url)
+        }
+      })
+    },
+    base64ToBlob(base64Data) {
+      var byteString
+      if (base64Data.split(',')[0].indexOf('base64') >= 0) byteString = atob(base64Data.split(',')[1])
+      else byteString = unescape(base64Data.split(',')[1])
+      var mimeString = base64Data.split(',')[0].split(':')[1].split(';')[0]
+      var ia = new Uint8Array(byteString.length)
+      for (var i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i)
+      }
+      return new Blob([ia], { type: mimeString })
     },
   },
 }
@@ -320,11 +370,11 @@ video::-webkit-media-controls-enclosure {
   position: absolute;
   background-color: rgba(139, 145, 153, 0.7);
 }
-/deep/.el-slider__bar {
+::v-deep .el-slider__bar {
   background-color: #2975ff !important;
   z-index: 6;
 }
-/deep/ .el-slider__button {
+::v-deep .el-slider__button {
   height: 12px;
   width: 12px;
 }

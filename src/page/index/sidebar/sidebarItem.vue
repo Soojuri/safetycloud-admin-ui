@@ -82,8 +82,8 @@ export default {
     vaildAvtive(item) {
       const groupFlag = (item['group'] || []).some((ele) => this.$route.path.includes(ele))
       // 模糊匹配路由地址
-      const [, pathKey1, pathKey2] = this.nowTagValue.split('/')
-      const path = `/${pathKey1}/${pathKey2}/`
+      const [, pathKey1, pathKey2, pathKey3] = this.nowTagValue.split('/')
+      const path = `/${pathKey1}/${pathKey2}/${pathKey3}`
       return item[this.pathKey].indexOf(path) !== -1 || groupFlag
       // return this.nowTagValue === item[this.pathKey] || groupFlag
     },

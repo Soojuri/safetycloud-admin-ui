@@ -11,8 +11,8 @@
       <div class="descriptions-item-value">
         <slot v-if="$slots.content" name="content" />
         <div v-else class="default-value">
-          <el-tooltip :content="value|| '空'" placement="top">
-            <span class="value">{{ value || '/' }}</span>
+          <el-tooltip :content="validatenull(value) ? '空' : value" placement="top">
+            <span class="value">{{ validatenull(value) ? '/'  : value }}</span>
           </el-tooltip>
         </div>
       </div>
@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import { validatenull } from '@/util/validate'
 export default {
   name: 'ElDescriptionItem',
   props: {
@@ -52,6 +53,11 @@ export default {
       default() {
         return ''
       },
+    },
+  },
+  methods: {
+    validatenull(val) {
+      return validatenull(val)
     },
   },
 }

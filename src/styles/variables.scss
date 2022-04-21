@@ -44,32 +44,34 @@ $font-size-larger: 20px;
 $vw: 100vw/1920;
 // 全局mixin
 
-@mixin scrollbar(
-  $barWidth: 8px,
+@mixin scrollbar($barWidth: 8px,
   $barHeight: 8px,
   $barColor: #c1c1c1,
-  $barBg: #fafafa
-) {
+  $barBg: #fafafa) {
   &::-webkit-scrollbar {
     width: $barWidth;
     height: $barHeight;
     background: $barBg;
   }
+
   &::-webkit-scrollbar-thumb {
     margin: 3px;
     background: $barColor;
     border-radius: 8px;
   }
 }
+
 @mixin g-tit-s {
   display: flex;
   align-items: center;
   margin: 12px 0;
   font-size: 16px;
+
   span {
     position: relative;
     flex: 1 1 0;
     padding-left: 16px;
+
     &::before {
       content: "";
       position: absolute;

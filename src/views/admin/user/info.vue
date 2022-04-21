@@ -99,13 +99,11 @@
 
 <script>
 import { handleImg, openWindow } from '@/util/util'
+import { rule } from '@/util/validateRules'
 import { mapState } from 'vuex'
-import store from '@/store'
-import { getStore, setStore } from '@/util/store'
 import { isValidateNoneMobile } from '@/util/validate'
 import { editInfo, editInformation, getDetails } from '@/api/admin/user'
 import ImageUpload from '@/components/ImageUpload'
-import { rule } from '@/util/validateRules'
 import { getPublicKey } from '@/api/publicKey.js'
 import { encrypt, decrypt, serveEncrypt } from '@/util/jsencrypt'
 export default {

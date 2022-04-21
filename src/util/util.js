@@ -397,8 +397,8 @@ export function selectDictLabels(datas, value, separator) {
   var actions = []
   var currentSeparator = undefined === separator ? "," : separator
   var temp = value.split(currentSeparator)
-  Object.keys(value.split(currentSeparator)).some((val) => {
-    Object.keys(datas).some((key) => {
+  Object.keys(value.split(currentSeparator)).forEach((val) => {
+    Object.keys(datas).forEach((key) => {
       if (datas[key].value == ('' + temp[val])) {
         actions.push(datas[key].label + currentSeparator)
       }

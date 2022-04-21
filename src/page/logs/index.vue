@@ -20,38 +20,36 @@ import { mapGetters } from 'vuex'
 import option from '@/const/logs/index'
 export default {
   name: 'ErrLogs',
-  data () {
+  data() {
     return {
       // 默认不分页，若记录数超过，则分页
       onePageMaxSize: 10,
       page: {
         currentPage: 1,
         size: 10,
-        total: 0
+        total: 0,
       },
       option: option,
-      list: []
+      list: [],
     }
   },
-  created () {
-
-  },
-  mounted () {
+  created() {},
+  mounted() {
     this.getList()
   },
   computed: {
-    ...mapGetters(['logsList', 'logsLen'])
+    ...mapGetters(['logsList', 'logsLen']),
   },
   methods: {
-    sizeChange (pageSize) {
+    sizeChange(pageSize) {
       this.page.pageSize = pageSize
       this.getList()
     },
-    currentChange (currentPage) {
+    currentChange(currentPage) {
       this.page.currentPage = currentPage
       this.getList()
     },
-    getList () {
+    getList() {
       const total = this.logsLen
       if (total <= this.onePageMaxSize) {
         this.list = this.logsList
@@ -62,36 +60,36 @@ export default {
         this.page.total = total
       }
     },
-    send () {
+    send() {
       this.$confirm('确定上传本地日志到服务器?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.$store.dispatch('SendLogs').then(() => {
-          this.$parent.$parent.box = false
-          this.msgSuccess('发送成功!')
-        })
-      }).catch(() => {
-
+        type: 'warning',
       })
+        .then(() => {
+          this.$store.dispatch('SendLogs').then(() => {
+            this.$parent.$parent.box = false
+            this.msgSuccess('发送成功!')
+          })
+        })
+        .catch(() => {})
     },
-    clear () {
+    clear() {
       this.$confirm('确定清空本地日志记录?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.page.currentPage = 1
-        this.page.total = 0
-        this.$store.commit('CLEAR_LOGS')
-        this.$parent.$parent.box = false
-        this.msgSuccess('清空成功!')
-      }).catch(() => {
-
+        type: 'warning',
       })
-    }
-  }
+        .then(() => {
+          this.page.currentPage = 1
+          this.page.total = 0
+          this.$store.commit('CLEAR_LOGS')
+          this.$parent.$parent.box = false
+          this.msgSuccess('清空成功!')
+        })
+        .catch(() => {})
+    },
+  },
 }
 </script>
 
@@ -99,7 +97,7 @@ export default {
 .code {
   font-size: 12px;
   display: block;
-  font-family: monospace;
+  font-family: monospace, sans-serif;
   white-space: pre;
   margin: 0 1em;
 }
