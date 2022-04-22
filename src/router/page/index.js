@@ -107,5 +107,16 @@ export default [{
       isTab: false,
       isAuth: false
     }
-  }
+  },
+  {
+    path: '/example-db',
+    name: '静态页面-数据大屏',
+    component: () =>
+      import( /* webpackChunkName: "page" */ '@/page/index/example-db'),
+    meta: {
+      keepAlive: true,
+      isTab: false,
+      isAuth: false
+    }
+  },
 ]

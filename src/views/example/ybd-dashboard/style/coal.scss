@@ -1,0 +1,104 @@
+@import './dashboard.scss';
+.s-cols{
+  display: flex;
+  margin-right: -16*$vw;
+  .s-col{
+    flex: 1 1 0;
+    display: flex;
+    margin-right: 16*$vw;
+  }
+}
+.accident-list{
+  ul{
+
+  }
+  li{
+    display: flex;
+    align-items: center;
+    line-height: 34*$vw;
+    white-space: nowrap;
+    &:not(:first-child){
+      margin-top: 4*$vw;
+    }
+  }
+  .time{
+    position: relative;
+    white-space: nowrap;
+    overflow: hidden;
+    &::after{
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      background: #e87402;
+      transform: skewX(-20deg);
+      transform-origin: top right;
+      pointer-events: none;
+      box-shadow: 0 0 10*$vw #ff5033 inset;
+      opacity: .8;
+    }
+    &::before{
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 50%;
+      background: linear-gradient(to right,#007aff,fade-out(#007aff,1));
+      opacity: .8;
+    }
+    span{
+      z-index: 1;
+      position: relative;
+      display: block;
+      padding: 0 10*$vw;
+      margin-right: 10*$vw;
+    }
+  }
+  .content{
+    position: relative;
+    flex: 1 1 0;
+    margin-left: -9*$vw;
+    overflow: hidden;
+    padding: 0 16*$vw;
+    text-overflow: ellipsis;
+    i{
+      margin-right: 4*$vw;
+      font-style: normal;
+      color: $db-primary-color;
+    }
+    &::before{
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      background: #007aff;
+      transform: skewX(-20deg);
+      transform-origin: bottom left;
+      pointer-events: none;
+      opacity: .3;
+    }
+  }
+}
+::v-deep .db-box{
+  &:not(:last-child){
+    margin-bottom: 8*$vw;
+  }
+  .db-box__content{
+    padding-top: 8*$vw;
+    padding-bottom: 8*$vw;
+  }
+}
+.col-r{
+  ::v-deep .db-box.flex-1{
+    overflow: hidden;
+    .db-box__content{
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+  }
+}
