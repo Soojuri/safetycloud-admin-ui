@@ -1,6 +1,6 @@
 <template>
   <div class="db-wrap">
-    <db-header></db-header>
+    <db-header :index="index"></db-header>
     <div class="db-content">
       <div class="db-col col-l">
         <db-box class="flex-1" title="安全生产趋势图">
@@ -156,25 +156,32 @@
 </template>
 
 <script>
-  import chartVBars from './charts/safe-prod/chart-v-bars.vue';
-  import chartPie from './charts/safe-prod/chart-pie.vue';
-  import chartRing from './charts/safe-prod/chart-ring.vue';
-  import chartFace from './charts/safe-prod/chart-face.vue';
-  import chartVBar from './charts/safe-prod/chart-v-bar.vue';
-  import dbHeader from './component/db-header.vue';
-  import dbBox from './component/db-box.vue';
-  export default{
-    components:{
-      chartVBars,chartPie,chartRing,chartFace,chartVBar,dbHeader,dbBox
-    },
-    data(){
-      return{
-        progressVal:70,
-      }
+import chartVBars from './charts/safe-prod/chart-v-bars.vue'
+import chartPie from './charts/safe-prod/chart-pie.vue'
+import chartRing from './charts/safe-prod/chart-ring.vue'
+import chartFace from './charts/safe-prod/chart-face.vue'
+import chartVBar from './charts/safe-prod/chart-v-bar.vue'
+import dbHeader from './component/db-header.vue'
+import dbBox from './component/db-box.vue'
+export default {
+  components: {
+    chartVBars,
+    chartPie,
+    chartRing,
+    chartFace,
+    chartVBar,
+    dbHeader,
+    dbBox,
+  },
+  data() {
+    return {
+      index: 2,
+      progressVal: 70,
     }
-  }
+  },
+}
 </script>
 
 <style lang="scss" scoped>
-  @import './style/safe-prod.scss';
+@import './style/safe-prod.scss';
 </style>

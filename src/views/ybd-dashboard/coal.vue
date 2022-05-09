@@ -1,6 +1,6 @@
 <template>
   <div class="db-wrap">
-    <db-header></db-header>
+    <db-header :index="index"></db-header>
     <div class="db-content">
       <div class="db-col col-l">
         <db-box title="煤矿企业数量">
@@ -140,80 +140,87 @@
 </template>
 
 <script>
-  import chartBarRound from './charts/coal/chart-bar-round.vue'
-  import chartVBar from './charts/coal/chart-v-bar.vue'
-  import chartHBar from './charts/coal/chart-h-bar.vue'
-  import chartRing from './charts/coal/chart-ring.vue';
-  import chartPie from './charts/coal/chart-pie.vue';
-  import dbHeader from './component/db-header.vue';
-  import dbBox from './component/db-box.vue';
-  export default{
-    components:{
-      chartBarRound,chartVBar,chartHBar,chartRing,chartPie,dbHeader,dbBox
-    },
-    data(){
-      return{
-        tableData1:[
-          {
-            date: '20220102',
-            organ: '(闽)安监',
-            name: '闽中能新',
-            pubDate: '2022-01-02'
-          },
-          {
-            date: '20220102',
-            organ: '(闽)安监',
-            name: '闽中能新',
-            pubDate: '2022-01-02'
-          },
-          {
-            date: '20220102',
-            organ: '(闽)安监',
-            name: '闽中能新',
-            pubDate: '2022-01-02'
-          },
-          {
-            date: '20220102',
-            organ: '(闽)安监',
-            name: '闽中能新',
-            pubDate: '2022-01-02'
-          }
-        ],
-        tableData2:[
-          {
-            name: '隆化能源',
-            val: '63 30-20',
-            level: '一般风险',
-            prevVal: '93 01-20',
-            exchange: '风险能力'
-          },
-          {
-            name: '隆化能源',
-            val: '63 30-20',
-            level: '一般风险',
-            prevVal: '93 01-20',
-            exchange: '风险能力'
-          },
-          {
-            name: '隆化能源',
-            val: '63 30-20',
-            level: '一般风险',
-            prevVal: '93 01-20',
-            exchange: '风险能力'
-          },
-          {
-            name: '隆化能源',
-            val: '63 30-20',
-            level: '一般风险',
-            prevVal: '93 01-20',
-            exchange: '风险能力'
-          },
-        ]
-      }
+import chartBarRound from './charts/coal/chart-bar-round.vue'
+import chartVBar from './charts/coal/chart-v-bar.vue'
+import chartHBar from './charts/coal/chart-h-bar.vue'
+import chartRing from './charts/coal/chart-ring.vue'
+import chartPie from './charts/coal/chart-pie.vue'
+import dbHeader from './component/db-header.vue'
+import dbBox from './component/db-box.vue'
+export default {
+  components: {
+    chartBarRound,
+    chartVBar,
+    chartHBar,
+    chartRing,
+    chartPie,
+    dbHeader,
+    dbBox,
+  },
+  data() {
+    return {
+      index: 0,
+      tableData1: [
+        {
+          date: '20220102',
+          organ: '(闽)安监',
+          name: '闽中能新',
+          pubDate: '2022-01-02',
+        },
+        {
+          date: '20220102',
+          organ: '(闽)安监',
+          name: '闽中能新',
+          pubDate: '2022-01-02',
+        },
+        {
+          date: '20220102',
+          organ: '(闽)安监',
+          name: '闽中能新',
+          pubDate: '2022-01-02',
+        },
+        {
+          date: '20220102',
+          organ: '(闽)安监',
+          name: '闽中能新',
+          pubDate: '2022-01-02',
+        },
+      ],
+      tableData2: [
+        {
+          name: '隆化能源',
+          val: '63 30-20',
+          level: '一般风险',
+          prevVal: '93 01-20',
+          exchange: '风险能力',
+        },
+        {
+          name: '隆化能源',
+          val: '63 30-20',
+          level: '一般风险',
+          prevVal: '93 01-20',
+          exchange: '风险能力',
+        },
+        {
+          name: '隆化能源',
+          val: '63 30-20',
+          level: '一般风险',
+          prevVal: '93 01-20',
+          exchange: '风险能力',
+        },
+        {
+          name: '隆化能源',
+          val: '63 30-20',
+          level: '一般风险',
+          prevVal: '93 01-20',
+          exchange: '风险能力',
+        },
+      ],
     }
-  }
+  },
+}
 </script>
 
 <style lang="scss" scoped>
-  @import './style/coal.scss';
+@import './style/coal.scss';
 </style>

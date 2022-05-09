@@ -1,6 +1,6 @@
 <template>
   <div class="db-wrap">
-    <db-header></db-header>
+    <db-header :index="index"></db-header>
     <div class="db-content">
       <div class="db-col col-l">
         <db-box title="涉重点监管危化品产业">
@@ -118,83 +118,89 @@
 </template>
 
 <script>
-  import chartVBar from'./charts/chemical/chart-v-bar.vue';
-  import chartRing from './charts/chemical/chart-ring.vue';
-  import chartBarRound from './charts/coal/chart-bar-round.vue';
-  import dbHeader from './component/db-header.vue';
-  import dbBox from './component/db-box.vue';
-  import dbRankGroup from './component/db-rank-group.vue';
-  export default{
-    components:{
-      chartVBar,chartRing,chartBarRound,dbHeader,dbBox,dbRankGroup
-    },
-    data(){
-      return{
-        rankDataArea:[
-          {
-            name:'泉州市',
-            val:758
-          },
-          {
-            name:'福州市',
-            val:720
-          },
-          {
-            name:'莆田市',
-            val:680
-          },
-          {
-            name:'厦门市',
-            val:670
-          },
-          {
-            name:'龙岩市',
-            val:630
-          },
-          {
-            name:'漳州市',
-            val:610
-          }
-        ],
-        rankData1:[
-          {
-            name:'泉州市',
-            val:758
-          },
-          {
-            name:'福州市',
-            val:720
-          },
-          {
-            name:'莆田市',
-            val:680
-          },
-          {
-            name:'厦门市',
-            val:670
-          },
-          {
-            name:'龙岩市',
-            val:630
-          },
-          {
-            name:'漳州市',
-            val:610
-          },
-          {
-            name:'南平市',
-            val:560
-          },
-          {
-            name:'三明市',
-            val: 200
-          }
-        ]
-      }
+import chartVBar from './charts/chemical/chart-v-bar.vue'
+import chartRing from './charts/chemical/chart-ring.vue'
+import chartBarRound from './charts/coal/chart-bar-round.vue'
+import dbHeader from './component/db-header.vue'
+import dbBox from './component/db-box.vue'
+import dbRankGroup from './component/db-rank-group.vue'
+export default {
+  components: {
+    chartVBar,
+    chartRing,
+    chartBarRound,
+    dbHeader,
+    dbBox,
+    dbRankGroup,
+  },
+  data() {
+    return {
+      index: 1,
+      rankDataArea: [
+        {
+          name: '泉州市',
+          val: 758,
+        },
+        {
+          name: '福州市',
+          val: 720,
+        },
+        {
+          name: '莆田市',
+          val: 680,
+        },
+        {
+          name: '厦门市',
+          val: 670,
+        },
+        {
+          name: '龙岩市',
+          val: 630,
+        },
+        {
+          name: '漳州市',
+          val: 610,
+        },
+      ],
+      rankData1: [
+        {
+          name: '泉州市',
+          val: 758,
+        },
+        {
+          name: '福州市',
+          val: 720,
+        },
+        {
+          name: '莆田市',
+          val: 680,
+        },
+        {
+          name: '厦门市',
+          val: 670,
+        },
+        {
+          name: '龙岩市',
+          val: 630,
+        },
+        {
+          name: '漳州市',
+          val: 610,
+        },
+        {
+          name: '南平市',
+          val: 560,
+        },
+        {
+          name: '三明市',
+          val: 200,
+        },
+      ],
     }
-  }
+  },
+}
 </script>
 
 <style lang="scss" scoped>
-  @import './style/chemical.scss';
+@import './style/chemical.scss';
 </style>

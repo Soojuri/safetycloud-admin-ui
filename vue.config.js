@@ -8,6 +8,8 @@ const url = "http://39.108.217.65:9999"; // test
 // const url = 'http://192.168.105.11:9999' // dz
 // const url = 'http://192.168.105.4:9999' // su
 // const url = 'http://172.30.59.153:9999' // huawei
+// const url = 'http://192.168.105.181:9999' // lhk
+// const url = 'http://192.168.105.28:9999' // lhj
 // 配置url在'/.env'文件中替换地址
 const name = "统一运营管理平台";
 

@@ -103,5 +103,49 @@ export default [{
       component: () =>
         import( /* webpackChunkName: "page" */ '@/views/app/rules/subscribe/record.vue')
     }]
-  }
+  },
+  {
+    path: '/example-db',
+    name: '静态页面-数据大屏',
+    component: () =>
+      import( /* webpackChunkName: "page" */ '@/page/index/example-db.vue'),
+    meta: {
+      keepAlive: true,
+      isTab: false,
+      isAuth: false
+    }
+  },
+  {
+    path: '/chemical',
+    name: '全国危险化学企业',
+    component: () =>
+      import( /* webpackChunkName: "page" */ '@/views/ybd-dashboard/chemical'),
+    meta: {
+      keepAlive: true,
+      isTab: false,
+      isAuth: false
+    }
+  },
+  {
+    path: '/coal',
+    name: '煤矿企业安全画像概览',
+    component: () =>
+      import( /* webpackChunkName: "page" */ '@/views/ybd-dashboard/coal'),
+    meta: {
+      keepAlive: true,
+      isTab: false,
+      isAuth: false
+    }
+  },
+  {
+    path: '/safe-prod',
+    name: '安全生产数据',
+    component: () =>
+      import( /* webpackChunkName: "page" */ '@/views/ybd-dashboard/safe-prod'),
+    meta: {
+      keepAlive: true,
+      isTab: false,
+      isAuth: false
+    }
+  },
 ]
