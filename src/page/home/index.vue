@@ -404,10 +404,10 @@ export default {
       this.algorithmType = res.data.data
     })
 
-    this.getInfo()
-    this.getList()
-    this.getDataList()
-    this.getTaskDataList()
+    // this.getInfo()
+    // this.getList()
+    // this.getDataList()
+    // this.getTaskDataList()
   },
   methods: {
     getInfo() {

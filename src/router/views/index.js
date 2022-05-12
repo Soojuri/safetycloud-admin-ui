@@ -41,31 +41,31 @@ export default [{
         import( /* webpackChunkName: "page" */ '@/views/app/camera/videoDevice/info.vue')
     }]
   }, {
-    path: '/app/algorithm/bag/details/',
+    path: '/app/product/terminal/details/',
     component: Layout,
     children: [{
       path: 'index',
-      name: '算法分类管理详情',
+      name: '终端产品管理详情',
       component: () =>
-        import( /* webpackChunkName: "page" */ '@/views/app/algorithm/bag/details.vue')
+        import( /* webpackChunkName: "page" */ '@/views/app/product/terminal/details.vue')
     }]
   }, {
-    path: '/app/algorithm/manage/details/',
+    path: '/app/product/edge/details/',
     component: Layout,
     children: [{
       path: 'index',
-      name: '算法模型详情',
+      name: '边缘计算盒产品管理详情',
       component: () =>
-        import( /* webpackChunkName: "page" */ '@/views/app/algorithm/manage/details.vue')
+        import( /* webpackChunkName: "page" */ '@/views/app/product/edge/details.vue')
     }]
   }, {
-    path: '/app/algorithm/order/details/',
+    path: '/app/product/software/details/',
     component: Layout,
     children: [{
       path: 'index',
-      name: '算法订单管理详情',
+      name: '软件服务产品管理详情',
       component: () =>
-        import( /* webpackChunkName: "page" */ '@/views/app/algorithm/order/details.vue')
+        import( /* webpackChunkName: "page" */ '@/views/app/product/software/details.vue')
     }]
   }, {
     path: '/app/task/opera/info/',

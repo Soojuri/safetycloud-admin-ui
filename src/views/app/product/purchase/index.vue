@@ -2,17 +2,17 @@
   <div class="sub-page">
     <div class="g-card">
       <el-form ref="queryParams" :model="queryParams" inline label-width="70px">
-        <el-form-item label="订单编号" prop="orderCode" :rules="[$formRules.checkLen()]">
-          <el-input v-model="queryParams.orderCode" placeholder="请输入订单编号"></el-input>
+        <el-form-item label="产品名称" prop="productName">
+          <el-input v-model="queryParams.productName" placeholder="请输入产品名称"></el-input>
         </el-form-item>
-        <el-form-item label="订单状态" prop="orderStatus">
-          <el-select v-model="queryParams.orderStatus" placeholder="请选择">
-            <el-option label="等待支付" :value="1" />
-            <el-option label="交易完成" :value="2" />
-            <el-option label="交易关闭" :value="3" />
-            <el-option label="交易失败" :value="4" />
-            <el-option label="全额退款" :value="5" />
-            <el-option label="异常处理" :value="6" />
+        <el-form-item label="所属企业" prop="enterpriseName">
+          <el-input v-model="queryParams.enterpriseName" placeholder="请输入所属企业"></el-input>
+        </el-form-item>
+        <el-form-item label="缴费状态" prop="payStatus">
+          <el-select v-model="queryParams.payStatus" placeholder="请选择缴费状态">
+            <el-option label="未缴费" :value="0" />
+            <el-option label="已缴费" :value="1" />
+            <el-option label="已退款" :value="2" />
           </el-select>
         </el-form-item>
         <el-form-item class="ml-xl">
@@ -26,55 +26,28 @@
         </div>
         <div class="g-table">
           <el-table v-loading="loading" border :data="tableData">
-            <el-table-column prop="orderCode" align='center' label="订单编号" />
-            <el-table-column prop="orderType" align='center' label="订单类型">
-              <template slot-scope="scope">
-                <span v-if="scope.row.orderType == 1">终端设备订单</span>
-                <span v-if="scope.row.orderType == 2">边缘计算盒子订单</span>
-                <span v-if="scope.row.orderType == 3">软件服务产品订单</span>
-              </template>
-            </el-table-column>
-            <el-table-column prop="serialNo" align='center' label="下单账号" />
-            <el-table-column prop="transactType" align='center' label="交易类型" :formatter="formatTransactType" />
-            <el-table-column prop="payChannel" align='center' label="支付渠道">
-              <template slot-scope="scope">
-                <span v-if="scope.row.payChannel == 1">钱包支付</span>
-                <span v-if="scope.row.payChannel == 2">微信支付</span>
-                <span v-if="scope.row.payChannel == 3">支付宝</span>
-                <span v-if="scope.row.payChannel == 4">线下支付</span>
-              </template>
-            </el-table-column>
+            <el-table-column prop="enterpriseName" align='center' label="企业名称" />
+            <el-table-column prop="productName" align='center' label="购买产品名称" />
+            <el-table-column prop="productCount" align='center' label="购买数量" />
             <el-table-column prop="orderMoney" align='center' label="订单金额" />
             <el-table-column prop="payName" align='center' label="支付人员" />
-            <el-table-column prop="orderStatus" align='center' label="订单状态">
+            <el-table-column prop="payStatus" align='center' label="缴费状态">
               <template slot-scope="scope">
-                <span v-if="scope.row.orderStatus == 1">
+                <span v-if="scope.row.payStatus == 0">
                   <a class="status-info"></a>
-                  等待支付
+                  未缴费
                 </span>
-                <span v-if="scope.row.orderStatus == 2">
-                  <a class="status-primary"></a>
-                  交易完成
-                </span>
-                <span v-if="scope.row.orderStatus == 3">
+                <span v-if="scope.row.payStatus == 1">
                   <a class="status-success"></a>
-                  交易关闭
+                  已缴费
                 </span>
-                <span v-if="scope.row.orderStatus == 4">
+                <span v-if="scope.row.payStatus == 2">
                   <a class="status-danger"></a>
-                  交易失败
-                </span>
-                <span v-if="scope.row.orderStatus == 5">
-                  <a class="status-danger"></a>
-                  全额退款
-                </span>
-                <span v-if="scope.row.orderStatus == 6">
-                  <a class="status-danger"></a>
-                  异常处理
+                  已退款
                 </span>
               </template>
             </el-table-column>
-            <el-table-column prop="createTime" align='center' label="下单时间">
+            <el-table-column prop="createTime" align='center' label="购买时间">
               <template slot-scope="scope">{{parseTime(scope.row.createTime)}}</template>
             </el-table-column>
             <el-table-column prop="payTime" align='center' label="支付时间">
@@ -102,7 +75,7 @@
 
 <script>
 import PopForm from './popForm.vue'
-import { getProductOrderList, delProductOrder, putProductOrder } from '@/api/app/product/order'
+import { getPurchaseList, delPurchase, putPurchase } from '@/api/app/product/purchase.js'
 import { mapGetters } from 'vuex'
 export default {
   components: { PopForm },
@@ -111,8 +84,9 @@ export default {
       queryParams: {
         size: 10,
         current: 1,
-        orderCode: null,
-        orderStatus: null,
+        productName: null,
+        enterpriseName: null,
+        payStatus: null,
       },
       total: 0,
       tableData: [],
@@ -140,7 +114,7 @@ export default {
   methods: {
     getList() {
       this.loading = true
-      getProductOrderList(this.queryParams)
+      getPurchaseList(this.queryParams)
         .then((res) => {
           this.loading = false
           this.tableData = res.data.data.records
@@ -187,7 +161,7 @@ export default {
         type: 'warning',
       })
         .then(() => {
-          return delProductOrder(row.orderId)
+          return delPurchase(row.orderId)
         })
         .then((res) => {
           if (res.data.data) {
