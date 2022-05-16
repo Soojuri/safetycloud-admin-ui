@@ -93,41 +93,6 @@
       <pop-form v-if="formOptions.visible" :dict="dict" :visible.sync="formOptions.visible" :data="formOptions.data"
                 @ok="getList()">
       </pop-form>
-      <!-- 详情 -->
-      <el-dialog :visible.sync="dialogVisible" width="width">
-        <el-tabs v-model="activeName" @tab-click="handleClick" stretch='true'>
-          <el-tab-pane label="工单状态" name="work">
-            <div class="step">
-              <el-steps direction="vertical" :active="arr.status">
-                <el-step title="已指派" :description="parseTime(arr.sentTime) "></el-step>
-                <el-step title="驳回" :description="parseTime(arr.createTime) "></el-step>
-                <el-step title="已受理" :description="parseTime(arr.acceptTime)"></el-step>
-                <!-- <el-step v-if="arr.eventProgress !== 4 || arr.eventCheckTime != null" title="事件复核"
-                     :description="parseTime(arr.eventCheckTime)">
-            </el-step> -->
-                <el-step title="已完成" :description="parseTime(arr.finishTime)"></el-step>
-                <el-step title="已关闭" :description="parseTime(arr.createTime) "></el-step>
-              </el-steps>
-            </div>
-          </el-tab-pane>
-          <el-tab-pane label="基本信息" name="base">基本信息</el-tab-pane>
-          <el-tab-pane label="故障记录" name="fault">
-            <div class="fault">
-              <el-descriptions :column="1" size="medium" class="mt-xl">
-                <el-descriptions-item label="故障名称"> {{ arr.faultName }}
-                </el-descriptions-item>
-                <el-descriptions-item label="设备类型"> {{ arr.deviceType }}
-                </el-descriptions-item>
-                <el-descriptions-item label="设备型号"> {{ arr.deviceModel }}
-                </el-descriptions-item>
-                <el-descriptions-item label="故障描述"> {{ arr.faultDescription }}
-                </el-descriptions-item>
-              </el-descriptions>
-            </div>
-          </el-tab-pane>
-          <el-tab-pane label="维修记录" name="repair">维修记录</el-tab-pane>
-        </el-tabs>
-      </el-dialog>
     </div>
   </div>
 </template>
@@ -150,14 +115,12 @@ export default {
       },
       total: 0,
       tableData: [],
-      arr: [],
       dict: {},
       formOptions: {
         visible: false,
         data: {},
       },
       loading: false,
-      dialogVisible: false,
       activeName: 'work',
     }
   },
@@ -246,16 +209,14 @@ export default {
         })
     },
     handleDetails(row) {
-      this.dialogVisible = true
-      this.arr = row
       // if (!this.permissions.baseinfo_tdeviceworkorder_view) {
       //   return this.msgWarn('权限不足')
       // }
-      // const enterpriseId = row.enterpriseId
-      // this.$router.push({
-      //   path: '/app/camera/space/info/index/',
-      //   query: { enterpriseId },
-      // })
+      const id = row.enterpriseId
+      this.$router.push({
+        path: '/app/enterprise/enterprise/info/index/',
+        query: { id },
+      })
     },
   },
 }

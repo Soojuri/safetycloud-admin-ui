@@ -22,13 +22,13 @@ export default [{
     }]
   },
   {
-    path: '/app/event/manual/info/',
+    path: '/app/enterprise/enterprise/info/',
     component: Layout,
     children: [{
       path: 'index',
-      name: '事件详情',
+      name: '企业详情',
       component: () =>
-        import( /* webpackChunkName: "page" */ '@/views/app/event/manual/info.vue')
+        import( /* webpackChunkName: "page" */ '@/views/app/enterprise/enterprise/info.vue')
     }]
   },
   {

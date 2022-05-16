@@ -229,11 +229,11 @@ export default {
       this.$emit('ok')
     },
     handleSave() {
-      const that = this
-      // this.form.password = serveEncrypt(this.form.password, this.publicKey)
-      // this.form.password2 = serveEncrypt(this.form.password2, this.publicKey)
       this.$refs.form.validate((valid) => {
         if (valid) {
+          const that = this
+          this.form.password = serveEncrypt(this.form.password, this.publicKey)
+          this.form.password2 = serveEncrypt(this.form.password2, this.publicKey)
           this.form.province = CodeToText[this.form.selectedOptions[0]]
           this.form.city = CodeToText[this.form.selectedOptions[1]]
           this.form.county = CodeToText[this.form.selectedOptions[2]]
