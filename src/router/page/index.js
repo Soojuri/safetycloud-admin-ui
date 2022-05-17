@@ -28,7 +28,7 @@ export default [{
       path: 'index',
       name: '工作台',
       component: () =>
-        import( /* webpackChunkName: "views" */ '@/page/home/index')
+        import( /* webpackChunkName: "views" */ '@/views/app/cloud-side/enterprise.vue')
     }]
   },
   {
