@@ -6,11 +6,11 @@ import {
 } from '@/api/manage'
 
 // 增删改查
-const getEventList = (params) => getAction('/iefVasService/tvideoanalyseevent/page', params);
-const getEventInfo = (id) => getAction(`/iefVasService/tvideoanalyseevent/${id}`);
-const addEvent = (params) => postAction("/iefVasService/tvideoanalyseevent", params);
-const delEvent = (id) => deleteAction(`/iefVasService/tvideoanalyseevent/${id}`);
-const putEvent = (params) => putAction('/iefVasService/tvideoanalyseevent', params);
+const getEventList = (params) => getAction('/eventtask/talerteventrecord/page', params);
+const getEventInfo = (id) => getAction(`/eventtask/talerteventrecord/${id}`);
+const addEvent = (params) => postAction("/eventtask/talerteventrecord", params);
+const delEvent = (id) => deleteAction(`/eventtask/talerteventrecord/${id}`);
+const putEvent = (params) => putAction('/eventtask/talerteventrecord', params);
 // 批量更新事件状态
 const updateEventStatus = (params) => putAction('/iefVasService/tvideoanalyseevent/batchUpdateStatus', params)
 // 事件统计

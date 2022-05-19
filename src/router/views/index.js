@@ -41,6 +41,15 @@ export default [{
         import( /* webpackChunkName: "page" */ '@/views/app/camera/videoDevice/info.vue')
     }]
   }, {
+    path: '/app/alertEvent/eventModel/details/',
+    component: Layout,
+    children: [{
+      path: 'index',
+      name: '算法模型管理详情',
+      component: () =>
+        import( /* webpackChunkName: "page" */ '@/views/app/alertEvent/eventModel/details.vue')
+    }]
+  }, {
     path: '/app/product/terminal/details/',
     component: Layout,
     children: [{
