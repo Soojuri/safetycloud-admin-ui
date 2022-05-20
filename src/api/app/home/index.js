@@ -4,7 +4,7 @@ import {
   putAction,
   postAction
 } from '@/api/manage'
-const getCamera = (params) => getAction('/iefVasService/work/platform/camera/Statistics', params)
+const getCamera = (params) => getAction('/baseinfo/tdeviceinfo/statistics', params)
 const getComputingResources = (params) => getAction('/iefVasService/work/platform/computingResources', params)
 const getIntelligentRecognition = (params) => getAction('/iefVasService/work/platform/intelligentRecognition/Statistics', params)
 const getAreaRank = (params) => getAction('/iefVasService/work/platform/task/areaRank', params)

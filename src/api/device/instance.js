@@ -90,7 +90,7 @@ export function getStastics(query) {
 //激活指定ID设备
 export function deploy(id) {
   return request({
-    url: '​/device​/tdeviceinfo​/' + id + '/deploy',
+    url: '​/baseinfo/tdeviceinfo​/' + id + '/deploy',
     method: 'post'
   })
 }
@@ -98,7 +98,7 @@ export function deploy(id) {
 //注销指定ID设备
 export function undeploy(id) {
   return request({
-    url: '​/device​/tdeviceinfo​/' + id + '/undeploy',
+    url: '​/baseinfo/tdeviceinfo​/' + id + '/undeploy',
     method: 'post'
   })
 }

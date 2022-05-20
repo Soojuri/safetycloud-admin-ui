@@ -147,8 +147,25 @@ export function delVideoDeviceRecord(query) {
 //地理位置-设备查询
 export function getAreaDeviceList(params) {
   return request({
-    url: '/video/tdevicevideo/getAreaDeviceList',
+    url: '/baseinfo/tdeviceinfo/getAreaDeviceList',
     method: 'get',
     params
+  })
+}
+
+//地理位置--设备告警分页查询
+export function getAlarmList(params) {
+  return request({
+    url: '/baseinfo/tdeviceinfo/getDeviceAlarmList',
+    method: 'get',
+    params
+  })
+}
+
+//通过id查询
+export function getVideoDeviceInfo(id) {
+  return request({
+    url: '/baseinfo/tdeviceinfo​/' + id,
+    method: 'get'
   })
 }

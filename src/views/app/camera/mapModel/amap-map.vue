@@ -8,36 +8,36 @@
         <div class="cell c1">
           <img class="icon" :src="require('@/assets/images/video-analysis/icon-jrsxtzs.png')" />
           <dl>
-            <dd>{{cameraStatic.allCount}}</dd>
-            <dt>接入摄像头总数</dt>
+            <dd>{{cameraStatic.alarmCount}}</dd>
+            <dt>事件预警总数</dt>
           </dl>
         </div>
         <div class="cell c2">
           <img class="icon" :src="require('@/assets/images/video-analysis/icon-zxsxts.png')" />
           <dl>
             <dd>{{cameraStatic.onlineCount}}</dd>
-            <dt>在线摄像头数</dt>
+            <dt>在线设备数</dt>
           </dl>
         </div>
         <div class="cell c3">
           <img class="icon" :src="require('@/assets/images/video-analysis/icon-lxsxts.png')" />
           <dl>
             <dd>{{cameraStatic.offlineCount}}</dd>
-            <dt>离线摄像头数</dt>
+            <dt>离线设备数</dt>
           </dl>
         </div>
         <div class="cell c4">
           <img class="icon" :src="require('@/assets/images/video-analysis/icon-zyzsxts.png')" />
           <dl>
             <dd>{{cameraStatic.workingCount}}</dd>
-            <dt>作业中摄像头数</dt>
+            <dt>正常设备数</dt>
           </dl>
         </div>
         <div class="cell c5">
           <img class="icon" :src="require('@/assets/images/video-analysis/icon-gjxxs.png')" />
           <dl>
-            <dd>{{cameraStatic.alarmCount}}</dd>
-            <dt>告警消息数</dt>
+            <dd>{{cameraStatic.failureCount}}</dd>
+            <dt>故障设备数</dt>
           </dl>
         </div>
       </div>
@@ -76,17 +76,17 @@
       <div class="filter-x right">
         <div class="tit">
           <span>设备区域信息面板</span>
-          <div class="btn" @click="handleArea">管理区域</div>
+          <!-- <div class="btn" @click="handleArea">管理区域</div> -->
           <i :class="opearateOption.infoVisible ? 'cus-icon-navicon' : 'cus-icon-navicon-close'"
              @click="opearateOption.infoVisible = !opearateOption.infoVisible"></i>
         </div>
         <div class="con-box mt-l" v-if="opearateOption.infoVisible">
           <el-form :inline="true" label-position="left" label-width="80px" :model="queryParams">
-            <el-form-item label="查看区域" prop='areaId'>
+            <!-- <el-form-item label="查看区域" prop='areaId'>
               <avue-input-tree style="width:200px" v-model="queryParams.areaId" :filter='false' :props="defaultProps"
                                placeholder="请选择区域" type="tree" :dic="areaTree">
               </avue-input-tree>
-            </el-form-item>
+            </el-form-item> -->
             <el-form-item label="空间目录" prop="spaceId">
               <el-select v-model="queryParams.spaceId" placeholder="请选择空间目录">
                 <el-option v-for="item in dict.spaceList" :key="item.spaceId" :label="item.spaceName"
@@ -94,12 +94,12 @@
                 </el-option>
               </el-select>
             </el-form-item>
-            <el-form-item label="设备状态" prop="status">
+            <!-- <el-form-item label="设备状态" prop="status">
               <el-select v-model="queryParams.status" placeholder="请选择设备状态">
                 <el-option v-for="item in dict.deviceStatus" :key="item.value" :label="item.label"
                            :value="item.value" />
               </el-select>
-            </el-form-item>
+            </el-form-item> -->
             <el-form-item label='设备ID' prop='deviceId'>
               <el-input style="width:200px" size='small' v-model='queryParams.deviceId' placeholder='请输入设备ID'>
               </el-input>
@@ -108,7 +108,11 @@
               <el-input style="width:200px" size='small' v-model='queryParams.deviceName' placeholder='请输入设备名称'>
               </el-input>
             </el-form-item>
-            <el-form-item label="设备类型" prop="videoDeviceType">
+            <el-form-item label='所属企业' prop='enterpriseName'>
+              <el-input style="width:200px" size='small' v-model='queryParams.enterpriseName' placeholder='请输入所属企业 '>
+              </el-input>
+            </el-form-item>
+            <!-- <el-form-item label="设备类型" prop="videoDeviceType">
               <el-select v-model="queryParams.videoDeviceType" placeholder="请选择设备类型">
                 <el-option v-for="item in dict.cameraType" :key="item.value" :label="item.label" :value="item.value">
                 </el-option>
@@ -125,7 +129,7 @@
                 <el-option label="运行作业中" :value="1" />
                 <el-option label="未运行作业" :value="0" />
               </el-select>
-            </el-form-item>
+            </el-form-item> -->
           </el-form>
           <div class="btns">
             <el-button type="primary" size="small" @click="getList">查询</el-button>
@@ -217,16 +221,16 @@
 
 <script>
 import { getSpaceAreaTree, getSpaceList } from '@/api/app/camera/space'
-import { getVideoDeviceInfo } from '@/api/app/camera/videoDevice'
+// import { getVideoDeviceInfo } from '@/api/app/camera/videoDevice'
 import MapLoader from '@/util/AMap' // 引入高德地图 原生api
 import InfoWin from './infoWin.vue'
 import AreaTable from './area/index.vue'
-import { getAreaTree } from '@/api/device/area'
-import { getAreaDeviceList } from '@/api/app/camera/device'
+// import { getAreaTree } from '@/api/device/area'
+import { getAreaDeviceList, getAlarmList, getVideoDeviceInfo } from '@/api/app/camera/device'
 import cameraIcon from '@/assets/images/camera-manage/map-icon-camera.png'
 import nvrIcon from '@/assets/images/camera-manage/map-icon-nvr.png'
 import { getCamera } from '@/api/app/home/index'
-import { getDeviceList as getPage } from '@/api/admin/diary'
+// import { getDeviceList as getPage } from '@/api/admin/diary'
 import VideoPlayer from '@/components/video/VideoPlayer.vue'
 import { mapGetters } from 'vuex'
 
@@ -288,7 +292,7 @@ export default {
         label: 'name',
         value: 'id',
       },
-      areaTree: [], //区域树
+      // areaTree: [], //区域树
       markers: [],
       PolyEditor: null,
       timer: null,
@@ -318,7 +322,7 @@ export default {
   watch: {},
   mounted() {
     this.getDictList()
-    this.getAreaTree()
+    // this.getAreaTree()
     this.initMap()
   },
   methods: {
@@ -389,28 +393,28 @@ export default {
             that.setMarker(item, icon)
           })
           that.setCluster()
-          that.setArea()
+          // that.setArea()
         })
       })
     },
-    setArea() {
-      const that = this
-      let info = that.areaTree.filter((item) => item.id === that.queryParams.areaId)[0]
-      const geoJson = info ? info.geoJson : null
-      if (!geoJson) return
-      let pathList = JSON.parse(geoJson).map((item) => {
-        let path = new AMap.LngLat(item.lng, item.lat)
-        return path
-      })
-      that.timer = setTimeout(() => {
-        that.setPath(pathList)
-      })
-    },
-    getAreaTree() {
-      getAreaTree({ lazy: false }).then((res) => {
-        this.areaTree = res.data.data
-      })
-    },
+    // setArea() {
+    //   const that = this
+    //   let info = that.areaTree.filter((item) => item.id === that.queryParams.areaId)[0]
+    //   const geoJson = info ? info.geoJson : null
+    //   if (!geoJson) return
+    //   let pathList = JSON.parse(geoJson).map((item) => {
+    //     let path = new AMap.LngLat(item.lng, item.lat)
+    //     return path
+    //   })
+    //   that.timer = setTimeout(() => {
+    //     that.setPath(pathList)
+    //   })
+    // },
+    // getAreaTree() {
+    //   getAreaTree({ lazy: false }).then((res) => {
+    //     this.areaTree = res.data.data
+    //   })
+    // },
     handleClear() {
       this.map.clearMap()
       this.queryParams = {
@@ -424,7 +428,7 @@ export default {
     getAlarmList() {
       const deviceIds = this.deviceIds.join()
       // getPage({ deviceIds, ...this.alarmParams }).then((res) => {
-      getPage({ ...this.alarmParams, ...this.queryParams }).then((res) => {
+      getAlarmList({ ...this.alarmParams, ...this.queryParams }).then((res) => {
         this.alarmList = res.data.data.records
         this.alarmListTotal = res.data.data.total
       })
@@ -490,13 +494,13 @@ export default {
     },
     // 区域管理弹窗
     handleArea() {
-      if (!this.permissions.camera_mapModel_area) return this.msgWarn('权限不足')
+      // if (!this.permissions.camera_mapModel_area) return this.msgWarn('权限不足')
       this.areaTable = {
         visible: true,
       }
     },
     handlePosition(row) {
-      if (!this.permissions.camera_mapModel_map) return this.msgWarn('权限不足')
+      // if (!this.permissions.camera_mapModel_map) return this.msgWarn('权限不足')
       const path = new AMap.LngLat(row.longitude, row.latitude)
       this.map.setZoomAndCenter(16, path)
     },
@@ -538,7 +542,7 @@ export default {
       that.markers.push(marker)
     },
     handleInfo(row) {
-      if (!this.permissions.camera_mapModel_view) return this.msgWarn('权限不足')
+      // if (!this.permissions.camera_mapModel_view) return this.msgWarn('权限不足')
       this.$router.push({
         path: '/app/camera/videoDevice/info/index/',
         query: {
@@ -704,7 +708,7 @@ export default {
         content: '\e904';
       }
       .cus-icon-navicon-close::before {
-        content: '\e93c';
+        content: '\e904';
       }
     }
 
