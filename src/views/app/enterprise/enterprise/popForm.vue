@@ -6,7 +6,7 @@
       <el-row>
         <el-col :offset="3" :span="16">
           <el-form :rules="rules" :model='form' label-width='140px' ref='form'>
-            <div class="g-card">
+            <div class="g-card" v-if="!id">
               <div class="g-tit">账户信息</div>
               <el-form-item label='登录账号' prop='username'>
                 <el-input size='small' v-model='form.username' placeholder='请输入登录账号'></el-input>
@@ -77,7 +77,7 @@
                 <el-input size='small' v-model='form.email' placeholder='请输入电子邮箱'></el-input>
               </el-form-item>
               <el-form-item label='从业人数' prop='staffNum'>
-                <el-input size='small' v-model='form.staffNum' placeholder='请输入从业人数'></el-input>
+                <el-input-number size='small' v-model='form.staffNum' placeholder='请输入从业人数'></el-input-number>
               </el-form-item>
               <el-form-item label='主要负责人' prop='enterpriseLeader'>
                 <el-input size='small' v-model='form.enterpriseLeader' placeholder='请输入主要负责人'></el-input>
@@ -182,16 +182,19 @@ export default {
           this.$formRules.checkNecessary('请输入密码确认'),
           { required: false, validator: validatePass, trigger: 'blur' },
         ],
-        enterpriseCode: [this.$formRules.checkNecessary('请输入统一社会信用代码')],
+        enterpriseCode: [this.$formRules.checkLen(50), this.$formRules.checkNecessary('请输入统一社会信用代码')],
         enterpriseName: [this.$formRules.checkNecessary('请输入企业名称')],
         selectedOptions: [this.$formRules.checkNecessary('请选择省市区')],
         enterpriseType: [this.$formRules.checkNecessary('请选择企业类型')],
         mainRiskType: [this.$formRules.checkNecessary('请选择主要危险类型')],
         businessNature: [this.$formRules.checkNecessary('请选择企业性质')],
-        enterprisePhone: [this.$formRules.checkNecessary('请输入企业电话')],
-        address: [this.$formRules.checkNecessary('请输入通讯地址')],
-        enterpriseLeader: [this.$formRules.checkNecessary('请输入主要负责人')],
-        enterpriseLeaderCellPhone: [this.$formRules.checkNecessary('请输入负责人手机')],
+        enterprisePhone: [this.$formRules.checkLen(16), this.$formRules.checkNecessary('请输入企业电话')],
+        address: [this.$formRules.checkLen(100), this.$formRules.checkNecessary('请输入通讯地址')],
+        enterpriseLeader: [this.$formRules.checkLen(), this.$formRules.checkNecessary('请输入主要负责人')],
+        enterpriseLeaderCellPhone: [this.$formRules.checkLen(16), this.$formRules.checkNecessary('请输入负责人手机')],
+        enterpriseLeaderPhone: [this.$formRules.checkLen(32)],
+        fax: [this.$formRules.checkLen(32)],
+        email: [this.$formRules.checkLen(32)],
       },
     }
   },

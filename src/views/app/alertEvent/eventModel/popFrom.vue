@@ -22,7 +22,7 @@
                 <el-option label="传感器算法模型" :value="2" />
               </el-select>
             </el-form-item>
-            <el-form-item label='算法模型详细介绍' prop='algorithmDetail'>
+            <el-form-item label='模型详细介绍' prop='algorithmDetail'>
               <editor :value="form.algorithmDetail" :height="200" v-model="form.algorithmDetail"></editor>
             </el-form-item>
             <el-form-item label="备注" prop="remark">

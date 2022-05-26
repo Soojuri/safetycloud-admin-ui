@@ -39,13 +39,14 @@
       </div>
       <div class="g-table mt-xl" v-loading="loading">
         <el-table :data="list" border>
-          <el-table-column prop="deviceNo" label="设备编号" />
-          <el-table-column prop="deviceName" label="设备名称" />
-          <el-table-column align='center' label='所属分组'>
+          <el-table-column prop="deviceNo" align='center' label="设备编号" />
+          <el-table-column prop="deviceName" align='center' label="设备名称" />
+          <el-table-column prop="enterpriseName" align='center' label="企业名称" />
+          <!-- <el-table-column align='center' label='所属分组'>
             <template slot-scope="scope">
               <el-tag v-if="scope.row.groupName">{{scope.row.groupName}}</el-tag>
             </template>
-          </el-table-column>
+          </el-table-column> -->
           <el-table-column align='center' prop='productName' label='产品名称' />
           <el-table-column align='center' prop='registryTime' label='注册时间'>
             <template slot-scope="scope">

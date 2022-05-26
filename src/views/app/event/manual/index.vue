@@ -1,4 +1,3 @@
-<!-- 事件-人工审核 -->
 <template>
   <div class="sub-page">
     <div class="g-card">
@@ -13,24 +12,24 @@
         <div class="cell c2">
           <img class="icon" :src="require('@/assets/images/event-audit/icon-ycl.png')" />
           <dl>
-            <dd>{{staticData.handledCount}}</dd>
+            <dd>{{staticData.doneCount}}</dd>
             <dt>已处理</dt>
           </dl>
         </div>
         <div class="cell c3">
           <img class="icon" :src="require('@/assets/images/event-audit/icon-dcl.png')" />
           <dl>
-            <dd>{{staticData.pendingCount}}</dd>
+            <dd>{{staticData.todoCount}}</dd>
             <dt>待处理</dt>
           </dl>
         </div>
       </div>
       <!-- 头部筛选 -->
       <div class=" mt-l">
-        <el-form ref="queryParams" :rules="rules" :model="queryParams" inline label-width="120px">
-          <el-form-item label="算法类别" prop="algorithmType">
-            <el-select style="width:191px;" v-model="queryParams.algorithmType" placeholder="请选择算法类别">
-              <el-option v-for="item in dict.algorithmType" :key="item.value" :label="item.label"
+        <el-form ref="queryParams" :rules="rules" :model="queryParams" inline>
+          <el-form-item label="事件等级" prop="eventLevel">
+            <el-select style="width:191px;" v-model="queryParams.eventLevel" placeholder="请选择事件等级">
+              <el-option v-for="item in dict.eventLevel" :key="item.value" :label="item.label"
                          :value="parseInt(item.value)">
               </el-option>
             </el-select>
@@ -38,11 +37,8 @@
           <el-form-item label='事件编号' prop='eventNo'>
             <el-input size='small' v-model='queryParams.eventNo' placeholder='请输入事件编号'></el-input>
           </el-form-item>
-          <el-form-item label='事件类型名称' prop='eventName'>
-            <el-input size='small' v-model='queryParams.eventName' placeholder='请输入事件类型名称'></el-input>
-          </el-form-item>
-          <el-form-item label='地址名称' prop='address'>
-            <el-input size='small' v-model='queryParams.address' placeholder='请输入地址名称'></el-input>
+          <el-form-item label='事件名称' prop='eventName'>
+            <el-input size='small' v-model='queryParams.eventName' placeholder='请输入事件名称'></el-input>
           </el-form-item>
           <el-form-item label="处理结果" prop="handleResult">
             <el-select style="width:191px;" v-model="queryParams.handleResult" placeholder="请选择处理结果">
@@ -51,7 +47,13 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="上报类型" prop="reportType">
+          <el-form-item label="事件状态" prop="eventStatus">
+            <el-select v-model="queryParams.eventStatus" placeholder="事件状态">
+              <el-option label="已处理" :value="1" />
+              <el-option label="待处理" :value="0" />
+            </el-select>
+          </el-form-item>
+          <!-- <el-form-item label="上报类型" prop="reportType">
             <el-select style="width:191px;" v-model="queryParams.reportType" placeholder="请选择上报类型">
               <el-option v-for="item in dict.reportType" :key="item.value" :label="item.label"
                          :value="parseInt(item.value)">
@@ -71,7 +73,7 @@
           <el-form-item label='发现时间'>
             <el-date-picker value-format='timestamp' v-model='dateRange' type='datetimerange' range-separator='至'
                             start-placeholder='开始时间' end-placeholder='结束时间' :default-time="['00:00:00', '23:59:59']" />
-          </el-form-item>
+          </el-form-item> -->
           <el-form-item class="ml-xl">
             <el-button icon="el-icon-search" type="primary" @click="handleQuery">搜 索</el-button>
             <el-button icon="el-icon-delete" @click="handleClear">清 空</el-button>
@@ -96,15 +98,25 @@
                   @selection-change="handleSelectRow">
           <el-table-column type="selection" width="55">
           </el-table-column>
-          <el-table-column prop="eventNo" label="事件编号" width="180">
+          <el-table-column prop="eventNo" align="center" label="事件编号">
           </el-table-column>
-          <el-table-column prop="eventName" label="事件类型名称" width="180">
+          <el-table-column prop="eventName" align="center" label="事件名称">
           </el-table-column>
-          <el-table-column prop="deviceName" label="摄像机名称" width="180">
+          <el-table-column prop="eventType" align="center" label="事件类型">
+            <template slot-scope="scope">
+              <span v-if="scope.row.eventType == 1">人的不安全行为</span>
+              <span v-if="scope.row.eventType == 2">物的不安全状态</span>
+            </template>
           </el-table-column>
-          <el-table-column prop="address" label="地址名称">
+          <el-table-column prop="eventLevel" align="center" label="事件等级" :formatter='eventLevelFormat'>
           </el-table-column>
-          <el-table-column prop="eventStatus" label="事件状态" width="100">
+          <el-table-column prop="algorithmName" align="center" label="算法模型">
+          </el-table-column>
+          <el-table-column prop="deviceName" align="center" label="目标设备">
+          </el-table-column>
+          <el-table-column prop="spaceName" align="center" label="所属空间">
+          </el-table-column>
+          <el-table-column prop="eventStatus" align="center" label="事件状态">
             <template slot-scope="scope">
               <template v-if="scope.row.eventStatus == 0">
                 <span class="yellow_status"></span>
@@ -116,10 +128,10 @@
               </template>
             </template>
           </el-table-column>
-          <el-table-column prop="handleResult" label="处理结果" width="100">
+          <el-table-column prop="handleResult" align="center" label="处理结果" width="80">
             <template slot-scope="scope">
               <el-tag type="info" v-if="scope.row.handleResult == 0">待处理</el-tag>
-              <el-tag v-if="scope.row.handleResult == 1">有效</el-tag>
+              <el-tag v-if="scope.row.handleResult == 1">待提交</el-tag>
               <el-tag closable v-if="scope.row.handleResult == 3" @close="handleSingleEvent(scope.row.eventId,1,1)"
                       type="warning">重复</el-tag>
               <el-tag closable v-if="scope.row.handleResult == 4" @close="handleSingleEvent(scope.row.eventId,1,1)"
@@ -127,14 +139,14 @@
               <el-tag v-if="scope.row.handleResult == 2" type="success">已提交</el-tag>
             </template>
           </el-table-column>
-          <el-table-column prop="reportResult" label="上报结果" width="100" :formatter="reportResultFormat">
+          <!-- <el-table-column prop="reportResult" label="上报结果" width="100" :formatter="reportResultFormat">
           </el-table-column>
           <el-table-column prop="urbanOperationAction" label="处置进展" width="100" :formatter="urbanOperationActionFormat">
-          </el-table-column>
-          <el-table-column prop="eventDetectTime" label="发现时间" width="180">
+          </el-table-column> -->
+          <el-table-column prop="eventDetectTime" align="center" label="发现时间" width="140">
             <template slot-scope="scope">{{parseTime(scope.row.eventDetectTime)}}</template>
           </el-table-column>
-          <el-table-column label="操作" width="300">
+          <el-table-column label="操作" align="center" width="280">
             <template slot-scope="scope">
               <el-button size="mini" type="text" icon="el-icon-info" @click="handleDetails(scope.row)">查看</el-button>
               <el-button :disabled="scope.row.handleResult === 4 || scope.row.reportResult === 2" size="mini"
@@ -161,7 +173,7 @@
 </template>
 
 <script>
-import { getEventList, getEventStatic, updateEventStatus, reportEvent } from '@/api/app/event/manual'
+import { getEventList, getCount, updateEventStatus, reportEvent } from '@/api/app/event/manual'
 import { mapGetters } from 'vuex'
 export default {
   components: {},
@@ -170,21 +182,16 @@ export default {
       queryParams: {
         size: 10,
         current: 1,
-        algorithmType: null,
+        eventLevel: null,
         eventStatus: null,
+        handleResult: null,
         eventName: null,
         eventNo: null,
       },
       dateRange: [],
       total: 0,
       tableData: [],
-      dict: {
-        eventResult: [],
-        reportType: [],
-        algorithmType: [],
-        reportResult: [],
-        urbanOperationAction: [],
-      },
+      dict: {},
       loading: false,
       rules: {
         eventName: [this.$formRules.checkLen()],
@@ -203,8 +210,8 @@ export default {
     this.getDicts('event_handle_result').then((res) => {
       this.dict.eventResult = res.data.data
     })
-    this.getDicts('algorithm_type').then((res) => {
-      this.dict.algorithmType = res.data.data
+    this.getDicts('event_level').then((res) => {
+      this.dict.eventLevel = res.data.data
     })
     this.getDicts('report_type').then((res) => {
       this.dict.reportType = res.data.data
@@ -234,7 +241,7 @@ export default {
         })
     },
     getStatic() {
-      getEventStatic().then((res) => {
+      getCount().then((res) => {
         this.staticData = res.data.data
       })
     },
@@ -280,15 +287,15 @@ export default {
       }
     },
     handleSingleEvent(id, handleResult, eventStatus) {
-      if (!eventStatus) {
-        if (!this.permissions.event_manual_report) return this.msgWarn('权限不足')
-      }
-      if (eventStatus == 1 && handleResult == 4) {
-        if (!this.permissions.event_manual_false) return this.msgWarn('权限不足')
-      }
-      if (eventStatus == 1 && handleResult == 3) {
-        if (!this.permissions.event_manual_repeat) return this.msgWarn('权限不足')
-      }
+      // if (!eventStatus) {
+      //   if (!this.permissions.event_manual_report) return this.msgWarn('权限不足')
+      // }
+      // if (eventStatus == 1 && handleResult == 4) {
+      //   if (!this.permissions.event_manual_false) return this.msgWarn('权限不足')
+      // }
+      // if (eventStatus == 1 && handleResult == 3) {
+      //   if (!this.permissions.event_manual_repeat) return this.msgWarn('权限不足')
+      // }
       const data = {
         eventStatus,
         handleResult,
@@ -313,15 +320,15 @@ export default {
       }
     },
     handleEvent(eventStatus, handleResult) {
-      if (!eventStatus) {
-        if (!this.permissions.event_manual_report) return this.msgWarn('权限不足')
-      }
-      if (eventStatus == 1 && handleResult == 4) {
-        if (!this.permissions.event_manual_false) return this.msgWarn('权限不足')
-      }
-      if (eventStatus == 1 && handleResult == 3) {
-        if (!this.permissions.event_manual_repeat) return this.msgWarn('权限不足')
-      }
+      // if (!eventStatus) {
+      //   if (!this.permissions.event_manual_report) return this.msgWarn('权限不足')
+      // }
+      // if (eventStatus == 1 && handleResult == 4) {
+      //   if (!this.permissions.event_manual_false) return this.msgWarn('权限不足')
+      // }
+      // if (eventStatus == 1 && handleResult == 3) {
+      //   if (!this.permissions.event_manual_repeat) return this.msgWarn('权限不足')
+      // }
 
       if (this.selection.length === 0) return this.msgWarn('请至少选择一条事件')
       const ids = this.selection.map((item) => {
@@ -351,7 +358,7 @@ export default {
       }
     },
     handleDetails(row) {
-      if (!this.permissions.event_manual_view) return this.msgWarn('权限不足')
+      // if (!this.permissions.event_manual_view) return this.msgWarn('权限不足')
       const id = row.eventId
       this.$router.push({
         path: '/app/event/manual/info/index/',
@@ -360,8 +367,8 @@ export default {
         },
       })
     },
-    algorithmTypeFormat(row) {
-      return this.selectDictLabel(this.dict.algorithmType, row.algorithmType)
+    eventLevelFormat(row) {
+      return this.selectDictLabel(this.dict.eventLevel, row.eventLevel)
     },
   },
 }

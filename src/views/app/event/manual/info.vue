@@ -7,12 +7,12 @@
           <div>
             <div class="product_name">{{info.eventName}}：{{info.eventId}}</div>
             <el-descriptions size="medium" column="2" class="mt-m">
-              <el-descriptions-item label="算法模型">{{info.algorithmName}}</el-descriptions-item>
-              <el-descriptions-item label="算法类别">{{formatAlgorithmType(info)}}</el-descriptions-item>
+              <el-descriptions-item label="事件名称">{{info.eventName}}</el-descriptions-item>
+              <el-descriptions-item label="事件类型">{{info.eventType == 1?'作业活动':'设备设施'}}</el-descriptions-item>
               <!-- <el-descriptions-item label="发现时间">{{parseTime(info.createTime)}}</el-descriptions-item> -->
               <el-descriptions-item label="事件等级">{{formatEventLevel(info)}}</el-descriptions-item>
-              <!-- <el-descriptions-item label="处理时间">{{parseTime(info.eventHandleTime)}}</el-descriptions-item> -->
-              <el-descriptions-item label="上报类型">{{formatReportType(info)}}</el-descriptions-item>
+              <el-descriptions-item label="处理时间">{{parseTime(info.eventHandleTime)}}</el-descriptions-item>
+              <!-- <el-descriptions-item label="上报类型">{{formatReportType(info)}}</el-descriptions-item> -->
               <el-descriptions-item :span='2' label="事件编号">{{ info.eventNo }}</el-descriptions-item>
               <el-descriptions-item label="备注">{{info.remark}}</el-descriptions-item>
             </el-descriptions>
@@ -61,14 +61,14 @@
         <el-tabs v-model="activeName" @tab-click="handleClick">
           <!-- <el-tab-pane label="事件信息" name="0">
           </el-tab-pane> -->
-          <el-tab-pane label="摄像机信息" name="1">
+          <el-tab-pane label="设备信息" name="1">
           </el-tab-pane>
           <el-tab-pane label="相似重复事件" name="2">
           </el-tab-pane>
           <el-tab-pane label="事件操作日志" name="3">
           </el-tab-pane>
-          <el-tab-pane label="事件处置进度" name="4">
-          </el-tab-pane>
+          <!-- <el-tab-pane label="事件处置进度" name="4">
+          </el-tab-pane> -->
         </el-tabs>
         <keep-alive>
           <component :is="curComp" :info="info" :dict="dict" @getInfo="getList"></component>
@@ -88,7 +88,7 @@ export default {
     CameraInfo: () => import('./tabs/cameraInfo/index.vue'),
     RepeatEvent: () => import('./tabs/repeatEvent/index.vue'),
     LogInfo: () => import('./tabs/logInfo/index.vue'),
-    Schedule: () => import('./tabs/scheduleInfo/index.vue'),
+    // Schedule: () => import('./tabs/scheduleInfo/index.vue'),
   },
   data() {
     return {

@@ -26,7 +26,8 @@
             <!-- <div class="state green" v-if="item.status == 1">正常</div>
             <div class="state orange" v-if="item.status == 2">不可用</div> -->
             <div class="cover">
-              <img class="icon" :src="item.backgroundUrl" />
+              <img class="icon" v-if="item.backgroundUrl" :src="item.backgroundUrl" />
+              <img class="icon" v-else src="@/assets/images/model.png" />
             </div>
             <div class="tit">
 
@@ -38,7 +39,7 @@
             <p>{{ item.shortDescription }}</p>
             <div class="opera">
               <div class="edit" @click="handleEdit(item)">编辑</div>
-              <el-button class="delete" :disabled="item.status === 1" size="medium" icon="el-icon-delete" type="text"
+              <el-button class="delete" :disabled="item.enable === 1" size="medium" icon="el-icon-delete" type="text"
                          @click="handleDelete(item)">删除
               </el-button>
               <div class="link" @click="handleDetails(item)">查看详情</div>

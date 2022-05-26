@@ -1,24 +1,22 @@
-<!-- 摄像机信息 -->
+<!-- 设备信息 -->
 <template>
   <div class="clearfix" v-loading="loading" :element-loading-text="login_text" element-loading-spinner="el-icon-loading"
        element-loading-background="rgba(0, 0, 0.8, 0.8)">
     <div>
-      <span class="ft16">摄像机信息</span>
+      <span class="ft16">设备信息</span>
     </div>
     <div>
       <el-description class="mt-xl">
-        <el-description-item label="摄像机编号" :value="list.deviceNo" :span="8" />
-        <el-description-item label="摄像机名称" :value="list.deviceName" :span="8" />
-        <el-description-item label="摄像机类型"
-                             :value="info.videoDeviceType == 1?'NVR设备':info.videoDeviceType == 2?'球形摄像机':info.videoDeviceType == 3?'半球形摄像机':info.videoDeviceType == 4?'枪式摄像机':info.videoDeviceType == 5?'网络摄像机':'其他'"
-                             :span="8" />
-        <el-description-item label="摄像机地址" :value="list.address" :span="8" />
+        <el-description-item label="设备编号" :value="list.deviceNo" :span="8" />
+        <el-description-item label="设备名称" :value="list.deviceName" :span="8" />
+        <el-description-item label="设备类型" :value="formatType(list)" :span="8" />
+        <el-description-item label="设备地址" :value="list.deviceAddress" :span="8" />
         <el-description-item label="在线状态" :value="formatStatus(list.status)" :span="8" />
         <el-description-item label="创建时间" :value="parseTime(list.createTime)" :span="8" />
-        <el-description-item label="所属空间" :value="list.spaceName" :span="8" />
+        <el-description-item label="所属企业" :value="list.enterpriseName" :span="8" />
         <el-description-item label="更新时间" :value="parseTime(list.updateTime)" :span="8" />
       </el-description>
-      <el-button class="mt-m" type="primary" @click="handleInfo(list)">查看摄像机详情</el-button>
+      <el-button class="mt-m" type="primary" @click="handleInfo(list)">查看设备详情</el-button>
     </div>
     <div class="row">
       <div class="col left">
@@ -28,20 +26,20 @@
                   info.eventCaptureUrl :imagePath + info.eventCaptureUrl]">
         </el-image>
       </div>
-      <div class="col right">
+      <!-- <div class="col right">
         <div class="tit">
           <span class="video">事件关联录像</span>
           <el-button :disabled="info.eventVideoUrl?false:true" @click="downVideo(videoSrc)" size="mini" type="primary">
-            下载录像 </el-button>
-          <!-- <a ref="videoA" :style="info.eventVideoUrl?'':'pointer-events: none'" :href="videoSrc" :download="videoSrc">
+            下载录像 </el-button> -->
+      <!-- <a ref="videoA" :style="info.eventVideoUrl?'':'pointer-events: none'" :href="videoSrc" :download="videoSrc">
             
           </a>&nbsp; -->
-          <el-button :disabled="info.eventVideoUrl?false:true" size="mini" @click="copy">复制链接</el-button>
+      <!-- <el-button :disabled="info.eventVideoUrl?false:true" size="mini" @click="copy">复制链接</el-button>
         </div>
         <video height="300px" controls :src="videoSrc">
           您的浏览器不支持 video 标签。
         </video>
-      </div>
+      </div> -->
     </div>
 
   </div>
@@ -51,7 +49,7 @@
 import { imagePath } from '@/config/env'
 import ElDescription from '@/components/ElDescription'
 import ElDescriptionItem from '@/components/ElDescriptionItem'
-import { getVideoDeviceInfo } from '@/api/app/camera/videoDevice'
+import { getDeviceInfo } from '@/api/app/baseinfo/device'
 import { getDeviceVideoRecordList, getDeviceVideoRecordInfo } from '@/api/app/camera/deviceVideoRecord'
 export default {
   components: {
@@ -75,6 +73,7 @@ export default {
       },
       imagePath: imagePath,
       deviceStatus: [],
+      deviceTypeOptions: [],
       loading: false,
       login_text: '',
     }
@@ -100,22 +99,24 @@ export default {
     },
   },
   mounted() {
-    this.getDicts('video_status').then((res) => {
+    this.getDicts('equipment_status').then((res) => {
       this.deviceStatus = res.data.data
     })
+    this.getDicts('device_type').then((res) => {
+      this.deviceTypeOptions = res.data.data
+    })
     this.getList()
-    console.log(this.info)
   },
   methods: {
     getList() {
       const id = this.info.deviceId
-      getVideoDeviceInfo(id).then((res) => {
+      getDeviceInfo(id).then((res) => {
         this.list = res.data.data
       })
     },
     handleInfo(row) {
       this.$router.push({
-        path: '/app/camera/videoDevice/info/index/',
+        path: '/app/baseinfo/device/info/index/',
         query: {
           id: row.deviceId,
         },
@@ -174,6 +175,9 @@ export default {
     },
     formatStatus(status) {
       return this.selectDictLabel(this.deviceStatus, status)
+    },
+    formatType(row) {
+      return this.selectDictLabel(this.deviceTypeOptions, row.deviceType)
     },
     copy() {
       let createInput = document.createElement('input')

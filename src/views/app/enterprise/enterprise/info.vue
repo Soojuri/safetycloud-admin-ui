@@ -63,7 +63,7 @@
           </el-descriptions-item>
           <el-descriptions-item label="成立日期"> {{ parseTime(form.establishmentDate) }}
           </el-descriptions-item>
-          <el-descriptions-item label="注册资金（万元）">
+          <!-- <el-descriptions-item label="注册资金（万元）">
           </el-descriptions-item>
           <el-descriptions-item label="年利润（万元）">
           </el-descriptions-item>
@@ -78,31 +78,31 @@
           <el-descriptions-item label="安全生产标准化等级">
           </el-descriptions-item>
           <el-descriptions-item label="安全标准化评定单位">
-          </el-descriptions-item>
+          </el-descriptions-item> -->
           <el-descriptions-item label="安全标准化评定时间"> {{ parseTime(form.establishmentDate) }}
           </el-descriptions-item>
-          <el-descriptions-item label="安全标准类型">
+          <!-- <el-descriptions-item label="安全标准类型">
           </el-descriptions-item>
           <el-descriptions-item label="占地面积（平方米）">
           </el-descriptions-item>
           <el-descriptions-item label="有无重大危险源">
-          </el-descriptions-item>
+          </el-descriptions-item> -->
           <el-descriptions-item label="邮政编码"> {{ form.postCode }}
           </el-descriptions-item>
-          <el-descriptions-item label="安全生产管理机构">
-          </el-descriptions-item>
+          <!-- <el-descriptions-item label="安全生产管理机构">
+          </el-descriptions-item> -->
           <el-descriptions-item label="主要负责人"> {{ form.enterpriseLeader }}
           </el-descriptions-item>
           <el-descriptions-item label="主要负责人电话"> {{ form.enterpriseLeaderPhone }}
           </el-descriptions-item>
           <el-descriptions-item label="主要负责人手机"> {{ form.enterpriseLeaderCellPhone }}
           </el-descriptions-item>
-          <el-descriptions-item label="日常联系人">
+          <!-- <el-descriptions-item label="日常联系人">
           </el-descriptions-item>
           <el-descriptions-item label="日常联系人电话">
           </el-descriptions-item>
           <el-descriptions-item label="日常联系人手机">
-          </el-descriptions-item>
+          </el-descriptions-item> -->
           <el-descriptions-item labelStyle="white-space: nowrap;" :span="3" label="备注"> {{ form.remark }}
           </el-descriptions-item>
         </el-descriptions>

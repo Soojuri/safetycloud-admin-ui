@@ -66,7 +66,7 @@ export function getByClassifyId(query) {
 //分页查询
 export function fetchList(query) {
   return request({
-    url: '/device​/tdeviceinfo​/page',
+    url: '/baseinfo/tdeviceinfo​/page',
     method: 'get',
     params: query
   })

@@ -75,6 +75,8 @@
               <template slot-scope="scope">
                 <el-button size="mini" icon="el-icon-info" type="text" @click="handleDetails(scope.row)">详情
                 </el-button>
+                <el-button size="mini" icon="el-icon-edit" v-if="scope.row.status == 0" type="text"
+                           @click="handleAudit(scope.row)">审核</el-button>
                 <el-button size="mini" icon="el-icon-edit" type="text" @click="handleEdit(scope.row)">编辑
                 </el-button>
                 <el-button size="mini" icon="el-icon-delete" :disabled="scope.row.status == 1?true:false" type="text"
@@ -89,6 +91,24 @@
                       :limit.sync="queryParams.size" @pagination="getList" />
         </div>
       </div>
+      <!-- 审核弹窗 -->
+      <el-dialog title="状态" :visible.sync="dialogVisible" width="width" @close="handleClose">
+        <el-form ref="form" :model="form" label-width="80px">
+          <el-form-item label="状态">
+            <el-select v-model="form.status" placeholder="请选择状态">
+              <el-option label="未审核" :value="0"></el-option>
+              <el-option label="正常" :value="1"></el-option>
+              <el-option label="停用" :value="2"></el-option>
+              <el-option label="存在风险" :value="3"></el-option>
+              <el-option label="审核未通过" :value="4"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-form>
+        <div slot="footer">
+          <el-button @click="handleClose">取 消</el-button>
+          <el-button type="primary" @click="handleSure">确 定</el-button>
+        </div>
+      </el-dialog>
       <!-- 弹窗 -->
       <pop-form v-if="formOptions.visible" :dict="dict" :visible.sync="formOptions.visible" :data="formOptions.data"
                 @ok="getList()">
@@ -113,6 +133,9 @@ export default {
         enterpriseCode: null,
         status: null,
       },
+      form: {
+        status: null,
+      },
       total: 0,
       tableData: [],
       dict: {},
@@ -120,6 +143,7 @@ export default {
         visible: false,
         data: {},
       },
+      dialogVisible: false,
       loading: false,
       activeName: 'work',
     }
@@ -156,6 +180,19 @@ export default {
           this.loading = false
         })
     },
+    handleClose() {
+      this.resetForm('form')
+      this.dialogVisible = false
+      this.getList()
+    },
+    handleSure() {
+      putEnterprise(this.form).then((res) => {
+        if (res.data.data) {
+          this.handleClose()
+          this.msgSuccess('修改成功')
+        }
+      })
+    },
     handleClick(tab, event) {
       console.log(tab, event)
     },
@@ -175,6 +212,14 @@ export default {
       // }
       this.formOptions.data.id = row.enterpriseId
       this.formOptions.visible = true
+    },
+    handleAudit(row) {
+      // if (!this.permissions.baseinfo_tdeviceworkorder_edit) {
+      //   return this.msgWarn('权限不足')
+      // }
+      this.form.enterpriseId = row.enterpriseId
+      this.form.status = row.status
+      this.dialogVisible = true
     },
     handleQuery() {
       const that = this

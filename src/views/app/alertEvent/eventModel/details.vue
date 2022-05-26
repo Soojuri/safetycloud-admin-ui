@@ -25,7 +25,7 @@
           </el-descriptions-item>
           <el-descriptions-item label="更新时间"> {{ parseTime(form.updateTime) }}
           </el-descriptions-item>
-          <el-descriptions-item label="创建人"> {{ form.updatorName }}
+          <el-descriptions-item label="更新人"> {{ form.updatorName }}
           </el-descriptions-item>
           <el-descriptions-item labelStyle="white-space: nowrap" :span="2" label="备注"> {{ form.remark }}
           </el-descriptions-item>
@@ -72,7 +72,7 @@
           <el-table-column label="操作" align="center">
             <template slot-scope="scope">
               <el-button size="mini" icon="el-icon-info" type="text"
-                         @click="$router.push('/app/algorithm/manage/details/index?id=' + scope.row.algorithmId)">查看
+                         @click="$router.push('/app/event/manual/info/index?id=' + scope.row.eventId)">查看
               </el-button>
             </template>
           </el-table-column>

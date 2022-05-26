@@ -22,6 +22,26 @@ export default [{
     }]
   },
   {
+    path: '/app/baseinfo/device/info/',
+    component: Layout,
+    children: [{
+      path: 'index',
+      name: '设备详情',
+      component: () =>
+        import( /* webpackChunkName: "page" */ '@/views/app/baseinfo/device/info.vue')
+    }]
+  },
+  {
+    path: '/app/event/manual/info/',
+    component: Layout,
+    children: [{
+      path: 'index',
+      name: '事件详情',
+      component: () =>
+        import( /* webpackChunkName: "page" */ '@/views/app/event/manual/info.vue')
+    }]
+  },
+  {
     path: '/app/enterprise/enterprise/info/',
     component: Layout,
     children: [{
