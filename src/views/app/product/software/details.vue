@@ -17,7 +17,7 @@
           </el-descriptions-item>
           <el-descriptions-item label="产品描述"> {{ form.productDescription }}
           </el-descriptions-item>
-          <el-descriptions-item label="产品分类"> 软件服务产品
+          <el-descriptions-item label="产品分类"> 软件服务模型产品
           </el-descriptions-item>
           <el-descriptions-item label="产品子类"> {{ formatType(form) }}
           </el-descriptions-item>
