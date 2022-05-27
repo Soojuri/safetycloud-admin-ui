@@ -127,6 +127,15 @@ export const rule = {
       callback()
     }
   },
+  // 18位统一社会信用代码(新)正则校验
+  validatorCredit(rule, value, callback) {
+    let reg = /[0-9A-HJ-NPQRTUWXY]{2}\d{6}[0-9A-HJ-NPQRTUWXY]{10}/
+    if (value && (!(reg).test(value))) {
+      callback(new Error('请输入正确的统一社会信用代码'))
+    } else {
+      callback()
+    }
+  },
   /**
    * 校验 请输入中文、英文、数字包括下划线
    * 名称校验

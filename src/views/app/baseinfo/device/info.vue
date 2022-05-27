@@ -101,16 +101,16 @@
           <el-table-column prop="creator" align='center' label="创建人" />
           <el-table-column prop="repairer" align='center' label="修理人" />
           <el-table-column prop="repairTime" align='center' label="维修时间" />
-          <el-table-column label="操作" align='center' width="250">
-            <!-- <template slot-scope="scope">
+          <el-table-column label="操作" align='center' width="100">
+            <template slot-scope="scope">
               <el-button size="mini" icon="el-icon-info" type="text" @click="handleDetails(scope.row)">详情
               </el-button>
-              <el-button size="mini" icon="el-icon-edit" type="text" @click="handleEdit(scope.row)">编辑
+              <!-- <el-button size="mini" icon="el-icon-edit" type="text" @click="handleEdit(scope.row)">编辑
               </el-button>
               <el-button size="mini" icon="el-icon-delete" :disabled="scope.row.status == 1?true:false" type="text"
                          @click="handleDelete(scope.row)">删除
-              </el-button>
-            </template> -->
+              </el-button> -->
+            </template>
           </el-table-column>
         </el-table>
         <div class="g-page-x mt-m">
@@ -118,6 +118,57 @@
                       :limit.sync="queryParams.size" @pagination="getList" />
         </div>
       </div>
+      <!-- 详情 -->
+      <el-dialog title="故障记录详情" :visible.sync="dialogVisible" width="888px">
+        <el-descriptions :column="2" size="medium" class="mt-xl">
+          <el-descriptions-item labelStyle="white-space: nowrap" contentStyle="overflow:hidden;text-overflow:ellipsis;"
+                                label="工单编号">
+            <el-tooltip effect="dark" :content="arr.workOrderNo" placement="top">
+              <span>{{ arr.workOrderNo }}</span>
+            </el-tooltip>
+          </el-descriptions-item>
+          <el-descriptions-item label="故障名称"> {{ arr.faultName }}
+          </el-descriptions-item>
+          <el-descriptions-item label="故障类型">
+            {{ arr.faultType == 0?'其它故障':arr.faultType == 1?'网络通信':arr.faultType == 2?'设备断电':arr.faultType == 3?'设备损坏':'配置错误' }}
+          </el-descriptions-item>
+          <el-descriptions-item label="故障来源"> {{ arr.source == 1?'设备上报':'用户报修' }}
+          </el-descriptions-item>
+          <el-descriptions-item label="目标设备"> {{ arr.deviceName }}
+          </el-descriptions-item>
+          <el-descriptions-item label="故障状态">
+            {{ arr.status == 0?'待处理':arr.status == 1?'处理中':arr.status == 2?'已处理':'误报' }}
+          </el-descriptions-item>
+          <el-descriptions-item label="故障时间"> {{parseTime(arr.faultTime)}}
+          </el-descriptions-item>
+          <el-descriptions-item label="故障描述"> {{arr.faultDescription}}
+          </el-descriptions-item>
+          <el-descriptions-item :span="2" label="故障图片">
+            <img :src="arr.faultPictureUrl" alt="">
+          </el-descriptions-item>
+          <el-descriptions-item label="故障备注"> {{arr.remark}}
+          </el-descriptions-item>
+          <el-descriptions-item label="故障可能原因"> {{arr.repairPossibleReason}}
+          </el-descriptions-item>
+          <el-descriptions-item label="维修时间"> {{parseTime(arr.repairTime)}}
+          </el-descriptions-item>
+          <el-descriptions-item label="维修人"> {{arr.repairer}}
+          </el-descriptions-item>
+          <el-descriptions-item label="维修方法"> {{arr.repairSolution}}
+          </el-descriptions-item>
+          <el-descriptions-item label="创建时间"> {{parseTime(arr.createTime)}}
+          </el-descriptions-item>
+          <el-descriptions-item label="创建人"> {{arr.creator}}
+          </el-descriptions-item>
+          <el-descriptions-item label="更新时间"> {{parseTime(arr.updateTime)}}
+          </el-descriptions-item>
+          <el-descriptions-item label="更新人"> {{arr.updator}}
+          </el-descriptions-item>
+          <el-descriptions-item :span="2" label="维修图片">
+            <img :src="arr.repairPictureUrl" alt="">
+          </el-descriptions-item>
+        </el-descriptions>
+      </el-dialog>
     </div>
   </div>
   </div>
@@ -144,6 +195,8 @@ export default {
       tableData: [],
       id: null,
       total1: 0,
+      dialogVisible: false,
+      arr: [],
     }
   },
   computed: {},
@@ -159,6 +212,7 @@ export default {
   methods: {
     getList() {
       this.loading = true
+      this.queryParams.deviceId = this.$route.query.id
       getFaultRecordList(this.queryParams)
         .then((res) => {
           this.loading = false
@@ -182,6 +236,10 @@ export default {
       this.queryParams.size = 10
       this.queryParams.current = 1
       this.getList()
+    },
+    handleDetails(row) {
+      this.dialogVisible = true
+      this.arr = row
     },
   },
 }

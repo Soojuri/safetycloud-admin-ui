@@ -13,7 +13,7 @@ const delWorkOrder = (id) => deleteAction('/baseinfo/tDeviceWorkOrder/' + id);
 const putWorkOrder = (params) => putAction('/baseinfo/tDeviceWorkOrder/', params);
 
 //查询目标设备列表
-const getDeviceInfoList = (params) => getAction('/baseinfo/tDeviceWorkOrder/getDeviceInfoList', params);
+const getDeviceInfoList = (params) => getAction('/baseinfo/tdeviceinfo/getDeviceInfoList', params);
 
 //完成工单
 const complete = (params) => postAction("/baseinfo/tDeviceWorkOrder/complete", params);

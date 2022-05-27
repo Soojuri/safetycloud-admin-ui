@@ -24,7 +24,8 @@
         <div class="arit-list" v-if="tableData && tableData.length > 0">
           <div class="cell" v-for="(item, index) in tableData" :key="index">
             <div class="cover">
-              <img class="icon" :src="item.productCoverUrl" />
+              <img class="icon" v-if="item.productCoverUrl" :src="item.productCoverUrl" />
+              <img class="icon" v-else src="@/assets/images/model.png" />
             </div>
             <div class="tit">
               <label>{{ item.productName }}</label>

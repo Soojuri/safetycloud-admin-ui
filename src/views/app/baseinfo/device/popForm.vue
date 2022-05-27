@@ -19,13 +19,13 @@
                 </el-option>
               </el-select>
             </el-form-item>
-            <el-form-item label='企业' prop='enterpriseId'>
+            <!-- <el-form-item label='企业' prop='enterpriseId'>
               <el-select v-model="form.enterpriseId" placeholder="请选择企业">
                 <el-option v-for="item in enterpriseList" :key="item.enterpriseId" :label="item.enterpriseName"
                            :value="item.enterpriseId">
                 </el-option>
               </el-select>
-            </el-form-item>
+            </el-form-item> -->
             <el-form-item label='物联产品' prop='productId'>
               <el-select v-model="form.productId" placeholder="请选择物联产品" @change="whChange">
                 <el-option v-for="item in productAllList" :key="item.productId" :label="item.productName"
@@ -122,7 +122,7 @@ export default {
       rules: {
         deviceName: [this.$formRules.checkLen(), this.$formRules.checkNecessary('请输入设备名称')],
         deviceType: [this.$formRules.checkNecessary('请选择设备类型')],
-        deviceId: [this.$formRules.checkNecessary('请输入设备编号')],
+        deviceId: [this.$formRules.checkNecessary('请输入设备编号'), this.$formRules.checkLen(32)],
         selectedOptions: [this.$formRules.checkNecessary('请选择省市区')],
         deviceAddress: [this.$formRules.checkNecessary('请选择设备地址')],
         productId: [this.$formRules.checkNecessary('请选择物联产品')],

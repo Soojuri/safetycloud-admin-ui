@@ -2,11 +2,11 @@
 <template>
   <div class="sub-page">
     <div class="g-card">
-      <el-form ref="queryParams" :model="queryParams" inline label-width="70px">
-        <el-form-item label="产品名称" prop="productName" :rules="[$formRules.checkLen()]">
-          <el-input v-model="queryParams.productName" placeholder="请输入产品名称"></el-input>
+      <el-form ref="queryParams" :model="queryParams" inline>
+        <el-form-item label="设备产品名称" prop="productName" :rules="[$formRules.checkLen()]">
+          <el-input v-model="queryParams.productName" placeholder="请输入设备产品名称"></el-input>
         </el-form-item>
-        <el-form-item label="状态" prop="status">
+        <el-form-item label="产品状态" prop="status">
           <el-select v-model="queryParams.status" placeholder="请选择" style="width: 120px">
             <el-option label="未发布" :value="0" />
             <el-option label="已发布" :value="1" />
@@ -25,11 +25,11 @@
         <div class="g-table">
           <el-table v-loading="loading" border :data="tableData">
             <el-table-column prop="productName" align='center' label="设备产品名称" />
-            <el-table-column prop="deviceType" align='center' label="产品类型" :formatter="formatType" />
+            <el-table-column prop="deviceType" align='center' label="设备类型" :formatter="formatType" />
             <el-table-column prop="deviceModel" align='center' label="设备型号" />
-            <el-table-column prop="manufacturer" align='center' label="设备厂家" />
+            <el-table-column prop="manufacturer" align='center' label="设备厂商" />
             <el-table-column prop="remark" align='center' label="产品备注" />
-            <el-table-column prop="status" align='center' label="状态">
+            <el-table-column prop="status" align='center' label="产品状态">
               <template slot-scope="scope">
                 <span v-if="scope.row.status == 0">
                   <a class="status-info"></a>
@@ -73,7 +73,7 @@
         <el-descriptions :column="2" size="medium">
           <el-descriptions-item labelStyle="white-space: nowrap" contentStyle="overflow:hidden;text-overflow:ellipsis;"
                                 label="产品编号">
-            <el-tooltip effect="dark" :content="arr.no" placement="top">
+            <el-tooltip effect="dark" :content="arr.deviceProductId" placement="top">
               <span>{{ arr.deviceProductId }}</span>
             </el-tooltip>
           </el-descriptions-item>

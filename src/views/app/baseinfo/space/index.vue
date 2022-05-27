@@ -6,12 +6,6 @@
         <el-form-item label="空间名称" prop="spaceName" :rules="[$formRules.checkLen()]">
           <el-input v-model="queryParams.spaceName" placeholder="请输入空间名称"></el-input>
         </el-form-item>
-        <!-- <el-form-item label="协议类型" prop="protocolType">
-          <el-select v-model="queryParams.protocolType" placeholder="请选择">
-            <el-option v-for="item in dict.protocolType" :key="item.value" :label="item.label" :value="item.value">
-            </el-option>
-          </el-select> -->
-        </el-form-item>
         <el-form-item label="空间状态" prop="status">
           <el-select v-model="queryParams.status" placeholder="请选择" style="width: 120px">
             <el-option label="已禁用" :value="0" />
@@ -29,14 +23,19 @@
         </div>
         <div class="g-table">
           <el-table v-loading="loading" border :data="tableData">
-            <!-- <el-table-column prop="spaceId"  label="空间ID" /> -->
             <el-table-column prop="spaceName" align='center' label="空间名称" />
             <el-table-column prop="deviceCount" align='center' label="设备数量" />
-            <!-- <el-table-column prop="protocolType" label="协议类型" :formatter="formatType" /> -->
+            <el-table-column prop="remark" align='center' label="空间描述" />
             <el-table-column prop="status" align='center' label="空间状态">
               <template slot-scope="scope">
-                <el-tag type="success" v-if="scope.row.status == 1">已启用</el-tag>
-                <el-tag type="info" v-if="scope.row.status == 0">已停用</el-tag>
+                <template v-if="scope.row.status == 0">
+                  <span class="red_status"></span>
+                  <span class="status_text">已停用</span>
+                </template>
+                <template v-if="scope.row.status == 1">
+                  <span class="green_status"></span>
+                  <span class="status_text">已启用</span>
+                </template>
               </template>
             </el-table-column>
             <el-table-column prop="createTime" align='center' label="创建时间">
@@ -83,15 +82,12 @@ export default {
         size: 10,
         current: 1,
         spaceName: null,
-        protocolType: null,
         status: null,
       },
       total: 0,
       protocolTypeDict: [], //协议类型字典
       tableData: [],
-      dict: {
-        commission: [],
-      },
+      dict: {},
       formOptions: {
         visible: false,
         data: {},
@@ -101,13 +97,7 @@ export default {
   },
   watch: {},
   mounted() {
-    this.getDicts('space_protocol_type').then((res) => {
-      this.dict.protocolType = res.data.data
-      this.getList()
-    })
-    this.getDicts('commission_list').then((res) => {
-      this.dict.commission = res.data.data
-    })
+    this.getList()
   },
   computed: {
     ...mapGetters(['permissions']),
@@ -124,9 +114,6 @@ export default {
         .catch(() => {
           this.loading = false
         })
-    },
-    formatType(row) {
-      return this.selectDictLabel(this.dict.protocolType, row.protocolType)
     },
     handleAdd() {
       // if (!this.permissions.camera_space_add) return this.msgWarn('权限不足')

@@ -41,6 +41,7 @@
         <el-table :data="list" border>
           <el-table-column prop="deviceNo" align='center' label="设备编号" />
           <el-table-column prop="deviceName" align='center' label="设备名称" />
+          <el-table-column align='center' prop='deviceModel' label='设备型号' />
           <el-table-column prop="enterpriseName" align='center' label="企业名称" />
           <!-- <el-table-column align='center' label='所属分组'>
             <template slot-scope="scope">
@@ -48,11 +49,6 @@
             </template>
           </el-table-column> -->
           <el-table-column align='center' prop='productName' label='产品名称' />
-          <el-table-column align='center' prop='registryTime' label='注册时间'>
-            <template slot-scope="scope">
-              {{parseTime(scope.row.registryTime)}}
-            </template>
-          </el-table-column>
           <el-table-column align='center' prop='status' label='状态' width="100" :formatter="formatStatus" />
           <!-- <el-table-column label="操作">
             <template slot-scope="scope">
@@ -112,7 +108,7 @@ export default {
   //挂载完成（可以访问DOM元素）
   mounted() {
     // this.getDictList()
-    this.getDicts('device_status').then((res) => {
+    this.getDicts('equipment_status').then((res) => {
       this.statusOptions = res.data.data
     })
     this.getList()

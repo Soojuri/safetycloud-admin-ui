@@ -9,13 +9,6 @@
             <el-form-item label='空间名称' prop='spaceName'>
               <el-input size='small' v-model.trim='form.spaceName' placeholder='请输入空间名称'></el-input>
             </el-form-item>
-            <!-- <el-form-item label='协议类型' prop='protocolType'>
-              <el-select v-model="form.protocolType" placeholder="请选择">
-                <el-option v-for="item in dict.protocolType" :key="item.value" :label="item.label"
-                           :value="parseInt(item.value)">
-                </el-option>
-              </el-select>
-            </el-form-item> -->
             <el-form-item label="行政地区" prop="province">
               <el-row type="flex" justify="space-around" gutter="5">
                 <el-col>
@@ -41,7 +34,7 @@
                 </el-col>
               </el-row>
             </el-form-item>
-            <el-form-item label='街道' prop='subdistrict'>
+            <el-form-item label='所属街道' prop='subdistrict'>
               <el-select v-model="form.subdistrict" placeholder="请选择街道">
                 <el-option v-for="item in subdistrictList" :key="item.id" :label="item.name" :value="item.id">
                 </el-option>
@@ -50,15 +43,6 @@
             <el-form-item label='详细地址' prop='address'>
               <el-input size='small' v-model='form.address' placeholder='请输入详细地址'></el-input>
             </el-form-item>
-            <el-form-item label='小区地址' prop='community'>
-              <el-input size='small' v-model='form.community' placeholder='请输入小区地址'></el-input>
-            </el-form-item>
-            <!-- <el-form-item label='所属委办局' prop='officeName'>
-              <el-select v-model="form.officeName" placeholder="请选择">
-                <el-option v-for="item in dict.commission" :key="item.label" :label="item.label" :value="item.label">
-                </el-option>
-              </el-select>
-            </el-form-item> -->
             <el-form-item label="空间状态" prop="status">
               <el-switch class="mt-s" size="small" v-model="form.status" :active-value="1" :inactive-value="0">
               </el-switch>
@@ -109,7 +93,6 @@ export default {
         county: null,
         subdistrict: null,
         spaceName: null,
-        protocolType: null,
         officeName: null,
         address: null,
         remark: null,
@@ -120,11 +103,10 @@ export default {
       subdistrictList: [],
       rules: {
         spaceName: [this.$formRules.checkLen(), this.$formRules.checkNecessary('请输入空间名称')],
-        protocolType: [this.$formRules.checkNecessary('请选择协议类型')],
         province: [this.$formRules.checkNecessary('请选择行政地区')],
+        subdistrict: [this.$formRules.checkNecessary('请选择所属街道')],
         address: [this.$formRules.checkNecessary('请输入详细地址'), this.$formRules.checkLen(50)],
         status: [this.$formRules.checkNecessary('请选择空间状态')],
-        community: [this.$formRules.checkLen(50)],
       },
     }
   },
