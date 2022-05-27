@@ -17,7 +17,7 @@
               <el-input size='small' v-model.trim='form.productDescription' placeholder='请输入一句话产品描述'></el-input>
             </el-form-item>
             <el-form-item label="产品分类" prop="productType">
-              <el-input size='small' placeholder='请输入产品描述' value='软件服务产品管理' disabled='true'></el-input>
+              <el-input size='small' placeholder='请输入产品描述' value='软件服务模型产品' disabled='true'></el-input>
               <!-- <el-select disabled='true' v-model="form.productType" value-key='' placeholder="请选择产品分类">
                 <el-option label="软件服务产品管理" :value="3" :key="3">
                 </el-option>
