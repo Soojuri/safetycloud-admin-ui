@@ -1,7 +1,7 @@
 <template>
   <div class='sub-page'>
     <div class="g-card">
-      <div class="tit">账号信息</div>
+      <!-- <div class="tit">账号信息</div>
       <div class="information">
         <el-descriptions :column="3" size="medium" class="mt-xl">
           <el-descriptions-item label="管理员账号"> {{ form.username }}
@@ -33,7 +33,7 @@
           <el-descriptions-item labelStyle="white-space: nowrap;" :span="3" label="备注"> {{ form.remark }}
           </el-descriptions-item>
         </el-descriptions>
-      </div>
+      </div> -->
       <div class="tit">企业信息</div>
       <div class="information">
         <el-descriptions :column="3" size="medium" class="mt-xl">

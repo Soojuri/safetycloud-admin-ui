@@ -41,8 +41,8 @@
                 </span>
               </template>
             </el-table-column>
-            <el-table-column prop="notifierName" align="center" label="通知人" />
-            <el-table-column prop="createName" align="center" label="创建人" />
+            <el-table-column prop="updator" align="center" label="更新人" />
+            <el-table-column prop="creator" align="center" label="创建人" />
             <el-table-column prop="createTime" align="center" label="发现时间">
               <template slot-scope="scope">{{parseTime(scope.row.createTime)}}</template>
             </el-table-column>

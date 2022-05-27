@@ -21,11 +21,11 @@
           </el-descriptions-item>
           <el-descriptions-item label="创建时间"> {{ parseTime(form.createTime) }}
           </el-descriptions-item>
-          <el-descriptions-item label="创建人"> {{ form.creatorName }}
+          <el-descriptions-item label="创建人"> {{ form.creator }}
           </el-descriptions-item>
           <el-descriptions-item label="更新时间"> {{ parseTime(form.updateTime) }}
           </el-descriptions-item>
-          <el-descriptions-item label="更新人"> {{ form.updatorName }}
+          <el-descriptions-item label="更新人"> {{ form.updator }}
           </el-descriptions-item>
           <el-descriptions-item labelStyle="white-space: nowrap" :span="2" label="备注"> {{ form.remark }}
           </el-descriptions-item>
