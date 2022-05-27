@@ -70,7 +70,7 @@ export default {
         current: 1,
         productName: null,
         algorithmCategory: null,
-        productType: 1,
+        productType: 3,
       },
       total: 0,
       tableData: [],

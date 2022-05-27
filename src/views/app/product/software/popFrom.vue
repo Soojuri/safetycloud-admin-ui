@@ -98,7 +98,7 @@ export default {
         status: null,
         productLogoUrl: null,
         productCoverUrl: null,
-        productType: 1,
+        productType: 3,
       },
       id: null,
       rules: {
