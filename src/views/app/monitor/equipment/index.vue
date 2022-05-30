@@ -31,7 +31,7 @@
       </div>
 
       <div class="col-left">
-        <s-box class="f1" title="事件级别分布情况">
+        <s-box class="f1" title="设备故障统计">
           <div class="error-sta">
             <ul>
               <li>
