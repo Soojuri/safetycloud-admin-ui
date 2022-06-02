@@ -32,10 +32,6 @@
             </div>
             <p>{{ item.productDescription }}</p>
             <div class="opera">
-              <div class="edit" @click="handleEdit(item)">编辑</div>
-              <el-button class="delete" :disabled="item.algorithmCount || item.status === 1" size="medium"
-                         icon="el-icon-delete" type="text" @click="handleDelete(item)">删除
-              </el-button>
               <div class="link" @click="createOrder(item)">立即购买</div>
             </div>
           </div>
