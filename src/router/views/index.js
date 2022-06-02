@@ -88,6 +88,15 @@ export default [{
         import( /* webpackChunkName: "page" */ '@/views/app/product/edge/details.vue')
     }]
   }, {
+    path: '/app/product/order/details/',
+    component: Layout,
+    children: [{
+      path: 'index',
+      name: '订单详情',
+      component: () =>
+        import( /* webpackChunkName: "page" */ '@/views/app/product/order/details.vue')
+    }]
+  },{
     path: '/app/product/software/details/',
     component: Layout,
     children: [{
