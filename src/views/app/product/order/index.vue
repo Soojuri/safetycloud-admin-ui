@@ -34,7 +34,7 @@
                 <span v-if="scope.row.orderType == 3">软件服务产品订单</span>
               </template>
             </el-table-column>
-            <el-table-column prop="serialNo" align='center' label="下单账号" />
+            <el-table-column prop="createName" align='center' label="下单账号" />
             <el-table-column prop="transactType" align='center' label="交易类型" :formatter="formatTransactType" />
             <el-table-column prop="payChannel" align='center' label="支付渠道">
               <template slot-scope="scope">
