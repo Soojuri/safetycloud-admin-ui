@@ -82,7 +82,7 @@
       </div>
       <!-- 操作栏 -->
       <div class="g-opera  mt-l">
-        <el-button type="primary" @click="handleEvent()">批量上报城运</el-button>
+        <!-- <el-button type="primary" @click="handleEvent()">批量上报城运</el-button> -->
         <el-button type="danger" @click="handleEvent(1,4)">批量判定误报</el-button>
         <el-button type="warning" @click="handleEvent(1,3)">批量判定重复</el-button>
         <el-radio-group class="fr" v-model="queryParams.eventStatus" @change="getList">
@@ -156,9 +156,9 @@
               <el-button :disabled="scope.row.handleResult === 3 || scope.row.reportResult === 2" size="mini"
                          type="text" icon="el-icon-connection" @click="handleSingleEvent(scope.row.eventId,3,1)">重复
               </el-button>
-              <el-button :disabled="scope.row.handleResult == 4 || scope.row.handleResult == 3 || scope.row.handleResult == 2"
+              <!-- <el-button :disabled="scope.row.handleResult == 4 || scope.row.handleResult == 3 || scope.row.handleResult == 2"
                          size="mini" type="text" icon="el-icon-position" @click="handleSingleEvent(scope.row.eventId)">
-                上报城运</el-button>
+                上报城运</el-button> -->
             </template>
           </el-table-column>
         </el-table>

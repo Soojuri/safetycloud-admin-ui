@@ -8,10 +8,10 @@
             <div class="product_name">{{info.eventName}}：{{info.eventId}}</div>
             <el-descriptions size="medium" column="2" class="mt-m">
               <el-descriptions-item label="事件名称">{{info.eventName}}</el-descriptions-item>
-              <el-descriptions-item label="事件类型">{{info.eventType == 1?'作业活动':'设备设施'}}</el-descriptions-item>
+              <el-descriptions-item label="事件类型">{{info.eventType == 1?'人的不安全行为':'物的不安全状态'}}</el-descriptions-item>
               <!-- <el-descriptions-item label="发现时间">{{parseTime(info.createTime)}}</el-descriptions-item> -->
               <el-descriptions-item label="事件等级">{{formatEventLevel(info)}}</el-descriptions-item>
-              <el-descriptions-item label="处理时间">{{parseTime(info.eventHandleTime)}}</el-descriptions-item>
+              <!-- <el-descriptions-item label="处理时间">{{parseTime(info.eventHandleTime)}}</el-descriptions-item> -->
               <!-- <el-descriptions-item label="上报类型">{{formatReportType(info)}}</el-descriptions-item> -->
               <el-descriptions-item :span='2' label="事件编号">{{ info.eventNo }}</el-descriptions-item>
               <el-descriptions-item label="备注">{{info.remark}}</el-descriptions-item>

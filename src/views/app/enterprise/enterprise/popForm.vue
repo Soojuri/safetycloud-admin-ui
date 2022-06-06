@@ -64,8 +64,16 @@
                   </el-option>
                 </el-select>
               </el-form-item>
+              <el-form-item label='成立时间' prop='establishmentDate'>
+                <el-date-picker v-model="form.establishmentDate" type="datetime" value-format="timestamp"
+                                placeholder="选择日期时间">
+                </el-date-picker>
+              </el-form-item>
               <el-form-item label='通讯地址' prop='address'>
                 <el-input size='small' v-model='form.address' placeholder='请输入通讯地址'></el-input>
+              </el-form-item>
+              <el-form-item label='邮政编码' prop='postCode'>
+                <el-input size='small' v-model='form.postCode' placeholder='请输入邮政编码'></el-input>
               </el-form-item>
               <el-form-item label='企业电话' prop='enterprisePhone'>
                 <el-input size='small' v-model='form.enterprisePhone' placeholder='请输入企业电话'></el-input>
@@ -87,6 +95,11 @@
               </el-form-item>
               <el-form-item label='主要负责人手机' prop='enterpriseLeaderCellPhone'>
                 <el-input size='small' v-model='form.enterpriseLeaderCellPhone' placeholder='请输入主要负责人手机'></el-input>
+              </el-form-item>
+              <el-form-item label="备注" prop="remark">
+                <el-input v-model="form.remark" placeholder="请输入至少五个字符" show-word-limit minlength="5" maxlength="200"
+                          type="textarea" :rows="5">
+                </el-input>
               </el-form-item>
             </div>
           </el-form>
@@ -145,7 +158,9 @@ export default {
         password2: '',
         enterpriseCode: null,
         enterpriseName: null,
+        establishmentDate: null,
         address: null,
+        postCode: null,
         enterprisePhone: null,
         staffNum: null,
         fax: null,
@@ -157,6 +172,7 @@ export default {
         economicType: null,
         mainRiskType: null,
         businessNature: null,
+        remark: null,
       },
       id: null,
       options: regionData,
@@ -197,6 +213,7 @@ export default {
           { validator: this.$formRules.checkPhone, trigger: 'blur' },
         ],
         address: [this.$formRules.checkLen(100), this.$formRules.checkNecessary('请输入通讯地址')],
+        postCode: [this.$formRules.checkLen()],
         enterpriseLeader: [this.$formRules.checkLen(), this.$formRules.checkNecessary('请输入主要负责人')],
         enterpriseLeaderCellPhone: [
           this.$formRules.checkNecessary('请输入负责人手机'),

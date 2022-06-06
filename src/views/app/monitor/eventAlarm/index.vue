@@ -7,13 +7,13 @@
       </div>
       <div class="col-left">
         <s-box title="事件级别分布情况">
-          <div class="canvas-wrap" style="height: 17vh;">
+          <div class="canvas-wrap" style="height: 20vh;">
             <!-- 此处放图表 -->
             <pie :dataList="levelList" v-if="levelList.length > 0"></pie>
             <el-empty image-size="100" v-else description="暂无数据"></el-empty>
           </div>
         </s-box>
-        <s-box class="f1" title="事件预警排名">
+        <s-box class="f1" title="事件预警排名" style=" min-height: 20vh;">
           <div class="alarm-ranks">
             <ul>
               <li v-for="(item,index) in rank">
@@ -24,7 +24,7 @@
             </ul>
           </div>
         </s-box>
-        <s-box title="事件趋势图" style=" width: 90vh;">
+        <s-box title="事件趋势图" style=" width: 100vh;">
           <el-tabs class="tabs-s" v-model="eventStateTab" @tab-click="getDataList">
             <el-tab-pane label="今日" name="0"></el-tab-pane>
             <el-tab-pane label="本周" name="1"></el-tab-pane>

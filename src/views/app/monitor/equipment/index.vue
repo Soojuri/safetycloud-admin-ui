@@ -65,9 +65,9 @@
       </div>
       <div class="col-right">
         <s-box class="f1" title="设备区域信息面板">
-          <div class="title-switch" slot="title-append">
+          <!-- <div class="title-switch" slot="title-append">
             <el-switch></el-switch>
-          </div>
+          </div> -->
           <el-form class="label-width-4em" :model="queryParams">
             <el-form-item label="空间目录" prop="spaceId">
               <el-select style="width:200px" v-model="queryParams.spaceId" placeholder="请选择空间目录">
@@ -89,7 +89,7 @@
               </el-input>
             </el-form-item> -->
             <el-form-item label='所属企业' prop='enterpriseId'>
-              <el-select v-model="queryParams.enterpriseId" placeholder="请选择所属企业">
+              <el-select style="width:200px" v-model="queryParams.enterpriseId" placeholder="请选择所属企业">
                 <el-option v-for="item in enterpriseList" :key="item.enterpriseId" :label="item.enterpriseName"
                            :value="item.enterpriseId">
                 </el-option>
@@ -133,11 +133,12 @@
                 <el-table :data='alarmList' border style="width: 100%">
                   <el-table-column align='center' prop='alarmName' label='告警名称' show-overflow-tooltip />
                   <el-table-column align='center' prop='deviceName' label='设备名称' show-overflow-tooltip />
-                  <el-table-column align='center' label='操作'>
+                  <el-table-column align='center' prop='createTime' label='告警时间' show-overflow-tooltip />
+                  <!-- <el-table-column align='center' label='操作'>
                     <template slot-scope="scope">
                       <el-button type="text" @click="handleInfo1(scope.row)">详情</el-button>
                     </template>
-                  </el-table-column>
+                  </el-table-column> -->
                 </el-table>
                 <!-- 分页 -->
                 <div class="g-page-x mt-m">
@@ -675,7 +676,7 @@ export default {
   ::v-deep.s-box__content {
     display: flex;
     flex-direction: column;
-    overflow: hidden !important;
+    // overflow: hidden !important;
     .table-x {
       flex: 1 1 0;
       overflow: hidden;

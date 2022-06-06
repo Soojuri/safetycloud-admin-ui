@@ -55,7 +55,7 @@ export default {
           // pageTextStyle: {
           //   color: '#fff',
           // },
-          bottom: '6%',
+          bottom: '-5%',
           width: '80%',
           itemWidth: 14,
           itemHeight: 14,

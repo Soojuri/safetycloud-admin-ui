@@ -79,8 +79,8 @@
           </el-descriptions-item>
           <el-descriptions-item label="安全标准化评定单位">
           </el-descriptions-item> -->
-          <el-descriptions-item label="安全标准化评定时间"> {{ parseTime(form.establishmentDate) }}
-          </el-descriptions-item>
+          <!-- <el-descriptions-item label="安全标准化评定时间"> {{ parseTime(form.establishmentDate) }}
+          </el-descriptions-item> -->
           <!-- <el-descriptions-item label="安全标准类型">
           </el-descriptions-item>
           <el-descriptions-item label="占地面积（平方米）">
@@ -185,7 +185,7 @@ export default {
       this.businessNature = res.data.data
     })
     this.getDicts('main_risk_type').then((res) => {
-      this.dict.mainRiskType = res.data.data
+      this.mainRiskType = res.data.data
     })
   },
   //方法集合

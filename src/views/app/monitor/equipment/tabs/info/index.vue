@@ -16,7 +16,7 @@
       </dl>
       <dl>
         <dt>设备厂商</dt>
-        <dd>{{formatProducer(cameraInfo)}}</dd>
+        <dd>{{cameraInfo.manufacturers}}</dd>
       </dl>
       <dl>
         <dt>设备状态</dt>
