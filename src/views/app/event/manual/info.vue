@@ -29,16 +29,16 @@
                 <dd>处理结果</dd>
                 <dt>{{formatEventResult(info)}}</dt>
               </dl>
-              <dl>
+              <!-- <dl>
                 <dd>上报结果</dd>
                 <dt v-if="info.reportResult === 0" class="red">未上报</dt>
                 <dt v-if="info.reportResult === 1" class="orange">待上报</dt>
                 <dt v-if="info.reportResult === 2" class="green">已上报</dt>
-              </dl>
+              </dl> -->
             </div>
             <div class="mt-xl cell">
-              <el-button :disabled="info.handleResult == 4 || info.handleResult == 3 || info.handleResult == 2"
-                         type="primary" @click="handleSingleEvent()">上报城运</el-button>
+              <!-- <el-button :disabled="info.handleResult == 4 || info.handleResult == 3 || info.handleResult == 2"
+                         type="primary" @click="handleSingleEvent()">上报城运</el-button> -->
               <el-button :disabled="info.handleResult === 4 || info.reportResult === 2" type="danger"
                          @click="handleSingleEvent(4,1)">判定误报</el-button>
               <el-button :disabled="info.handleResult === 3 || info.reportResult === 2" type="warning"

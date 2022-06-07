@@ -57,7 +57,7 @@
           </el-descriptions-item>
           <el-descriptions-item label="企业性质"> {{ formatBusinessNature(form) }}
           </el-descriptions-item>
-          <el-descriptions-item label="主要危险"> {{ formatMainRiskType(form) }}
+          <el-descriptions-item label="主要危险类型"> {{ formatMainRiskType(form) }}
           </el-descriptions-item>
           <el-descriptions-item label="从业人数"> {{ form.staffNum }}
           </el-descriptions-item>

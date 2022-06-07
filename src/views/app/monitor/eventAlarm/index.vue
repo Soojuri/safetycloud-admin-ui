@@ -6,14 +6,7 @@
         <div id="locusMap"></div>
       </div>
       <div class="col-left">
-        <s-box title="事件级别分布情况">
-          <div class="canvas-wrap" style="height: 20vh;">
-            <!-- 此处放图表 -->
-            <pie :dataList="levelList" v-if="levelList.length > 0"></pie>
-            <el-empty image-size="100" v-else description="暂无数据"></el-empty>
-          </div>
-        </s-box>
-        <s-box class="f1" title="事件预警排名" style=" min-height: 20vh;">
+        <s-box class="f1" title="事件预警排名" style=" min-height: 17vh;">
           <div class="alarm-ranks">
             <ul>
               <li v-for="(item,index) in rank">
@@ -22,6 +15,13 @@
                 <div class="val">{{item.value}}</div>
               </li>
             </ul>
+          </div>
+        </s-box>
+        <s-box title="事件级别分布情况" style=" width: 50vh;">
+          <div class="canvas-wrap" style="height: 26vh;">
+            <!-- 此处放图表 -->
+            <pie :dataList="levelList" v-if="levelList.length > 0"></pie>
+            <el-empty image-size="100" v-else description="暂无数据"></el-empty>
           </div>
         </s-box>
         <s-box title="事件趋势图" style=" width: 100vh;">

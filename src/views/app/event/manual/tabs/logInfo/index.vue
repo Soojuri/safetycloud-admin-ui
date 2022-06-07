@@ -53,8 +53,8 @@
         <el-descriptions :column="2" size="medium" class="mt-xl">
           <el-descriptions-item label="事件ID" :value="1"> {{ list.eventId }}
           </el-descriptions-item>
-          <el-descriptions-item label="事件名称" :value="2"> {{ list.eventName }}
-          </el-descriptions-item>
+          <!-- <el-descriptions-item label="事件名称" :value="2"> {{ list.eventName }}
+          </el-descriptions-item> -->
           <el-descriptions-item label="操作人" :value="3"> {{ list.creator }}
           </el-descriptions-item>
           <el-descriptions-item label="操作账号" :value="4"> {{ list.creatorId }}
@@ -68,10 +68,10 @@
           </el-descriptions-item>
           <el-descriptions-item label="操作时间" :value="8"> {{ parseTime(list.createTime) }}
           </el-descriptions-item>
-          <el-descriptions-item label="事件地址" :value="9"> {{ list.address }}
+          <!-- <el-descriptions-item label="事件地址" :value="9"> {{ list.address }}
           </el-descriptions-item>
           <el-descriptions-item label="摄像机名称" :value="10"> {{ list.deviceName }}
-          </el-descriptions-item>
+          </el-descriptions-item> -->
         </el-descriptions>
         <div slot='footer' class="dialog-footer">
           <el-button @click="handleClose">关 闭</el-button>
@@ -82,7 +82,7 @@
 </template>
 
 <script>
-import { getEventList } from '@/api/admin/diary'
+import { getEventLog } from '@/api/admin/diary'
 export default {
   components: {},
   data() {
@@ -113,7 +113,7 @@ export default {
     getList() {
       this.queryParams.eventId = this.$route.query.id
       this.loading = true
-      getEventList(this.queryParams)
+      getEventLog(this.queryParams)
         .then((res) => {
           this.loading = false
           this.tableData = res.data.data.records

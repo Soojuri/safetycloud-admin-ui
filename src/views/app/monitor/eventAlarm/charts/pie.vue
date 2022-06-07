@@ -55,10 +55,10 @@ export default {
           // pageTextStyle: {
           //   color: '#fff',
           // },
-          bottom: '-5%',
+          bottom: '0%',
           width: '80%',
           itemWidth: 14,
-          itemHeight: 14,
+          itemHeight: 16,
           textStyle: {
             // color: '#fff',
             fontSize: 14,

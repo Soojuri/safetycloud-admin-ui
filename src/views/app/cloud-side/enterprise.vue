@@ -37,7 +37,7 @@
             <i class="cs-icon-bjsjzs"></i>
             <dl>
               <dt>575</dt>
-              <dd>报警事件总说</dd>
+              <dd>报警事件总数</dd>
             </dl>
           </div>
           <div class="down">

@@ -7,7 +7,7 @@
           <el-table v-loading="loading" border :data="tableData">
             <el-table-column prop="eventId" label="事件编号" align="center" />
             <el-table-column prop="eventName" label="事件类型名称" align="center" />
-            <el-table-column prop="deviceName" label="摄像机名称" align="center" />
+            <el-table-column prop="deviceName" label="设备名称" align="center" />
             <el-table-column prop="address" label="地址名称" align="center" />
             <el-table-column prop="eventStatus" label="事件状态" align="center">
               <template slot-scope="scope">
@@ -44,6 +44,7 @@ export default {
       queryParams: {
         size: 10,
         current: 1,
+        id: null,
       },
       total: 0,
       tableData: [],
@@ -63,7 +64,8 @@ export default {
   methods: {
     getList() {
       this.loading = true
-      getSameEventList(this.$route.query.id, this.queryParams)
+      this.queryParams.id = this.$route.query.id
+      getSameEventList(this.queryParams)
         .then((res) => {
           this.loading = false
           this.tableData = res.data.data.records
