@@ -173,6 +173,7 @@ export default {
         mainRiskType: null,
         businessNature: null,
         remark: null,
+        type: 1,
       },
       id: null,
       options: regionData,
