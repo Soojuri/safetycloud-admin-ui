@@ -93,7 +93,8 @@
         </div>
         <div class="detail-x">
           <div class="img-x">
-            <img :src="eventInfo.eventCaptureUrl" alt="">
+            <img v-if="eventInfo.eventCaptureUrl" :src="eventInfo.eventCaptureUrl" alt="">
+            <img v-else src="@/assets/images/alarm.png" />
           </div>
           <div class="lines">
             <div class="line">
