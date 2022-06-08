@@ -69,7 +69,8 @@
             <ul>
               <li v-for="(item,index) in allDevice">
                 <div class="img-x">
-                  <img :src="item.eventCaptureUrl" alt="">
+                  <img v-if="item.eventCaptureUrl" :src="item.eventCaptureUrl" alt="">
+                  <img v-else src="@/assets/images/alarm.png" />
                 </div>
                 <div class="content-x">
                   <h4>{{item.eventName}}</h4>
