@@ -18,7 +18,8 @@ const getEventStatic = (params) => getAction('/iefVasService/tvideoanalyseevent/
 // 批量上报事件
 const reportEvent = (params) => putAction('/iefVasService/tvideoanalyseevent/batchReport', params)
 //获取相似的事件列表
-const getSameEventList = (id, params) => getAction(`/eventtask/talerteventrecord/pageForSame/${id}`, params);
+// const getSameEventList = (id, params) => getAction(`/eventtask/talerteventrecord/pageForSame/${id}`, params);
+const getSameEventList = (params) => getAction(`/eventtask/talerteventrecord/pageForSame`, params);
 //查询事件进度
 const getEventSchedule = (id) => getAction(`/iefVasService/tvideoanalyseevent/queryEventProgress/${id}`);
 //获取未读数量
