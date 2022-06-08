@@ -21,9 +21,9 @@
         </el-form-item>
       </el-form>
       <div class="mt-m">
-        <div class="g-opera">
+        <!-- <div class="g-opera">
           <el-button type="primary" @click="handleAdd">新 增</el-button>
-        </div>
+        </div> -->
         <div class="g-table">
           <el-table v-loading="loading" border :data="tableData">
             <el-table-column prop="enterpriseName" align='center' label="企业名称" />
@@ -53,11 +53,11 @@
             <el-table-column prop="payTime" align='center' label="支付时间">
               <template slot-scope="scope">{{parseTime(scope.row.payTime)}}</template>
             </el-table-column>
-            <el-table-column label="操作" align='center' width="250">
+            <!-- <el-table-column label="操作" align='center' width="250">
               <template slot-scope="scope">
                 <el-button size="mini" icon="el-icon-info" type="text" @click="handleDetails(scope.row)">详情</el-button>
               </template>
-            </el-table-column>
+            </el-table-column> -->
           </el-table>
         </div>
         <div class="g-page-x mt-m">
