@@ -38,7 +38,7 @@
 
 <script>
 import { getProductInfo } from '@/api/app/product/product.js'
-import { getProductOrderList,getProductOrderInfo,pay,queryPayStatus } from '@/api/app/product/order.js'
+import { getProductOrderList, getProductOrderInfo, pay, queryPayStatus } from '@/api/app/product/order.js'
 export default {
   data() {
     return {
@@ -48,14 +48,14 @@ export default {
         current: 1,
         productId: null,
       },
-      qrCodeUrl:'',
-      payType: "0",
+      qrCodeUrl: '',
+      payType: '0',
       loading: false,
       list: [],
       deviceCategory: [],
       id: null,
       total1: 0,
-      timer:null,
+      timer: null,
     }
   },
   computed: {},
@@ -69,8 +69,8 @@ export default {
   },
   destroyed() {
     //离开页面是销毁
-    clearInterval(this.timer);
-    this.timer = null;
+    clearInterval(this.timer)
+    this.timer = null
   },
   //方法集合
   methods: {
@@ -92,23 +92,23 @@ export default {
         })
       }
     },
-    wxPay(){
+    wxPay() {
       this.form.payChannel = 2
-      pay(this.form).then((res)=>{
-        console.log("发起支付结果:"+res.data.data)
+      pay(this.form).then((res) => {
+        console.log('发起支付结果:' + res.data.data)
         this.qrCodeUrl = res.data.data.qrCode
         // 实现轮询
         this.timer = window.setInterval(() => {
-          setTimeout(this.orderQuery(), 0);
-        }, 3000);
+          setTimeout(this.orderQuery(), 0)
+        }, 3000)
       })
     },
-    orderQuery(){
+    orderQuery() {
       const that = this
-      queryPayStatus(this.form.orderCode).then((res)=>{
-        console.log("轮询结果:"+res.data.data)
-        if(res.data.data.tradeState === "SUCCESS"){
-          that.msgSuccess("支付成功")
+      queryPayStatus(this.form.orderCode).then((res) => {
+        console.log('轮询结果:' + res.data.data)
+        if (res.data.data.tradeState === 'SUCCESS') {
+          that.msgSuccess('支付成功')
           clearInterval(this.timer)
           this.$router.push('/app/product/order/index')
         }
