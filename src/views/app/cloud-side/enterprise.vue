@@ -158,35 +158,40 @@
         <div class="card-box other">
           <div class="title">隐患来源与整改情况</div>
           <div class="echart-x f1">
-            <chart-pie></chart-pie>
+            <!-- <chart-pie></chart-pie> -->
+            <net-pie></net-pie>
           </div>
           <div class="echarts-box f1">
             <div class="content">
               <div class="echart-x">
-                <chart-dial></chart-dial>
+                <chart-dial style="height:173px"></chart-dial>
+                <div style="color:#929292">完成率</div>
+                <span>隐患整改任务</span>
               </div>
-              <span>隐患整改任务</span>
             </div>
             <div class="content">
               <div class="echart-x">
-                <chart-dial></chart-dial>
+                <chart-dial style="height:173px"></chart-dial>
+                <div style="color:#929292">完成率</div>
+                <span>安全检查任务</span>
               </div>
-              <span>安全检查任务</span>
             </div>
           </div>
         </div>
       </div>
       <div class="row_4">
         <div class="card-box f1">
-          <div class="title">指数指标</div>
           <div class="echarts-box">
             <div class="echart-x">
+              <div class="title">安全指数</div>
               <chart-dial-plate></chart-dial-plate>
             </div>
             <div class="echart-x">
+              <div class="title">基础指标</div>
               <chart-dial-plate></chart-dial-plate>
             </div>
             <div class="echart-x">
+              <div class="title">风险指标</div>
               <chart-dial-plate></chart-dial-plate>
             </div>
           </div>
@@ -203,6 +208,7 @@
 </template>
 
 <script>
+import NetPie from '@/views/app/cloud-side/charts/cloud-side/net-pie.vue'
 import chartFace from './charts/safe-prod/chart-face.vue'
 import chartPie from './charts/coal/chart-pie.vue'
 import chartDialPlate from './charts/cloud-side/chart-dial-plate.vue'
@@ -213,6 +219,7 @@ export default {
     chartPie,
     chartDialPlate,
     chartDial,
+    NetPie,
   },
   data() {
     return {
