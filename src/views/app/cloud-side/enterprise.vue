@@ -62,19 +62,30 @@
       </ul>
       <div class="row_2 card-box">
         <div class="card-box-head">
-          <div class="tabs-x">
+          <!-- <div class="tabs-x">
             <div class="tabs">
               <span class="active">事件</span>
               <span>隐患</span>
               <span>风险</span>
             </div>
-          </div>
-          <div class="week">
+          </div> -->
+          <el-tabs class="tabs-x" v-model="activeName">
+            <el-tab-pane label="事件" name="first"></el-tab-pane>
+            <el-tab-pane label="隐患" name="second"></el-tab-pane>
+            <el-tab-pane label="风险" name="third"></el-tab-pane>
+          </el-tabs>
+          <el-tabs class="week" v-model="eventStateTab">
+            <el-tab-pane label="今日" name="0"></el-tab-pane>
+            <el-tab-pane label="本周" name="1"></el-tab-pane>
+            <el-tab-pane label="本月" name="2"></el-tab-pane>
+            <el-tab-pane label="全年" name="3"></el-tab-pane>
+          </el-tabs>
+          <!-- <div class="week">
             <span class="active">今日</span>
             <span>本周</span>
             <span>本月</span>
             <span>全年</span>
-          </div>
+          </div> -->
           <div class="time-pick-x">
             <el-date-picker v-model="value" type="datetime" placeholder="选择日期时间">
             </el-date-picker>
@@ -146,12 +157,14 @@
               </el-table>
             </div>
             <div class="pagination-x">
-              <el-pagination :current-page="currentPage" background layout="prev, pager, next, slot" :total="1000">
+              <!-- <el-pagination :current-page="currentPage" background layout="prev, pager, next, slot" :total="1000">
                 <div class="jump">
                   <el-input type="text"></el-input>
                   <div class="go">GO</div>
                 </div>
-              </el-pagination>
+              </el-pagination> -->
+              <pagination :pageSizes="[10,20,50,100]" :total="total" :page.sync="queryParams.current"
+                          :limit.sync="queryParams.size" @pagination="setCurrent" />
             </div>
           </div>
         </div>
@@ -223,6 +236,11 @@ export default {
   },
   data() {
     return {
+      queryParams: {
+        size: 10,
+        current: 1,
+      },
+      eventStateTab: '2',
       activeName: 'first',
       value1: '',
       currentPage: 4,
@@ -529,7 +547,8 @@ $vw: 100vw/1920;
         background-color: #e0e0e0;
       }
       &.active {
-        border: 1px solid #2975ff;
+        border: none;
+        // border: 1px solid #2975ff;
         background-color: fade-out($color: #2975ff, $amount: 0.9);
         color: #2975ff;
       }
