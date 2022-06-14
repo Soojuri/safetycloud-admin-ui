@@ -34,17 +34,32 @@
           <el-table v-loading="loading" border :data="tableData">
             <el-table-column prop="deviceNo" align='center' label="设备编号" />
             <el-table-column prop="deviceName" align='center' label="设备名称" />
-            <el-table-column prop="productName" align='center' label="设备产品名称" />
-            <el-table-column prop="deviceModel" align='center' label="设备型号" />
-            <el-table-column prop="manufacturers" align='center' label="设备厂家" />
-            <el-table-column prop="enterpriseName" align='center' label="所属企业" />
+            <!-- <el-table-column prop="productName" align='center' label="产品名称" /> -->
+            <el-table-column prop="productName" align='center' label="产品名称">
+              <template slot-scope="scope">{{scope.row.productName || '/'}}</template>
+            </el-table-column>
+            <!-- <el-table-column prop="deviceModel" align='center' label="设备型号" /> -->
+            <el-table-column prop="deviceModel" align='center' label="设备型号">
+              <template slot-scope="scope">{{scope.row.deviceModel || '/'}}</template>
+            </el-table-column>
+            <!-- <el-table-column prop="manufacturers" align='center' label="设备厂家" /> -->
+            <el-table-column prop="manufacturers" align='center' label="设备厂家">
+              <template slot-scope="scope">{{scope.row.manufacturers || '/'}}</template>
+            </el-table-column>
+            <el-table-column prop="enterpriseName" align='center' label="所属企业">
+              <template slot-scope="scope">{{scope.row.enterpriseName  || '/'}}</template>
+            </el-table-column>
+            <!-- <el-table-column prop="enterpriseName" align='center' label="所属企业" /> -->
             <el-table-column prop="deviceType" align='center' label="设备类型" :formatter="formatDeviceType" />
-            <el-table-column prop="spaceName" align='center' label="所属空间" :formatter="formatType" />
+            <!-- <el-table-column prop="spaceName" align='center' label="所属空间" /> -->
+            <el-table-column prop="spaceName" align='center' label="所属空间">
+              <template slot-scope="scope">{{scope.row.spaceName  || '/'}}</template>
+            </el-table-column>
             <el-table-column prop="status" align='center' label="状态" :formatter="formatStatus" />
             <el-table-column prop="createTime" align='center' label="创建时间">
               <template slot-scope="scope">{{parseTime(scope.row.createTime)}}</template>
             </el-table-column>
-            <el-table-column label="操作" align='center' width="250">
+            <el-table-column label="操作" align='center' width="200">
               <template slot-scope="scope">
                 <el-button size="mini" type="text" @click="handleEdit(scope.row)">编辑</el-button>
                 <el-button size="mini" :disabled="scope.row.status == 1?true:false" type="text"

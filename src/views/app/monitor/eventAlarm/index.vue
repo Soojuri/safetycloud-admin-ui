@@ -17,14 +17,14 @@
             </ul>
           </div>
         </s-box>
-        <s-box title="事件级别分布情况" style=" width: 50vh;">
+        <s-box title="事件级别分布情况" style="overflow-x: scroll;">
           <div class="canvas-wrap" style="height: 26vh;">
             <!-- 此处放图表 -->
             <pie :dataList="levelList" v-if="levelList.length > 0"></pie>
             <el-empty image-size="100" v-else description="暂无数据"></el-empty>
           </div>
         </s-box>
-        <s-box title="事件趋势图" style=" width: 100vh;">
+        <s-box title="事件趋势图" style=" overflow-x: scroll;">
           <el-tabs class="tabs-s" v-model="eventStateTab" @tab-click="getDataList">
             <el-tab-pane label="今日" name="0"></el-tab-pane>
             <el-tab-pane label="本周" name="1"></el-tab-pane>

@@ -97,12 +97,13 @@
             </el-form-item>
           </el-form>
           <div class="g-button-x">
-            <el-button type="primary" plain @click="getList">查询</el-button>
+            <el-button type="primary" @click="getList">查询</el-button>
             <el-button type="primary" plain @click="handleClear">清 空</el-button>
           </div>
           <div class="hr"></div>
           <el-tabs class="tabs-m" v-model="equTab">
             <el-tab-pane label="设备列表" name="equTab1">
+              <div style="margin:10px"></div>
               <div class="g-table">
                 <!-- 表格数据 -->
                 <el-table :data='deviceList' border style="width: 100%">
@@ -128,6 +129,7 @@
               </div>
             </el-tab-pane>
             <el-tab-pane label="设备离线告警" name="equTab2">
+              <div style="margin:10px"></div>
               <div class="g-table">
                 <!-- 表格数据 -->
                 <el-table :data='alarmList' border style="width: 100%">

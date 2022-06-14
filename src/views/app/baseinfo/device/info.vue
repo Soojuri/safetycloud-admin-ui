@@ -3,7 +3,7 @@
     <div class="g-card">
       <div class="tit">设备信息</div>
       <div class="information">
-        <el-descriptions :column="3" size="medium" class="mt-xl">
+        <!-- <el-descriptions :column="3" size="medium" class="mt-xl">
           <el-descriptions-item label="设备编号"> {{ form.deviceId }}
           </el-descriptions-item>
           <el-descriptions-item label="设备状态">
@@ -62,7 +62,30 @@
           </el-descriptions-item>
           <el-descriptions-item labelStyle="white-space: nowrap;" :span="3" label="备注"> {{ form.remark }}
           </el-descriptions-item>
-        </el-descriptions>
+        </el-descriptions> -->
+        <el-description class="mt-xl">
+          <el-description-item label="设备编号" :value="form.deviceId" :span="8" />
+          <el-description-item label="设备状态"
+                               :value="form.status == 0?'未启用':form.status == -2?'检查状态超时':form.status == -1?'离线':form.status == -3?'未激活':'在线'"
+                               :span="8" />
+          <el-description-item label="企业名称" :value="form.enterpriseName" :span="8" />
+          <el-description-item label="设备名称" :value="form.deviceName" :span="8" />
+          <el-description-item label="设备类型" :value="formatDeviceType(form)" :span="8" />
+          <el-description-item label="父级设备" :value="form.parentId" :span="8" />
+          <el-description-item label="物联产品" :value="form.productName" :span="8" />
+          <el-description-item label="设备型号" :value="form.deviceModel" :span="8" />
+          <el-description-item label="设备厂商" :value="form.manufacturers" :span="8" />
+          <el-description-item label="所属空间" :value="form.spaceName" :span="8" />
+          <el-description-item label="所属省市区" :value="form.city" :span="8" />
+          <el-description-item label="设备地址" :value="form.deviceAddress" :span="8" />
+          <el-description-item label="创建人员" :value="form.creatorId" :span="8" />
+          <el-description-item label="创建时间" :value="parseTime(form.createTime)" :span="8" />
+          <el-description-item label="更新人员" :value="form.updatorId" :span="8" />
+          <el-description-item label="更新时间" :value="parseTime(form.updateTime)" :span="8" />
+          <el-description-item label="详细地址" :value="form.address" :span="8" />
+          <el-description-item label="最后离线时间" :value="parseTime(form.lastOfflineTime)" :span="8" />
+          <el-description-item label="备注" :value="form.remark" :span="24" />
+        </el-description>
       </div>
       <div class="tit">设备故障维修记录</div>
       <div class="g-table mt-xl">
@@ -100,7 +123,9 @@
           </el-table-column>
           <el-table-column prop="creator" align='center' label="创建人" />
           <el-table-column prop="repairer" align='center' label="修理人" />
-          <el-table-column prop="repairTime" align='center' label="维修时间" />
+          <el-table-column prop="repairTime" align='center' label="维修时间">
+            <template slot-scope="scope">{{parseTime(scope.row.repairTime)}}</template>
+          </el-table-column>
           <el-table-column label="操作" align='center' width="100">
             <template slot-scope="scope">
               <el-button size="mini" icon="el-icon-info" type="text" @click="handleDetails(scope.row)">详情
@@ -175,9 +200,12 @@
 </template>
 
 <script>
+import ElDescription from '@/components/ElDescription'
+import ElDescriptionItem from '@/components/ElDescriptionItem'
 import { getDeviceInfo } from '@/api/app/baseinfo/device.js'
 import { getFaultRecordList, delFaultRecord, putFaultRecord } from '@/api/app/fault/record'
 export default {
+  components: { ElDescription, ElDescriptionItem },
   data() {
     return {
       form: {},

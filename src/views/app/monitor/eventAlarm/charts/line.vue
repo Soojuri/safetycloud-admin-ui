@@ -1,5 +1,5 @@
 <template>
-  <div ref="chart" :style="{ height: '100%', width: '100%' }" />
+  <div ref="chart" class="chart" :style="{ height: '100%', width: '100%' }" />
 </template>
 
 <script>
@@ -102,4 +102,7 @@ export default {
 }
 </script>
 <style lang='scss' scoped>
+.chart {
+  min-width: 100vh;
+}
 </style>

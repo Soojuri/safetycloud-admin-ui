@@ -39,22 +39,25 @@
             <div class="mt-xl cell">
               <!-- <el-button :disabled="info.handleResult == 4 || info.handleResult == 3 || info.handleResult == 2"
                          type="primary" @click="handleSingleEvent()">上报城运</el-button> -->
-              <el-button :disabled="info.handleResult === 4 || info.reportResult === 2" type="danger"
+              <el-button type="danger" plain :disabled="info.handleResult === 4 || info.reportResult === 2"
                          @click="handleSingleEvent(4,1)">判定误报</el-button>
-              <el-button :disabled="info.handleResult === 3 || info.reportResult === 2" type="warning"
+              <el-button type="danger" plain :disabled="info.handleResult === 3 || info.reportResult === 2"
                          @click="handleSingleEvent(3,1)">判定重复</el-button>
             </div>
           </div>
         </div>
-        <div class="step">
-          <el-steps :active="info.eventProgress" finish-status="success">
-            <el-step title="事件发现" :description="parseTime(info.eventDetectTime)"></el-step>
-            <el-step title="事件处理" :description="parseTime(info.eventHandleTime)"></el-step>
-            <el-step v-if="info.eventProgress !== 4 || info.eventCheckTime != null" title="事件复核"
-                     :description="parseTime(info.eventCheckTime)">
-            </el-step>
-            <el-step title="完成" :description="parseTime(info.eventSubmitTime)"></el-step>
-          </el-steps>
+        <div class="step-out">
+          <div class="step-in">事件进度</div>
+          <div class="step">
+            <el-steps :active="info.eventProgress" finish-status="success">
+              <el-step title="事件发现" :description="parseTime(info.eventDetectTime)"></el-step>
+              <el-step title="事件处理" :description="parseTime(info.eventHandleTime)"></el-step>
+              <el-step v-if="info.eventProgress !== 4 || info.eventCheckTime != null" title="事件复核"
+                       :description="parseTime(info.eventCheckTime)">
+              </el-step>
+              <el-step title="完成" :description="parseTime(info.eventSubmitTime)"></el-step>
+            </el-steps>
+          </div>
         </div>
       </div>
       <div class="g-card mt-m">
@@ -251,5 +254,27 @@ dt {
   margin-left: -40%;
   left: 50%;
   position: relative;
+}
+.step-out {
+  border: 1px solid #e7e7e7;
+  border-radius: 10px;
+  .step-in {
+    padding: 10px;
+    border-bottom: 1px solid #e7e7e7;
+    font-size: 18px;
+    display: flex;
+    align-items: flex-start;
+    &::before {
+      content: '';
+      height: 20px;
+      width: 4px;
+      border-radius: 2px;
+      background: #2975ff;
+      display: inline-block;
+      margin-right: 8px;
+      vertical-align: top;
+      margin-top: 3px;
+    }
+  }
 }
 </style>

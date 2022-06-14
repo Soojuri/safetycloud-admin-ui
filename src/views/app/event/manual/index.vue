@@ -144,7 +144,7 @@
           <el-table-column prop="eventDetectTime" align="center" label="发现时间" width="140">
             <template slot-scope="scope">{{parseTime(scope.row.eventDetectTime)}}</template>
           </el-table-column>
-          <el-table-column label="操作" align="center" width="280">
+          <el-table-column label="操作" align="center" width="200">
             <template slot-scope="scope">
               <el-button size="mini" type="text" @click="handleDetails(scope.row)">查看</el-button>
               <el-button :disabled="scope.row.handleResult === 4 || scope.row.reportResult === 2" size="mini"
