@@ -19,13 +19,13 @@
           </el-select>
         </el-form-item>
         <el-form-item class="ml-xl">
-          <el-button icon="el-icon-search" type="primary" @click="handleQuery">搜 索</el-button>
-          <el-button icon="el-icon-delete" @click="handleClear">清 空</el-button>
+          <el-button type="primary" @click="handleQuery">搜 索</el-button>
+          <el-button @click="handleClear">清 空</el-button>
         </el-form-item>
       </el-form>
       <div class="mt-m">
         <div class="g-opera">
-          <el-button type="primary" @click="handleAdd">新 增</el-button>
+          <el-button type="primary" icon='el-icon-plus' @click="handleAdd">新 增</el-button>
         </div>
         <div class="g-table">
           <el-table v-loading="loading" border :data="tableData">
@@ -46,24 +46,19 @@
             <el-table-column prop="staffNum" align='center' label="从业人数" />
             <el-table-column prop="status" align='center' label="状态">
               <template slot-scope="scope">
-                <span v-if="scope.row.status == 0">
-                  <a class="status-info"></a>
+                <span v-if="scope.row.status == 0" style="color: #909399">
                   未审核
                 </span>
-                <span v-if="scope.row.status == 1">
-                  <a class="status-success"></a>
+                <span v-if="scope.row.status == 1" style="color: #67c23a">
                   正常
                 </span>
-                <span v-if="scope.row.status == 2">
-                  <a class="status-danger"></a>
+                <span v-if="scope.row.status == 2" style="color: #f56c6c">
                   停用
                 </span>
-                <span v-if="scope.row.status == 3">
-                  <a class="status-waring"></a>
+                <span v-if="scope.row.status == 3" style="color: #e6a23c">
                   存在风险
                 </span>
-                <span v-if="scope.row.status == 4">
-                  <a class="status-primary"></a>
+                <span v-if="scope.row.status == 4" style="color: #409eff">
                   审核未通过
                 </span>
               </template>
@@ -73,13 +68,13 @@
             </el-table-column>
             <el-table-column label="操作" align='center' width="250">
               <template slot-scope="scope">
-                <el-button size="mini" icon="el-icon-info" type="text" @click="handleDetails(scope.row)">详情
+                <el-button size="mini" type="text" @click="handleDetails(scope.row)">详情
                 </el-button>
-                <el-button size="mini" icon="el-icon-edit" v-if="scope.row.status == 0" type="text"
-                           @click="handleAudit(scope.row)">审核</el-button>
-                <el-button size="mini" icon="el-icon-edit" type="text" @click="handleEdit(scope.row)">编辑
+                <el-button size="mini" v-if="scope.row.status == 0" type="text" @click="handleAudit(scope.row)">审核
                 </el-button>
-                <el-button size="mini" icon="el-icon-delete" :disabled="scope.row.status == 1?true:false" type="text"
+                <el-button size="mini" type="text" @click="handleEdit(scope.row)">编辑
+                </el-button>
+                <el-button size="mini" :disabled="scope.row.status == 1?true:false" type="text"
                            @click="handleDelete(scope.row)">删除
                 </el-button>
               </template>

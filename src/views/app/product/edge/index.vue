@@ -13,12 +13,12 @@
           </el-select>
         </el-form-item>
         <el-form-item class="ml-xl">
-          <el-button icon="el-icon-search" type="primary" @click="handleQuery">查 询</el-button>
-          <el-button icon="el-icon-delete" @click="handleClear">清 空</el-button>
+          <el-button type="primary" @click="handleQuery">查 询</el-button>
+          <el-button @click="handleClear">清 空</el-button>
         </el-form-item>
       </el-form>
       <div class="new-add">
-        <el-button type="primary" @click="handleAdd">新 增</el-button>
+        <el-button type="primary" icon='el-icon-plus' @click="handleAdd">新 增</el-button>
       </div>
       <div v-loading="loading">
         <div class="arit-list" v-if="tableData && tableData.length > 0">
@@ -36,8 +36,8 @@
             <p>{{ item.productDescription }}</p>
             <div class="opera">
               <div class="edit" @click="handleEdit(item)">编辑</div>
-              <el-button class="delete" :disabled="item.algorithmCount || item.status === 1" size="medium"
-                         icon="el-icon-delete" type="text" @click="handleDelete(item)">删除
+              <el-button class="delete" :disabled="item.algorithmCount || item.status === 1" size="medium" type="text"
+                         icon="el-icon-delete" @click="handleDelete(item)">删除
               </el-button>
               <div class="link" @click="handleDetails(item)">查看详情</div>
             </div>

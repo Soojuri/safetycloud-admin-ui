@@ -184,7 +184,7 @@
             </div>
             <div class="content">
               <div class="echart-x">
-                <chart-dial style="height:173px"></chart-dial>
+                <chart-dial2 style="height:173px"></chart-dial2>
                 <div style="color:#929292">完成率</div>
                 <span>安全检查任务</span>
               </div>
@@ -226,12 +226,14 @@ import chartFace from './charts/safe-prod/chart-face.vue'
 import chartPie from './charts/coal/chart-pie.vue'
 import chartDialPlate from './charts/cloud-side/chart-dial-plate.vue'
 import chartDial from './charts/cloud-side/chart-dial.vue'
+import chartDial2 from './charts/cloud-side/chart-dial2.vue'
 export default {
   components: {
     chartFace,
     chartPie,
     chartDialPlate,
     chartDial,
+    chartDial2,
     NetPie,
   },
   data() {

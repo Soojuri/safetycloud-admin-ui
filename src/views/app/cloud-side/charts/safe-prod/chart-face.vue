@@ -43,7 +43,7 @@ export default {
           splitLine: {
             show: true,
             lineStyle: {
-              color: '#F2F4F5',
+              color: '#007aff30',
             },
           },
           axisLabel: {
@@ -59,14 +59,14 @@ export default {
           },
         },
         itemStyle: {
-          color: '#00fcff',
+          color: '#2A75FE',
         },
         xAxis: {
           type: 'category',
           splitLine: {
             show: true,
             lineStyle: {
-              color: '#F2F4F5',
+              color: '#007aff30',
             },
           },
           axisLabel: {
@@ -88,7 +88,7 @@ export default {
             type: 'line',
             smooth: 'true',
             areaStyle: {
-              color: this.vLinear('#08fcff80', '#08fcff00'),
+              color: this.vLinear('#2A75FE', '#fff'),
             },
           },
         ],

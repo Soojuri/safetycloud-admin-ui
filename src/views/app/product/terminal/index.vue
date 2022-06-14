@@ -13,12 +13,12 @@
           </el-select>
         </el-form-item>
         <el-form-item class="ml-xl">
-          <el-button icon="el-icon-search" type="primary" @click="handleQuery">查 询</el-button>
-          <el-button icon="el-icon-delete" @click="handleClear">清 空</el-button>
+          <el-button type="primary" @click="handleQuery">查 询</el-button>
+          <el-button @click="handleClear">清 空</el-button>
         </el-form-item>
       </el-form>
       <div class="new-add">
-        <el-button type="primary" @click="handleAdd">新 增</el-button>
+        <el-button type="primary" icon='el-icon-plus' @click="handleAdd">新 增</el-button>
       </div>
       <div v-loading="loading">
         <div class="arit-list" v-if="tableData && tableData.length > 0">

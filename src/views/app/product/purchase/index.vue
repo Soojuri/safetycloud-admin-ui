@@ -16,13 +16,13 @@
           </el-select>
         </el-form-item>
         <el-form-item class="ml-xl">
-          <el-button icon="el-icon-search" type="primary" @click="handleQuery">查 询</el-button>
-          <el-button icon="el-icon-delete" @click="handleClear">重 置</el-button>
+          <el-button type="primary" @click="handleQuery">查 询</el-button>
+          <el-button @click="handleClear">重 置</el-button>
         </el-form-item>
       </el-form>
       <div class="mt-m">
         <!-- <div class="g-opera">
-          <el-button type="primary" @click="handleAdd">新 增</el-button>
+          <el-button type="primary" icon='el-icon-plus' @click="handleAdd">新 增</el-button>
         </div> -->
         <div class="g-table">
           <el-table v-loading="loading" border :data="tableData">
@@ -33,16 +33,13 @@
             <el-table-column prop="payName" align='center' label="支付人员" />
             <el-table-column prop="payStatus" align='center' label="缴费状态">
               <template slot-scope="scope">
-                <span v-if="scope.row.payStatus == 0">
-                  <a class="status-info"></a>
+                <span v-if="scope.row.payStatus == 0" style="color: #409eff">
                   未缴费
                 </span>
-                <span v-if="scope.row.payStatus == 1">
-                  <a class="status-success"></a>
+                <span v-if="scope.row.payStatus == 1" style="color: #67c23a">
                   已缴费
                 </span>
-                <span v-if="scope.row.payStatus == 2">
-                  <a class="status-danger"></a>
+                <span v-if="scope.row.payStatus == 2" style="color: #f56c6c">
                   已退款
                 </span>
               </template>
@@ -55,7 +52,7 @@
             </el-table-column>
             <!-- <el-table-column label="操作" align='center' width="250">
               <template slot-scope="scope">
-                <el-button size="mini" icon="el-icon-info" type="text" @click="handleDetails(scope.row)">详情</el-button>
+                <el-button size="mini"  type="text" @click="handleDetails(scope.row)">详情</el-button>
               </template>
             </el-table-column> -->
           </el-table>

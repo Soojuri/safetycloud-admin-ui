@@ -16,13 +16,13 @@
           </el-select>
         </el-form-item>
         <el-form-item class="ml-xl">
-          <el-button icon="el-icon-search" type="primary" @click="handleQuery">查 询</el-button>
-          <el-button icon="el-icon-delete" @click="handleClear">重 置</el-button>
+          <el-button type="primary" @click="handleQuery">查 询</el-button>
+          <el-button @click="handleClear">重 置</el-button>
         </el-form-item>
       </el-form>
       <div class="mt-m">
         <!-- <div class="g-opera">
-          <el-button type="primary" @click="handleAdd">新 增</el-button>
+          <el-button type="primary" icon='el-icon-plus' @click="handleAdd">新 增</el-button>
         </div> -->
         <div class="g-table">
           <el-table v-loading="loading" border :data="tableData">
@@ -48,28 +48,22 @@
             <el-table-column prop="payName" align='center' label="支付人员" />
             <el-table-column prop="orderStatus" align='center' label="订单状态">
               <template slot-scope="scope">
-                <span v-if="scope.row.orderStatus == 1">
-                  <a class="status-info"></a>
+                <span v-if="scope.row.orderStatus == 1" style="color: #409eff">
                   等待支付
                 </span>
-                <span v-if="scope.row.orderStatus == 2">
-                  <a class="status-primary"></a>
+                <span v-if="scope.row.orderStatus == 2" style="color: #67c23a">
                   交易完成
                 </span>
-                <span v-if="scope.row.orderStatus == 3">
-                  <a class="status-success"></a>
+                <span v-if="scope.row.orderStatus == 3" style="color: #909399">
                   交易关闭
                 </span>
-                <span v-if="scope.row.orderStatus == 4">
-                  <a class="status-danger"></a>
+                <span v-if="scope.row.orderStatus == 4" style="color: #f56c6c">
                   交易失败
                 </span>
-                <span v-if="scope.row.orderStatus == 5">
-                  <a class="status-danger"></a>
+                <span v-if="scope.row.orderStatus == 5" style="color: #f56c6c">
                   全额退款
                 </span>
-                <span v-if="scope.row.orderStatus == 6">
-                  <a class="status-danger"></a>
+                <span v-if="scope.row.orderStatus == 6" style="color: #e6a23c">
                   异常处理
                 </span>
               </template>
@@ -82,7 +76,7 @@
             </el-table-column>
             <!-- <el-table-column label="操作" align='center' width="250">
               <template slot-scope="scope">
-                <el-button size="mini" icon="el-icon-info" type="text" @click="handleDetails(scope.row)">详情</el-button>
+                <el-button size="mini"  type="text" @click="handleDetails(scope.row)">详情</el-button>
               </template>
             </el-table-column> -->
           </el-table>

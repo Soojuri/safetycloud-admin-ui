@@ -13,13 +13,13 @@
           </el-select>
         </el-form-item>
         <el-form-item class="ml-xl">
-          <el-button icon="el-icon-search" type="primary" @click="handleQuery">搜 索</el-button>
-          <el-button icon="el-icon-delete" @click="handleClear">清 空</el-button>
+          <el-button type="primary" @click="handleQuery">搜 索</el-button>
+          <el-button @click="handleClear">清 空</el-button>
         </el-form-item>
       </el-form>
       <div class="mt-m">
         <div class="g-opera">
-          <el-button type="primary" @click="handleAdd">新 增</el-button>
+          <el-button type="primary" icon='el-icon-plus' @click="handleAdd">新 增</el-button>
         </div>
         <div class="g-table">
           <el-table v-loading="loading" border :data="tableData">
@@ -40,16 +40,15 @@
             </el-table-column>
             <el-table-column label="操作" align='center'>
               <template slot-scope="scope">
-                <el-button size="mini" icon="el-icon-edit" type="text" @click="handleEdit(scope.row)">编辑</el-button>
-                <el-button size="mini" icon="el-icon-delete" :disabled="scope.row.status == 1?true:false" type="text"
+                <el-button size="mini" type="text" @click="handleEdit(scope.row)">编辑</el-button>
+                <el-button size="mini" :disabled="scope.row.status == 1?true:false" type="text"
                            @click="handleDelete(scope.row)">删除</el-button>
-                <el-button v-if="scope.row.status" size="mini" icon="el-icon-close" type="text"
-                           @click="handleChangeStatus(scope.row)">停用
+                <el-button v-if="scope.row.status" size="mini" type="text" @click="handleChangeStatus(scope.row)">停用
                 </el-button>
-                <el-button v-if="scope.row.status == 0" size="mini" icon="el-icon-check" type="text"
-                           @click="handleChangeStatus(scope.row)">启用
+                <el-button v-if="scope.row.status == 0" size="mini" type="text" @click="handleChangeStatus(scope.row)">
+                  启用
                 </el-button>
-                <el-button size="mini" icon="el-icon-info" type="text" @click="handleDetails(scope.row)">详情</el-button>
+                <el-button size="mini" type="text" @click="handleDetails(scope.row)">详情</el-button>
               </template>
             </el-table-column>
           </el-table>

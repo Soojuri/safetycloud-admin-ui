@@ -75,8 +75,8 @@
                             start-placeholder='开始时间' end-placeholder='结束时间' :default-time="['00:00:00', '23:59:59']" />
           </el-form-item> -->
           <el-form-item class="ml-xl">
-            <el-button icon="el-icon-search" type="primary" @click="handleQuery">搜 索</el-button>
-            <el-button icon="el-icon-delete" @click="handleClear">清 空</el-button>
+            <el-button type="primary" @click="handleQuery">搜 索</el-button>
+            <el-button @click="handleClear">清 空</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -119,12 +119,10 @@
           <el-table-column prop="eventStatus" align="center" label="事件状态">
             <template slot-scope="scope">
               <template v-if="scope.row.eventStatus == 0">
-                <span class="yellow_status"></span>
-                <span class="status_text">待处理</span>
+                <span class="status_text" style="color: #e6a23c">待处理</span>
               </template>
               <template v-if="scope.row.eventStatus == 1 ">
-                <span class="green_status"></span>
-                <span class="status_text">已处理</span>
+                <span class="status_text" style="color: #67c23a">已处理</span>
               </template>
             </template>
           </el-table-column>
@@ -148,16 +146,15 @@
           </el-table-column>
           <el-table-column label="操作" align="center" width="280">
             <template slot-scope="scope">
-              <el-button size="mini" type="text" icon="el-icon-info" @click="handleDetails(scope.row)">查看</el-button>
+              <el-button size="mini" type="text" @click="handleDetails(scope.row)">查看</el-button>
               <el-button :disabled="scope.row.handleResult === 4 || scope.row.reportResult === 2" size="mini"
-                         type="text" icon="el-icon-close-notification"
-                         @click="handleSingleEvent(scope.row.eventId,4,1)">误报
+                         type="text" @click="handleSingleEvent(scope.row.eventId,4,1)">误报
               </el-button>
               <el-button :disabled="scope.row.handleResult === 3 || scope.row.reportResult === 2" size="mini"
-                         type="text" icon="el-icon-connection" @click="handleSingleEvent(scope.row.eventId,3,1)">重复
+                         type="text" @click="handleSingleEvent(scope.row.eventId,3,1)">重复
               </el-button>
               <!-- <el-button :disabled="scope.row.handleResult == 4 || scope.row.handleResult == 3 || scope.row.handleResult == 2"
-                         size="mini" type="text" icon="el-icon-position" @click="handleSingleEvent(scope.row.eventId)">
+                         size="mini" type="text"  @click="handleSingleEvent(scope.row.eventId)">
                 上报城运</el-button> -->
             </template>
           </el-table-column>

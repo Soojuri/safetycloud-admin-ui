@@ -145,11 +145,11 @@
           </div>
 
           <div class="card-box f1">
-            <div class="title">
+            <div class="title" style="margin-bottom: 30px;">
               <h3>安全生产指数</h3>
             </div>
-            <div class="echart-x">
-              <!-- <chart-ring></chart-ring> -->
+            <div class="echart-x" style="height: 40vh;">
+              <chart-radar></chart-radar>
             </div>
           </div>
 
@@ -191,10 +191,10 @@
 </template>
 
 <script>
-import chartRing from './charts/chemical/chart-ring.vue'
+import chartRadar from './charts/cloud-side/chart-radar.vue'
 export default {
   components: {
-    chartRing,
+    chartRadar,
   },
   data() {
     return {}
@@ -344,7 +344,7 @@ $vw: 100vw/1920;
       font-size: 14 * $vw;
       color: #fff;
       background-image: linear-gradient(0deg, #1990f5 0%, #58c9ff 100%);
-      border-radius: 9 * $vw;
+      border-radius: 20 * $vw;
       border: solid 2px #ffffff;
       box-sizing: border-box;
       overflow: hidden;

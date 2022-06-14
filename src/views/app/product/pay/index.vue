@@ -13,8 +13,8 @@
           </el-select>
         </el-form-item>
         <el-form-item class="ml-xl">
-          <el-button icon="el-icon-search" type="primary" @click="handleQuery">查 询</el-button>
-          <el-button icon="el-icon-delete" @click="handleClear">清 空</el-button>
+          <el-button type="primary" @click="handleQuery">查 询</el-button>
+          <el-button @click="handleClear">清 空</el-button>
         </el-form-item>
       </el-form>
       <div v-loading="loading">
@@ -52,7 +52,7 @@
 
 <script>
 import { getProductList, delProduct } from '@/api/app/product/product.js'
-import {addProductOrder} from '@/api/app/product/order.js'
+import { addProductOrder } from '@/api/app/product/order.js'
 import { mapGetters } from 'vuex'
 export default {
   data() {
@@ -71,7 +71,7 @@ export default {
         visible: false,
         data: {},
       },
-      form:{},
+      form: {},
       loading: false,
     }
   },
@@ -100,11 +100,11 @@ export default {
           this.loading = false
         })
     },
-    createOrder(row){
+    createOrder(row) {
       this.form = row
       this.form.productCount = 1
 
-      addProductOrder(this.form).then((res)=>{
+      addProductOrder(this.form).then((res) => {
         console.log(res.data.data)
         let id = res.data.data.orderId
         this.$router.push('/app/product/pay/details/index?id=' + id)
