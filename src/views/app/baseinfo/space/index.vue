@@ -4,7 +4,8 @@
     <div class="g-card">
       <el-form ref="queryParams" :model="queryParams" inline label-width="70px">
         <el-form-item label="空间名称" prop="spaceName" :rules="[$formRules.checkLen()]">
-          <el-input v-model="queryParams.spaceName" placeholder="请输入空间名称"></el-input>
+          <el-input v-model="queryParams.spaceName" placeholder="请输入空间名称">
+          </el-input>
         </el-form-item>
         <el-form-item label="空间状态" prop="status">
           <el-select v-model="queryParams.status" placeholder="请选择" style="width: 120px">

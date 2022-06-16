@@ -2,190 +2,174 @@
   font-family: c-icon-font;
   src: url('icon.ttf');
 }
-
-[class*='cus-icon-']::before {
-  font-family: c-icon-font, Sans-serif;
+[class*='cus-icon-']::before{
+  font-family: c-icon-font;
 }
-
-.cus-icon-arrow-up::before {
+.cus-icon-arrow-up::before{
   content: "\e902";
 }
-
-.cus-icon-arrow-down::before {
+.cus-icon-arrow-down::before{
   content: "\e903";
 }
-
-.cus-icon-arrow-up-solid::before {
+.cus-icon-arrow-up-solid::before{
   content: "\e921";
 }
-
-.cus-icon-arrow-down-solid::before {
+.cus-icon-arrow-down-solid::before{
   content: "\e920";
 }
-
-.cus-icon-location::before {
+.cus-icon-location::before{
   content: "\e90a";
 }
-
-.cus-icon-download::before {
+.cus-icon-download::before{
   content: "\e911";
 }
-
-.cus-icon-close::before {
+.cus-icon-close::before{
   content: "\e922";
 }
-
-.cus-icon-warn::before {
+.cus-icon-warn::before{
   content: "\e923";
 }
-
-.cus-icon-brush::before {
+.cus-icon-brush::before{
   content: "\e924";
 }
 
 
-.cus-icon-refresh::before {
+.cus-icon-refresh::before{
   content: "\e912";
 }
 
-.cus-icon-correct::before {
+.cus-icon-correct::before{
   content: "\e913";
 }
 
-.cus-icon-export::before {
+.cus-icon-export::before{
   content: "\e914";
 }
-
-.cus-icon-import::before {
+.cus-icon-import::before{
   content: "\e915";
 }
-
-.cus-icon-add::before {
+.cus-icon-add::before{
   content: "\e916";
 }
-
-.cus-icon-more::before {
+.cus-icon-more::before{
   content: "\e917";
 }
-
-.cus-icon-query::before {
+.cus-icon-query::before{
   content: "\e918";
 }
-
-.cus-icon-edit::before {
+.cus-icon-edit::before{
   content: "\e919";
 }
 
-.cus-icon-user::before {
+.cus-icon-user::before{
   content: "\e930";
 }
-
-.cus-icon-pwd::before {
+.cus-icon-pwd::before{
   content: "\e931";
 }
-
-.cus-icon-eye::before {
+.cus-icon-eye::before{
   content: "\e932";
 }
-
-.cus-icon-eye-close::before {
+.cus-icon-eye-close::before{
   content: "\e933";
 }
 
 /* 导航菜单 */
-.cus-icon-index::before {
+.cus-icon-index::before{
   content: "\e925";
 }
-
 /* 设备管理 */
-.cus-icon-shebeiguanli::before {
+.cus-icon-shebeiguanli::before{
   content: "\e926";
 }
-
 /* 设备接入 */
-.cus-icon-shebeijieru::before {
+.cus-icon-shebeijieru::before{
   content: "\e927";
 }
-
 /* 通知管理 */
-.cus-icon-tongzhiguanli::before {
+.cus-icon-tongzhiguanli::before{
   content: "\e928";
 }
-
 /* 监控运维 */
-.cus-icon-jiankongyunwei::before {
+.cus-icon-jiankongyunwei::before{
   content: "\e929";
 }
-
 /* 巡检管理 */
-.cus-icon-xunjianguanli::before {
+.cus-icon-xunjianguanli::before{
   content: "\e92a";
 }
-
 /* 平台预警 */
-.cus-icon-pingtaiyujing::before {
+.cus-icon-pingtaiyujing::before{
   content: "\e92b";
 }
-
 /* 故障管理 */
-.cus-icon-guzhangguanli::before {
+.cus-icon-guzhangguanli::before{
   content: "\e92c";
 }
-
 /* 视频网关 */
-.cus-icon-shipinwangguan::before {
+.cus-icon-shipinwangguan::before{
   content: "\e92d";
 }
-
 /* 统计分析 */
-.cus-icon-tongjifenxi::before {
+.cus-icon-tongjifenxi::before{
   content: "\e92e";
 }
-
 /* 规则引擎 */
-.cus-icon-guizeyinqing::before {
+.cus-icon-guizeyinqing::before{
   content: "\e92f";
 }
-
 /* 导航菜单 end */
 
-
-/* 工作台 */
-.cus-icon-gzt::before {
+/* 导航菜单-云边端 */
+.cus-icon-ybd-workbench::before{
   content: "\e934";
 }
-
-/* 事件审核 */
-.cus-icon-sjsh::before {
+.cus-icon-ybd-ent::before{
   content: "\e935";
 }
-
-/* 算法管理 */
-.cus-icon-sfgl::before {
+.cus-icon-ybd-msg-manage::before{
   content: "\e936";
 }
-
-/* 摄像头管理 */
-.cus-icon-sxtgl::before {
+.cus-icon-ybd-base-info::before{
   content: "\e937";
 }
-
-/* 任务作业管理 */
-.cus-icon-rwzygl::before {
+.cus-icon-ybd-event-alarm::before{
   content: "\e938";
 }
-
-/* 规则配置管理 */
-.cus-icon-gzpzgl::before {
+.cus-icon-ybd-rtm::before{
   content: "\e939";
 }
-
-/* 边缘计算管理 */
-.cus-icon-byjsgl::before {
+.cus-icon-ybd-video-monitor::before{
   content: "\e93a";
 }
-
-/* 系统管理 */
-.cus-icon-xtgl::before {
+.cus-icon-ybd-risk-treat::before{
   content: "\e93b";
 }
+.cus-icon-ybd-risk-manage::before{
+  content: "\e93c";
+}
+.cus-icon-ybd-patrol-task::before{
+  content: "\e93d";
+}
+.cus-icon-ybd-work-permit::before{
+  content: "\e93e";
+}
+.cus-icon-ybd-fault-manage::before{
+  content: "\e93f";
+}
+.cus-icon-ybd-emergency-manage::before{
+  content: "\e940";
+}
+.cus-icon-ybd-decision-analysis::before{
+  content: "\e941";
+}
+.cus-icon-ybd-loop-improve::before{
+  content: "\e942";
+}
+.cus-icon-ybd-sys-manage::before{
+  content: "\e943";
+}
+.cus-icon-ybd-auth-manage::before{
+  content: "\e944";
+}
+/* 导航菜单-云边端 end */

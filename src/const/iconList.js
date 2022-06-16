@@ -104,35 +104,71 @@ export default [{
       },
       {
         label: '工作台',
-        value: 'cus-icon-gzt'
+        value: 'cus-icon-ybd-workbench'
       },
       {
-        label: '事件审核',
-        value: 'cus-icon-sjsh'
+        label: '企业一张图',
+        value: 'cus-icon-ybd-ent'
       },
       {
-        label: '算法管理',
-        value: 'cus-icon-sfgl'
+        label: '消息管理',
+        value: 'cus-icon-ybd-msg-manage'
       },
       {
-        label: '摄像头管理',
-        value: 'cus-icon-sxtgl'
+        label: '基础信息',
+        value: 'cus-icon-ybd-base-info'
       },
       {
-        label: '任务作业管理',
-        value: 'cus-icon-rwzygl'
+        label: '事件报警',
+        value: 'cus-icon-ybd-event-alarm'
       },
       {
-        label: '规则配置管理',
-        value: 'cus-icon-gzpzgl'
+        label: '实时监测',
+        value: 'cus-icon-ybd-rtm'
       },
       {
-        label: '边缘计算管理',
-        value: 'cus-icon-byjsgl'
+        label: '视频监控',
+        value: 'cus-icon-ybd-video-monitor'
       },
       {
-        label: '系统管理',
-        value: 'cus-icon-xtgl'
+        label: '隐患治理',
+        value: 'cus-icon-ybd-risk-treat'
+      },
+      {
+        value: "cus-icon-ybd-risk-manage",
+        label: "风险管控",
+      },
+      {
+        value: "cus-icon-ybd-patrol-task",
+        label: "巡检任务",
+      },
+      {
+        value: "cus-icon-ybd-work-permit",
+        label: "作业许可",
+      },
+      {
+        value: "cus-icon-ybd-fault-manage",
+        label: "故障管理",
+      },
+      {
+        value: "cus-icon-ybd-emergency-manage",
+        label: "应急管理",
+      },
+      {
+        value: "cus-icon-ybd-decision-analysis",
+        label: "决策分析",
+      },
+      {
+        value: "cus-icon-ybd-loop-improve",
+        label: "闭环改进",
+      },
+      {
+        value: "cus-icon-ybd-sys-manage",
+        label: "系统管理",
+      },
+      {
+        value: "cus-icon-ybd-auth-manage",
+        label: "权限管理",
       },
     ]
   }
