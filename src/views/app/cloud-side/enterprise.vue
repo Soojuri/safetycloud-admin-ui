@@ -69,17 +69,28 @@
               <span>风险</span>
             </div>
           </div> -->
-          <el-tabs class="week" style="margin-right:auto" type="card" v-model="activeName">
+          <!-- <el-tabs class="week" style="margin-right:auto" type="card" v-model="activeName">
             <el-tab-pane label="事件" name="first"></el-tab-pane>
             <el-tab-pane label="隐患" name="second"></el-tab-pane>
             <el-tab-pane label="风险" name="third"></el-tab-pane>
-          </el-tabs>
-          <el-tabs class="week" type="card" v-model="eventStateTab">
+          </el-tabs> -->
+          <el-radio-group class="week" style="margin-right:auto" size="medium" v-model="activeName">
+            <el-radio-button :label="0">事件</el-radio-button>
+            <el-radio-button :label="1">隐患</el-radio-button>
+            <el-radio-button :label="2">风险</el-radio-button>
+          </el-radio-group>
+          <!-- <el-tabs class="week" type="card" v-model="eventStateTab">
             <el-tab-pane label="今日" name="0"></el-tab-pane>
             <el-tab-pane label="本周" name="1"></el-tab-pane>
             <el-tab-pane label="本月" name="2"></el-tab-pane>
             <el-tab-pane label="全年" name="3"></el-tab-pane>
-          </el-tabs>
+          </el-tabs> -->
+          <el-radio-group class="week" size="medium" v-model="eventStateTab">
+            <el-radio-button :label="0">本日</el-radio-button>
+            <el-radio-button :label="1">本周</el-radio-button>
+            <el-radio-button :label="2">本月</el-radio-button>
+            <el-radio-button :label="3">本年</el-radio-button>
+          </el-radio-group>
           <!-- <div class="week">
             <span class="active">今日</span>
             <span>本周</span>
