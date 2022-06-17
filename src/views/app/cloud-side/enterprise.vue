@@ -69,12 +69,12 @@
               <span>风险</span>
             </div>
           </div> -->
-          <el-tabs class="tabs-x" v-model="activeName">
+          <el-tabs class="week" style="margin-right:auto" type="card" v-model="activeName">
             <el-tab-pane label="事件" name="first"></el-tab-pane>
             <el-tab-pane label="隐患" name="second"></el-tab-pane>
             <el-tab-pane label="风险" name="third"></el-tab-pane>
           </el-tabs>
-          <el-tabs class="week" v-model="eventStateTab">
+          <el-tabs class="week" type="card" v-model="eventStateTab">
             <el-tab-pane label="今日" name="0"></el-tab-pane>
             <el-tab-pane label="本周" name="1"></el-tab-pane>
             <el-tab-pane label="本月" name="2"></el-tab-pane>
@@ -178,14 +178,14 @@
             <div class="content">
               <div class="echart-x">
                 <chart-dial style="height:173px"></chart-dial>
-                <div style="color:#929292">完成率</div>
+                <div style="color:#929292; margin-bottom: 10px">完成率</div>
                 <span>隐患整改任务</span>
               </div>
             </div>
             <div class="content">
               <div class="echart-x">
                 <chart-dial2 style="height:173px"></chart-dial2>
-                <div style="color:#929292">完成率</div>
+                <div style="color:#929292; margin-bottom: 10px">完成率</div>
                 <span>安全检查任务</span>
               </div>
             </div>
@@ -196,15 +196,12 @@
         <div class="card-box f1">
           <div class="echarts-box">
             <div class="echart-x">
-              <div class="title">安全指数</div>
               <chart-dial-plate></chart-dial-plate>
             </div>
             <div class="echart-x">
-              <div class="title">基础指标</div>
               <chart-dial-plate></chart-dial-plate>
             </div>
             <div class="echart-x">
-              <div class="title">风险指标</div>
               <chart-dial-plate></chart-dial-plate>
             </div>
           </div>

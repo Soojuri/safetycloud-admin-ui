@@ -6,19 +6,28 @@
         <div class="cell ">
           <div>
             <div class="product_name">{{info.eventName}}：{{info.eventId}}</div>
-            <el-descriptions size="medium" column="2" class="mt-m">
+            <!-- <el-descriptions size="medium" column="2" class="mt-m">
               <el-descriptions-item label="事件名称">{{info.eventName}}</el-descriptions-item>
               <el-descriptions-item label="事件类型">{{info.eventType == 1?'人的不安全行为':'物的不安全状态'}}</el-descriptions-item>
-              <!-- <el-descriptions-item label="发现时间">{{parseTime(info.createTime)}}</el-descriptions-item> -->
+              <el-descriptions-item label="发现时间">{{parseTime(info.createTime)}}</el-descriptions-item>
               <el-descriptions-item label="事件等级">{{formatEventLevel(info)}}</el-descriptions-item>
-              <!-- <el-descriptions-item label="处理时间">{{parseTime(info.eventHandleTime)}}</el-descriptions-item> -->
-              <!-- <el-descriptions-item label="上报类型">{{formatReportType(info)}}</el-descriptions-item> -->
+              <el-descriptions-item label="处理时间">{{parseTime(info.eventHandleTime)}}</el-descriptions-item>
+              <el-descriptions-item label="上报类型">{{formatReportType(info)}}</el-descriptions-item>
               <el-descriptions-item :span='2' label="事件编号">{{ info.eventNo }}</el-descriptions-item>
               <el-descriptions-item label="备注">{{info.remark}}</el-descriptions-item>
-            </el-descriptions>
+            </el-descriptions> -->
+            <div>
+              <el-description class="mt-xl">
+                <el-description-item label="事件名称" :value="info.eventName" :span="12" />
+                <el-description-item label="事件类型" :value="info.eventType == 1?'人的不安全行为':'物的不安全状态'" :span="12" />
+                <el-description-item label="事件等级" :value="formatEventLevel(info)" :span="12" />
+                <el-description-item label="事件编号" :value="info.eventNo" :span="12" />
+                <el-description-item label="备注" :value="info.remark" :span="24" />
+              </el-description>
+            </div>
 
           </div>
-          <div>
+          <div style="margin-left:20px;">
             <div class="status">
               <dl>
                 <dd>事件状态</dd>
@@ -83,6 +92,8 @@
 </template>
 
 <script>
+import ElDescription from '@/components/ElDescription'
+import ElDescriptionItem from '@/components/ElDescriptionItem'
 import { getEventInfo } from '@/api/app/event/manual'
 import { updateEventStatus, reportEvent } from '@/api/app/event/manual'
 export default {
@@ -92,6 +103,8 @@ export default {
     RepeatEvent: () => import('./tabs/repeatEvent/index.vue'),
     LogInfo: () => import('./tabs/logInfo/index.vue'),
     // Schedule: () => import('./tabs/scheduleInfo/index.vue'),
+    ElDescription,
+    ElDescriptionItem,
   },
   data() {
     return {
@@ -256,6 +269,7 @@ dt {
   position: relative;
 }
 .step-out {
+  margin-top: 10px;
   border: 1px solid #e7e7e7;
   border-radius: 10px;
   .step-in {

@@ -63,12 +63,12 @@ export default {
               },
             },
             title: {
-              offsetCenter: [0, '-20%'],
-              fontSize: 24,
+              offsetCenter: [0, ' 80%'],
+              fontSize: 20,
             },
             detail: {
               fontSize: 24,
-              offsetCenter: [0, '50%'],
+              offsetCenter: [0, '35%'],
               valueAnimation: true,
               formatter: function (value) {
                 return Math.round(value * 100) + '分'
@@ -78,7 +78,7 @@ export default {
             data: [
               {
                 value: 0.7,
-                // name: 'Grade Rating',
+                name: '安全指数',
               },
             ],
           },

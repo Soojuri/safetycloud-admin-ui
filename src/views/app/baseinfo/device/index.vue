@@ -64,6 +64,10 @@
                 <el-button size="mini" type="text" @click="handleEdit(scope.row)">编辑</el-button>
                 <el-button size="mini" :disabled="scope.row.status == 1?true:false" type="text"
                            @click="handleDelete(scope.row)">删除</el-button>
+                <el-button size="mini" type="text"
+                           v-if="scope.row.status != -1 && scope.row.status != 0 && scope.row.status != -3">
+                  &nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;
+                </el-button>
                 <el-button type="text" v-if="scope.row.status == -1 " @click="handleUndeploy(scope.row)">禁用</el-button>
                 <el-button type="text" v-if="scope.row.status == 0 || scope.row.status == -3 "
                            @click="handleDeploy(scope.row)">启用</el-button>
