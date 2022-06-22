@@ -9,19 +9,19 @@
 
       <div class="avue-crud">
         <el-table :data="dataList" border v-loading="dataListLoading">
-          <el-table-column prop="id" header- label="编号">
+          <el-table-column prop="id" align="center" header- label="编号">
           </el-table-column>
-          <el-table-column prop="templateName" header- label="模板名称">
+          <el-table-column prop="templateName" align="center" header- label="模板名称">
           </el-table-column>
-          <el-table-column prop="fileSize" header- label="文件大小">
+          <el-table-column prop="fileSize" align="center" header- label="文件大小">
           </el-table-column>
-          <el-table-column prop="createUser" header- label="创建用户">
+          <el-table-column prop="createUser" align="center" header- label="创建用户">
           </el-table-column>
-          <el-table-column prop="createTime" header- label="上传时间">
+          <el-table-column prop="createTime" align="center" header- label="上传时间">
           </el-table-column>
-          <el-table-column header- label="操作">
+          <el-table-column header- label="操作" align="center">
             <template slot-scope="scope">
-              <el-button type="text" size="small" icon="el-icon-delete" @click="deleteHandle(scope.row)">删除
+              <el-button type="text" size="small" @click="deleteHandle(scope.row)">删除
               </el-button>
             </template>
           </el-table-column>

@@ -17,21 +17,22 @@
             </ul>
           </div>
         </s-box>
-        <s-box title="事件级别分布情况" style="overflow-x: scroll;">
-          <div class="canvas-wrap" style="height: 26vh;">
+        <s-box title="事件级别分布情况">
+          <div class="canvas-wrap">
             <!-- 此处放图表 -->
-            <pie :dataList="levelList" v-if="levelList.length > 0"></pie>
+            <!-- <pie :dataList="levelList" v-if="levelList.length > 0"></pie> -->
+            <net-pie :dataList="levelList" v-if="levelList.length > 0"></net-pie>
             <el-empty image-size="100" v-else description="暂无数据"></el-empty>
           </div>
         </s-box>
-        <s-box title="事件趋势图" style=" overflow-x: scroll;">
+        <s-box title="事件趋势图">
           <el-tabs class="tabs-s" v-model="eventStateTab" @tab-click="getDataList">
             <el-tab-pane label="今日" name="0"></el-tab-pane>
             <el-tab-pane label="本周" name="1"></el-tab-pane>
             <el-tab-pane label="本月" name="2"></el-tab-pane>
             <el-tab-pane label="全年" name="3"></el-tab-pane>
           </el-tabs>
-          <div class="canvas-wrap" style="height: 30vh;">
+          <div class="canvas-wrap">
             <!-- 此处放图表 -->
             <intelligent-recognition v-if="IntelligentRecognition.length > 0" :data="IntelligentRecognition">
             </intelligent-recognition>
@@ -133,6 +134,7 @@
 
 <script>
 import Pie from './charts/pie.vue'
+import NetPie from './charts/net-pie.vue'
 import IntelligentRecognition from './charts/line.vue'
 import MapLoader from '@/util/AMap' // 引入高德地图 原生api
 import cameraIcon from '@/assets/images/camera-manage/map-icon-camera.png'
@@ -152,7 +154,7 @@ import {
   getEventLevel,
 } from '@/api/app/event/manual'
 export default {
-  components: { SBox, IntelligentRecognition, Pie },
+  components: { SBox, IntelligentRecognition, Pie, NetPie },
   data() {
     return {
       eventStateTab: '2',

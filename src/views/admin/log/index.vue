@@ -103,4 +103,10 @@ export default {
 ::v-deep .avue-crud__menu {
   display: none;
 }
+::v-deep .el-icon-search {
+  display: none;
+}
+::v-deep .el-icon-delete {
+  display: none;
+}
 </style>

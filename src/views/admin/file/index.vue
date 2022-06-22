@@ -117,4 +117,14 @@ export default {
   },
 }
 </script>
-
+<style lang="scss" scoped>
+::v-deep .el-icon-search {
+  display: none;
+}
+::v-deep .el-icon-delete {
+  display: none;
+}
+::v-deep .el-icon-download {
+  display: none;
+}
+</style>

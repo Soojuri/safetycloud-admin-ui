@@ -14,6 +14,8 @@ export const tableOption = {
   showClomnuBtn: false,
   searchMenuSpan: 6,
   searchSize: 'small',
+  delBtnIcon: ' ',
+  editBtnIcon: ' ',
   labelSuffix: ' ',
   column: [{
     label: '类型',
@@ -130,3 +132,4 @@ export const tableDictItemOption = {
     type: 'textarea'
   }]
 }
+s

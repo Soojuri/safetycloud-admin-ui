@@ -40,13 +40,16 @@ export default {
         tooltip: {
           trigger: 'axis',
         },
-        // legend: {
-        //   icon: 'rect',
-        //   itemGap: 40,
-        //   itemWidth: 30,
-        //   data: ['智能识别数量', '人工审核数量', '通过上报数量'],
-        //   top: '20',
-        // },
+        xAxis: [
+          {
+            data: this.data.map((item) => item.time),
+          },
+        ],
+        yAxis: [
+          {
+            splitLine: { show: false },
+          },
+        ],
         grid: {
           left: '3%',
           right: '4%',
@@ -54,47 +57,52 @@ export default {
           top: '3%',
           containLabel: true,
         },
-        xAxis: {
-          type: 'category',
-          boundaryGap: false,
-          axisLabel: {
-            interval: 0,
-          },
-          axisLine: { show: true },
-          axisTick: { show: false },
-          data: this.data.map((item) => item.time),
-        },
-        yAxis: {
-          axisLine: { show: true },
-          show: true,
-        },
         series: [
           {
-            name: '智能识别数量',
             itemStyle: {
               color: '#2593fc',
             },
             type: 'line',
             data: this.data.map((item) => item.num),
+            smooth: true,
           },
-          // {
-          //   name: '人工审核数量',
-          //   type: 'line',
-
-          //   itemStyle: {
-          //     color: '#30b789',
-          //   },
-          //   data: this.data.map((item) => item.manualAuditCount),
-          // },
-          // {
-          //   name: '通过上报数量',
-          //   type: 'line',
-          //   itemStyle: {
-          //     color: '#2593fc',
-          //   },
-          //   data: this.data.map((item) => item.reportCount),
-          // },
         ],
+        // tooltip: {
+        //   trigger: 'axis',
+        // },
+        // grid: {
+        //   left: '3%',
+        //   right: '4%',
+        //   bottom: '3%',
+        //   top: '3%',
+        //   containLabel: true,
+        // },
+        // xAxis: {
+        //   type: 'category',
+        //   boundaryGap: false,
+        //   axisLabel: {
+        //     interval: 0,
+        //   },
+        //   axisLine: { show: true },
+        //   axisTick: { show: false },
+        //   data: this.data.map((item) => item.time),
+        // },
+        // yAxis: {
+        //   axisLine: { show: true },
+        //   show: true,
+        //   type: 'value',
+        // },
+        // series: [
+        //   {
+        //     name: '智能识别数量',
+        //     itemStyle: {
+        //       color: '#2593fc',
+        //     },
+        //     type: 'line',
+        //     data: this.data.map((item) => item.num),
+        //     smooth: true,
+        //   },
+        // ],
       }
       option && this.chart.setOption(option)
     },
@@ -103,6 +111,6 @@ export default {
 </script>
 <style lang='scss' scoped>
 .chart {
-  min-width: 100vh;
+  min-width: 0vh;
 }
 </style>
