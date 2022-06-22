@@ -20,7 +20,7 @@
                      @refresh-change="refreshChange" @size-change="sizeChange" @current-change="currentChange"
                      @row-update="update" @row-save="create" @search-reset="handleSearchReset">
             <template slot="menuLeft">
-              <el-button v-if="sys_user_add" class="filter-item" type="primary" size="small" icon="el-icon-edit"
+              <el-button v-if="sys_user_add" class="filter-item" type="primary" size="small" icon="el-icon-plus"
                          @click="$refs.crud.rowAdd()">添加
               </el-button>
             </template>
@@ -39,13 +39,11 @@
               <el-tag>{{ scope.label }}</el-tag>
             </template>
             <template slot="menu" slot-scope="scope">
-              <el-button v-if="sys_user_edit" type="text" size="small" icon="el-icon-edit"
-                         @click="handleUpdate(scope.row,scope.index)">编辑
+              <el-button v-if="sys_user_edit" type="text" size="small" @click="handleUpdate(scope.row,scope.index)">编辑
               </el-button>
-              <el-button type="text" size="small" icon="el-icon-edit" @click="handlePasswd(scope.row,scope.index)">重置密码
+              <el-button type="text" size="small" @click="handlePasswd(scope.row,scope.index)">重置密码
               </el-button>
-              <el-button v-if="sys_user_del" type="text" size="small" icon="el-icon-delete"
-                         @click="deletes(scope.row,scope.index)">删除
+              <el-button v-if="sys_user_del" type="text" size="small" @click="deletes(scope.row,scope.index)">删除
               </el-button>
             </template>
             <template slot="deptIdForm" slot-scope="scope">
@@ -367,7 +365,7 @@ export default {
   },
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .user {
   height: 100%;
 
@@ -381,6 +379,15 @@ export default {
       padding-top: 0;
     }
   }
+}
+::v-deep .el-icon-search {
+  display: none;
+}
+::v-deep .el-icon-delete {
+  display: none;
+}
+::v-deep .el-icon-edit {
+  display: none;
 }
 </style>
 

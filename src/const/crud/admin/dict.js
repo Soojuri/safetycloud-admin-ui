@@ -132,4 +132,3 @@ export const tableDictItemOption = {
     type: 'textarea'
   }]
 }
-s

@@ -12,15 +12,16 @@
 
       <el-table border v-loading="loading" :data="menuList" row-key="id"
                 :tree-props="{children: 'children', hasChildren: 'hasChildrens'}">
-        <el-table-column prop="name" label="菜单名称" :show-overflow-tooltip="true" width="180"></el-table-column>
-        <el-table-column prop="icon" label="图标" width="100">
+        <el-table-column prop="name" label="菜单名称" :show-overflow-tooltip="true" width="180">
+        </el-table-column>
+        <el-table-column prop="icon" align="center" label="图标" width="100">
           <template slot-scope="scope">
             <i :class="scope.row.icon" />
           </template>
         </el-table-column>
-        <el-table-column prop="sort" label="排序" width="60"></el-table-column>
-        <el-table-column prop="path" label="组件路径" :show-overflow-tooltip="true"></el-table-column>
-        <el-table-column prop="type" label="类型" width="80">
+        <el-table-column prop="sort" align="center" label="排序" width="60"></el-table-column>
+        <el-table-column prop="path" align="center" label="组件路径" :show-overflow-tooltip="true"></el-table-column>
+        <el-table-column prop="type" align="center" label="类型" width="80">
           <template slot-scope="scope">
             <el-tag type="success" v-if="scope.row.type === '0'">左菜单</el-tag>
             <el-tag type="success" v-if="scope.row.type === '2'">顶菜单</el-tag>
@@ -33,23 +34,22 @@
             <el-tag type="success" v-if="scope.row.keepAlive === '1'">开启</el-tag>
           </template>
         </el-table-column> -->
-        <el-table-column prop="keepAlive" label="状态" width="80">
+        <el-table-column prop="keepAlive" align="center" label="状态" width="80">
           <template slot-scope="scope">
             <el-tag type="info" v-if="scope.row.visible == '1'">隐藏</el-tag>
             <el-tag type="success" v-if="scope.row.visible == '0'">显示</el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="permission" label="权限标识" :show-overflow-tooltip="true"></el-table-column>
-        <el-table-column label="操作" class-name="small-padding fixed-width">
+        <el-table-column prop="permission" align="center" label="权限标识" :show-overflow-tooltip="true"></el-table-column>
+        <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
           <template slot-scope="scope">
-            <el-button size="small" type="text" icon="el-icon-plus" @click="addOrUpdateHandle(false,scope.row.id)"
+            <el-button size="small" type="text" @click="addOrUpdateHandle(false,scope.row.id)"
                        v-if="permissions.sys_menu_add">新增
             </el-button>
-            <el-button size="small" type="text" icon="el-icon-edit" @click="addOrUpdateHandle(true,scope.row.id)"
+            <el-button size="small" type="text" @click="addOrUpdateHandle(true,scope.row.id)"
                        v-if="permissions.sys_menu_edit">修改
             </el-button>
-            <el-button size="small" type="text" icon="el-icon-delete" @click="handleDelete(scope.row)"
-                       v-if="permissions.sys_menu_del">删除
+            <el-button size="small" type="text" @click="handleDelete(scope.row)" v-if="permissions.sys_menu_del">删除
             </el-button>
           </template>
         </el-table-column>

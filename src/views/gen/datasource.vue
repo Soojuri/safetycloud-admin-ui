@@ -18,20 +18,21 @@
 <template>
   <div class="execution">
     <basic-container>
-      <avue-crud ref="dscrud" v-model="dsForm" :page.sync="dsPage" :data="tableDsData" :option="tableDsOption" :before-open="handleOpenBefore"
-                 @row-update="handleUpdate" @row-save="handleSave" @row-del="rowDel" @size-change="sizeChange" @current-change="currentChange"
-                 @refresh-change="refreshDsChange" @on-load="getDsList" />
+      <avue-crud ref="dscrud" v-model="dsForm" :page.sync="dsPage" :data="tableDsData" :option="tableDsOption"
+                 :before-open="handleOpenBefore" @row-update="handleUpdate" @row-save="handleSave" @row-del="rowDel"
+                 @size-change="sizeChange" @current-change="currentChange" @refresh-change="refreshDsChange"
+                 @on-load="getDsList" />
     </basic-container>
   </div>
 </template>
 
 <script>
-import { addObj, delObj, fetchDsList, putObj } from "@/api/gen/gen"
-import { formOption, tableDsOption, tableOption } from "@/const/crud/gen/gen"
+import { addObj, delObj, fetchDsList, putObj } from '@/api/gen/gen'
+import { formOption, tableDsOption, tableOption } from '@/const/crud/gen/gen'
 
 export default {
-  name: "CodeGenerator",
-  data () {
+  name: 'CodeGenerator',
+  data() {
     return {
       dataSourceList: [],
       tableDsData: [],
@@ -49,63 +50,59 @@ export default {
     }
   },
   watch: {
-    "dsForm.confType" () {
+    'dsForm.confType'() {
       this.$refs.dscrud.option.column.filter((item) => {
-        if (item.prop === "url") {
+        if (item.prop === 'url') {
           item.addDisplay = this.dsForm.confType === 1
           item.editDisplay = this.dsForm.confType === 1
         }
 
-        if (item.prop === "host") {
+        if (item.prop === 'host') {
           item.addDisplay = this.dsForm.confType !== 1
           item.editDisplay = this.dsForm.confType !== 1
         }
 
-        if (item.prop === "port") {
+        if (item.prop === 'port') {
           item.addDisplay = this.dsForm.confType !== 1
           item.editDisplay = this.dsForm.confType !== 1
         }
 
-        if (item.prop === "dsName") {
+        if (item.prop === 'dsName') {
           item.addDisplay = this.dsForm.confType !== 1
           item.editDisplay = this.dsForm.confType !== 1
         }
 
-        if (item.prop === "instance") {
-          item.addDisplay =
-            this.dsForm.dsType === "mssql" && this.dsForm.confType === 0
-          item.editDisplay =
-            this.dsForm.dsType === "mssql" && this.dsForm.confType === 0
+        if (item.prop === 'instance') {
+          item.addDisplay = this.dsForm.dsType === 'mssql' && this.dsForm.confType === 0
+          item.editDisplay = this.dsForm.dsType === 'mssql' && this.dsForm.confType === 0
         }
       })
     },
-    "dsForm.dsType" () {
+    'dsForm.dsType'() {
       this.$refs.dscrud.option.column.filter((item) => {
-        if (item.prop === "instance") {
-          item.addDisplay =
-            this.dsForm.dsType === "mssql" && this.dsForm.confType === 0
-          item.editDisplay =
-            this.dsForm.dsType === "mssql" && this.dsForm.confType === 0
+        if (item.prop === 'instance') {
+          item.addDisplay = this.dsForm.dsType === 'mssql' && this.dsForm.confType === 0
+          item.editDisplay = this.dsForm.dsType === 'mssql' && this.dsForm.confType === 0
         }
 
-        if (item.prop === "port") {
-          if (this.dsForm.dsType === "mysql") {
+        if (item.prop === 'port') {
+          if (this.dsForm.dsType === 'mysql') {
             this.dsForm.port = 3306
           }
 
-          if (this.dsForm.dsType === "oracle") {
+          if (this.dsForm.dsType === 'oracle') {
             this.dsForm.port = 1521
           }
 
-          if (this.dsForm.dsType === "pg") {
+          if (this.dsForm.dsType === 'pg') {
             this.dsForm.port = 5432
           }
 
-          if (this.dsForm.dsType === "mssql") {
+          if (this.dsForm.dsType === 'mssql') {
             this.dsForm.port = 1433
           }
 
-          if (this.dsForm.dsType === "db2") {
+          if (this.dsForm.dsType === 'db2') {
             this.dsForm.port = 50000
           }
         }
@@ -114,16 +111,16 @@ export default {
   },
   methods: {
     rowDel: function (row, index) {
-      this.$confirm("是否确认删除ID为" + row.id, "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
+      this.$confirm('是否确认删除ID为' + row.id, '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
       })
         .then(function () {
           return delObj(row.id)
         })
         .then(() => {
-          this.msgSuccess("删除成功")
+          this.msgSuccess('删除成功')
           this.getDsList(this.dsPage)
         })
     },
@@ -134,9 +131,9 @@ export default {
     handleUpdate: function (row, index, done) {
       putObj(row).then((res) => {
         if (res.data.code == 0) {
-          this.msgSuccess("修改成功")
+          this.msgSuccess('修改成功')
         } else {
-          this.msgError("修改失败，数据源不可访问")
+          this.msgError('修改失败，数据源不可访问')
         }
         done()
         this.getDsList(this.dsPage)
@@ -145,15 +142,15 @@ export default {
     handleSave: function (row, done) {
       addObj(row).then((res) => {
         if (res.data.code == 0) {
-          this.msgSuccess("添加成功")
+          this.msgSuccess('添加成功')
         } else {
-          this.msgError("添加失败，数据源不可访问")
+          this.msgError('添加失败，数据源不可访问')
         }
         done()
         this.getDsList(this.dsPage)
       })
     },
-    getDsList (page, params) {
+    getDsList(page, params) {
       fetchDsList(
         Object.assign(
           {
@@ -167,19 +164,28 @@ export default {
         this.dsPage.total = response.data.data.total
       })
     },
-    sizeChange (pageSize) {
+    sizeChange(pageSize) {
       this.page.pageSize = pageSize
     },
-    currentChange (current) {
+    currentChange(current) {
       this.page.currentPage = current
     },
-    refreshDsChange () {
+    refreshDsChange() {
       this.getDsList(this.dsPage)
     },
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>
+::v-deep .el-icon-view {
+  display: none;
+}
+::v-deep .el-icon-delete {
+  display: none;
+}
+::v-deep .el-icon-edit {
+  display: none;
+}
 </style>
 

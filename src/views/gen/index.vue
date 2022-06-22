@@ -38,8 +38,9 @@
           </div>
         </el-col>
       </el-row>
-      <avue-crud ref="crud" :page.sync="page" :data="tableData" :table-loading="tableLoading" :option="tableOption" @on-load="getList"
-                 @size-change="sizeChange" @current-change="currentChange" @refresh-change="refreshChange">
+      <avue-crud ref="crud" :page.sync="page" :data="tableData" :table-loading="tableLoading" :option="tableOption"
+                 @on-load="getList" @size-change="sizeChange" @current-change="currentChange"
+                 @refresh-change="refreshChange">
         <template slot-scope="scope" slot="menu">
           <el-button type="text" icon="el-icon-view" @click="handleTable(scope.row,scope.index)">字段
           </el-button>
@@ -89,7 +90,7 @@ import Table from './table'
 export default {
   name: 'CodeGenerator',
   components: { Preview, Table },
-  data () {
+  data() {
     return {
       q: {},
       dataSourceList: [],
@@ -101,7 +102,7 @@ export default {
       page: {
         total: 0, // 总页数
         currentPage: 1, // 当前页数
-        pageSize: 20 // 每页显示多少条
+        pageSize: 20, // 每页显示多少条
       },
       tableLoading: false,
       tableOption: tableOption,
@@ -110,30 +111,37 @@ export default {
       // 预览参数
       preview: {
         open: false,
-        title: "代码预览"
+        title: '代码预览',
       },
       table: {
         open: false,
-        title: "字段预览"
-      }
+        title: '字段预览',
+      },
     }
   },
-  created () {
+  created() {
     this.getdataSourceList()
   },
   methods: {
-    getList (page) {
+    getList(page) {
       this.tableLoading = true
-      fetchList(Object.assign({
-        current: page.currentPage,
-        size: page.pageSize
-      }, this.q)).then(response => {
-        this.tableData = response.data.data.records
-        this.page.total = response.data.data.total
-        this.tableLoading = false
-      }).catch(err => {
-        this.tableLoading = false
-      })
+      fetchList(
+        Object.assign(
+          {
+            current: page.currentPage,
+            size: page.pageSize,
+          },
+          this.q
+        )
+      )
+        .then((response) => {
+          this.tableData = response.data.data.records
+          this.page.total = response.data.data.total
+          this.tableLoading = false
+        })
+        .catch((err) => {
+          this.tableLoading = false
+        })
     },
     handleView: function () {
       this.formData.dsName = this.q.dsName
@@ -153,30 +161,30 @@ export default {
       this.formData.tableName = row.tableName
       this.box = true
     },
-    sizeChange (pageSize) {
+    sizeChange(pageSize) {
       this.page.pageSize = pageSize
     },
-    currentChange (current) {
+    currentChange(current) {
       this.page.currentPage = current
     },
-    refreshChange () {
+    refreshChange() {
       this.getList(this.page)
     },
-    gen () {
+    gen() {
       this.formData.dsName = this.q.dsName
       handleDown(this.formData).then(() => {
         this.box = false
       })
     },
-    getdataSourceList () {
-      fetchSelectDsList().then(response => {
+    getdataSourceList() {
+      fetchSelectDsList().then((response) => {
         this.dataSourceList = response.data.data
       })
     },
-    search () {
+    search() {
       this.getList(this.page)
     },
-    openBatch () {
+    openBatch() {
       if (this.$refs.crud.tableSelect.length <= 1 || this.$refs.crud.tableSelect.length > 10) {
         this.msgError('选中表数量不合法，数量最少2个或最多为10个')
         return false
@@ -188,19 +196,39 @@ export default {
       this.formBatchData.tableName = tableName.join('-')
       this.boxBatch = true
     },
-    batchGen (form, done) {
+    batchGen(form, done) {
       this.formBatchData.dsName = this.q.dsName
-      handleDown(this.formBatchData).then(() => {
-        done()
-        this.boxBatch = false
-      }).catch(() => {
-        done()
-      })
-    }
-  }
+      handleDown(this.formBatchData)
+        .then(() => {
+          done()
+          this.boxBatch = false
+        })
+        .catch(() => {
+          done()
+        })
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
+::v-deep .el-icon-view {
+  display: none;
+}
+::v-deep .el-icon-delete {
+  display: none;
+}
+::v-deep .el-icon-edit {
+  display: none;
+}
+::v-deep .el-icon-check {
+  display: none;
+}
+::v-deep .el-icon-search {
+  display: none;
+}
+::v-deep .el-icon-download {
+  display: none;
+}
 </style>
 

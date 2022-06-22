@@ -9,7 +9,7 @@
                  @current-change="currentChange" @row-update="update" @row-save="create">
 
         <template slot="menuLeft">
-          <el-button v-if="roleManager_btn_add" class="filter-item" type="primary" icon="el-icon-edit"
+          <el-button v-if="roleManager_btn_add" class="filter-item" type="primary" icon="el-icon-plus"
                      @click="handleCreate">添加
           </el-button>
         </template>
@@ -22,13 +22,12 @@
         </template>
 
         <template slot="menu" slot-scope="scope">
-          <el-button v-if="roleManager_btn_edit" type="text" size="small" icon="el-icon-edit"
-                     @click="handleUpdate(scope.row,scope.index)">编辑
+          <el-button v-if="roleManager_btn_edit" type="text" size="small" @click="handleUpdate(scope.row,scope.index)">
+            编辑
           </el-button>
-          <el-button v-if="roleManager_btn_del" type="text" size="small" icon="el-icon-delete"
-                     @click="handleDelete(scope.row,scope.index)">删除
+          <el-button v-if="roleManager_btn_del" type="text" size="small" @click="handleDelete(scope.row,scope.index)">删除
           </el-button>
-          <el-button v-if="roleManager_btn_perm" type="text" size="small" icon="el-icon-plus"
+          <el-button v-if="roleManager_btn_perm" type="text" size="small"
                      @click="handlePermission(scope.row,scope.index)">权限
           </el-button>
         </template>
@@ -315,5 +314,14 @@ export default {
   .el-form-item__content {
     margin-left: 20% !important;
   }
+}
+::v-deep .el-icon-search {
+  display: none;
+}
+::v-deep .el-icon-delete {
+  display: none;
+}
+::v-deep .el-icon-view {
+  display: none;
 }
 </style>
