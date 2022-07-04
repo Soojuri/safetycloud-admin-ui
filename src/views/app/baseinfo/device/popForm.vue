@@ -19,13 +19,13 @@
                 </el-option>
               </el-select>
             </el-form-item>
-            <!-- <el-form-item label='企业' prop='enterpriseId'>
+            <el-form-item label='企业' prop='enterpriseId'>
               <el-select v-model="form.enterpriseId" placeholder="请选择企业">
                 <el-option v-for="item in enterpriseList" :key="item.enterpriseId" :label="item.enterpriseName"
                            :value="item.enterpriseId">
                 </el-option>
               </el-select>
-            </el-form-item> -->
+            </el-form-item>
             <el-form-item label='物联产品' prop='productId'>
               <el-select v-model="form.productId" placeholder="请选择物联产品" @change="whChange">
                 <el-option v-for="item in productAllList" :key="item.productId" :label="item.productName"
