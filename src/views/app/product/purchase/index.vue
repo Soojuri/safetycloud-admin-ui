@@ -31,6 +31,7 @@
             <el-table-column prop="productCount" align='center' label="购买数量" />
             <el-table-column prop="orderMoney" align='center' label="订单金额" />
             <el-table-column prop="payName" align='center' label="支付人员" />
+            <el-table-column prop="remark" align='center' label="备注" />
             <el-table-column prop="payStatus" align='center' label="缴费状态">
               <template slot-scope="scope">
                 <span v-if="scope.row.payStatus == 0" style="color: #409eff">
