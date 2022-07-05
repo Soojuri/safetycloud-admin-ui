@@ -5,7 +5,7 @@
         <el-form-item label="订单编号" prop="orderCode" :rules="[$formRules.checkLen()]">
           <el-input v-model="queryParams.orderCode" placeholder="请输入订单编号"></el-input>
         </el-form-item>
-        <el-form-item label="订单名称" prop="orderName" :rules="[$formRules.checkLen()]">
+        <el-form-item label="订单名称" prop="orderName" :rules="[$formRules.checkLen(255)]">
           <el-input v-model="queryParams.orderName" placeholder="请输入订单名称"></el-input>
         </el-form-item>
         <el-form-item label="订单状态" prop="orderStatus">
