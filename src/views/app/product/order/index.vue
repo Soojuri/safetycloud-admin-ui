@@ -18,8 +18,8 @@
             <el-option label="异常处理" :value="6" />
           </el-select>
         </el-form-item>
-        <el-form-item label='支付时间'>
-          <el-date-picker value-format='timestamp' v-model='payDateRange' type='datetimerange' range-separator='至'
+        <el-form-item label='支付时间' prop="payTime">
+          <el-date-picker value-format='timestamp' v-model='queryParams.payTime' type='datetimerange' range-separator='至'
                           start-placeholder='开始时间' end-placeholder='结束时间' :default-time="['00:00:00', '23:59:59']" />
         </el-form-item>
         <el-form-item class="ml-xl">
@@ -129,7 +129,6 @@ export default {
       },
       loading: false,
       transactType: [],
-      payDateRange: []
     }
   },
   watch: {},
@@ -145,7 +144,6 @@ export default {
   methods: {
     getList() {
       this.loading = true
-      this.queryParams.payTime = this.payDateRange
       getProductOrderList(this.queryParams)
         .then((res) => {
           this.loading = false
