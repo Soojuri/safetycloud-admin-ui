@@ -50,11 +50,14 @@
             <el-table-column prop="payTime" align='center' label="支付时间">
               <template slot-scope="scope">{{parseTime(scope.row.payTime)}}</template>
             </el-table-column>
-            <!-- <el-table-column label="操作" align='center' width="250">
+            <el-table-column label="操作" align='center' width="250">
+<!--              <template slot-scope="scope">-->
+<!--                <el-button size="mini"  type="text" @click="handleDelete(scope.row)">详情</el-button>-->
+<!--              </template>-->
               <template slot-scope="scope">
-                <el-button size="mini"  type="text" @click="handleDetails(scope.row)">详情</el-button>
+                <el-button size="mini"  type="text" @click="handleDelete(scope.row)">删除</el-button>
               </template>
-            </el-table-column> -->
+            </el-table-column>
           </el-table>
         </div>
         <div class="g-page-x mt-m">
@@ -150,7 +153,7 @@ export default {
       this.getList()
     },
     handleDelete(row) {
-      if (!this.permissions.camera_space_delete) return this.msgWarn('权限不足')
+      // if (!this.permissions.camera_space_delete) return this.msgWarn('权限不足')
       const that = this
       this.$confirm('是否确认删除', '提示', {
         confirmButtonText: '确定',
@@ -158,7 +161,7 @@ export default {
         type: 'warning',
       })
         .then(() => {
-          return delPurchase(row.orderId)
+          return delPurchase(row.recordId)
         })
         .then((res) => {
           if (res.data.data) {
