@@ -193,5 +193,39 @@ export const rule = {
         callback(new Error('请输入正确的邮箱格式'))
       }
     }, 100)
-  }
+  },
+  /**
+   * 校验传真
+   *
+   */
+  checkFax(rule, value, callback) {
+    const reg = /^(\d{3,4}-)?\d{7,8}$/
+    if (!value) {
+      return callback(new Error('传真不能为空'))
+    }
+    setTimeout(() => {
+      if (reg.test(value)) {
+        callback()
+      } else {
+        callback(new Error('请输入正确的传真格式'))
+      }
+    }, 100)
+  },
+  /**
+   * 校验座机
+   *
+   */
+  checkTel(rule, value, callback) {
+    const reg = /0\d{2,3}-\d{7,8}/
+    if (!value) {
+      return callback(new Error('电话座机不能为空'))
+    }
+    setTimeout(() => {
+      if (reg.test(value)) {
+        callback()
+      } else {
+        callback(new Error('请输入正确的电话座机格式'))
+      }
+    }, 100)
+  },
 }

@@ -1,4 +1,3 @@
-<!-- 工单管理-数据表单 -->
 <template>
   <div>
     <el-dialog :visible="visible" width="888px" :title="title" append-to-body :close-on-click-modal='false'
@@ -38,30 +37,72 @@
               </el-form-item>
               <el-form-item label="企业类型" prop="enterpriseType">
                 <el-select v-model="form.enterpriseType" placeholder="请选择企业类型">
-                  <el-option v-for="item in dict.enterpriseType" :label="item.label" :value="parseInt(item.value)"
+                  <!-- <el-option v-for="item in dict.enterpriseType" :label="item.label" :value="parseInt(item.value)"
                              :key="item.value">
-                  </el-option>
+                  </el-option> -->
+                  <el-option label="其它行业" :value="0" />
+                  <el-option label="金属冶炼行业" :value="1" />
+                  <el-option label="有色金属行业" :value="2" />
+                  <el-option label="建筑行业" :value="3" />
+                  <el-option label="机械行业" :value="4" />
+                  <el-option label="轻业行业" :value="5" />
+                  <el-option label="纺织行业" :value="6" />
+                  <el-option label="烟草行业" :value="7" />
+                  <el-option label="商贸行业" :value="8" />
+                  <el-option label="危险化学品" :value="9" />
+                  <el-option label="化工行业" :value="10" />
+                  <el-option label="非煤矿山" :value="11" />
+                  <el-option label="建筑施工行业" :value="12" />
+                  <el-option label="民爆类" :value="13" />
+                  <el-option label="烟花爆竹" :value="14" />
+                  <el-option label="燃气类" :value="15" />
+                  <el-option label="食品、药品、医疗器械行业" :value="16" />
+                  <el-option label="渔业行业" :value="17" />
+                  <el-option label="电力行业" :value="18" />
+                  <el-option label="学校" :value="19" />
+                  <el-option label="旅游行业" :value="20" />
+                  <el-option label="交通行业" :value="21" />
+                  <el-option label="海上运输" :value="22" />
+                  <el-option label="医疗行业" :value="23" />
+                  <el-option label="农机行业" :value="24" />
+                  <el-option label="通信行业" :value="25" />
                 </el-select>
               </el-form-item>
               <el-form-item label="经济类型" prop="economicType">
                 <el-select v-model="form.economicType" placeholder="请选择经济类型">
-                  <el-option v-for="item in dict.economicType" :label="item.label" :value="parseInt(item.value)"
+                  <!-- <el-option v-for="item in dict.economicType" :label="item.label" :value="parseInt(item.value)"
                              :key="item.value">
-                  </el-option>
+                  </el-option> -->
+                  <el-option label="其它经济" :value="0" />
+                  <el-option label="股份制经济" :value="1" />
+                  <el-option label="集体经济" :value="2" />
+                  <el-option label="港澳台投资经济" :value="3" />
+                  <el-option label="民营经济" :value="4" />
+                  <el-option label="联营经济" :value="5" />
+                  <el-option label="外商投资经济" :value="6" />
+                  <el-option label="国有经济" :value="7" />
                 </el-select>
               </el-form-item>
               <el-form-item label="主要危险类型" prop="mainRiskType">
                 <el-select v-model="form.mainRiskType" placeholder="请选择主要危险类型">
-                  <el-option v-for="item in dict.mainRiskType" :label="item.label" :value="parseInt(item.value)"
+                  <!-- <el-option v-for="item in dict.mainRiskType" :label="item.label" :value="parseInt(item.value)"
                              :key="item.value">
-                  </el-option>
+                  </el-option> -->
+                  <el-option label="其它危险类型" :value="0" />
+                  <el-option label="煤矿行业危险" :value="1" />
+                  <el-option label="非煤矿行业危险" :value="2" />
+                  <el-option label="危化行业危险" :value="3" />
+                  <el-option label="工贸行业危险" :value="4" />
                 </el-select>
               </el-form-item>
               <el-form-item label="企业性质" prop="businessNature">
                 <el-select v-model="form.businessNature" placeholder="请选择企业性质">
-                  <el-option v-for="item in dict.businessNature" :label="item.label" :value="parseInt(item.value)"
+                  <!-- <el-option v-for="item in dict.businessNature" :label="item.label" :value="parseInt(item.value)"
                              :key="item.value">
-                  </el-option>
+                  </el-option> -->
+                  <el-option label="其它企业" :value="0" />
+                  <el-option label="省属企业" :value="1" />
+                  <el-option label="市属企业" :value="2" />
                 </el-select>
               </el-form-item>
               <el-form-item label='成立时间' prop='establishmentDate'>
@@ -85,7 +126,8 @@
                 <el-input size='small' v-model='form.email' placeholder='请输入电子邮箱'></el-input>
               </el-form-item>
               <el-form-item label='从业人数' prop='staffNum'>
-                <el-input-number size='small' v-model='form.staffNum' placeholder='请输入从业人数'></el-input-number>
+                <el-input-number size='small' v-model='form.staffNum' :min="0" :max="100000" placeholder='请输入从业人数'>
+                </el-input-number>
               </el-form-item>
               <el-form-item label='主要负责人' prop='enterpriseLeader'>
                 <el-input size='small' v-model='form.enterpriseLeader' placeholder='请输入主要负责人'></el-input>
@@ -107,7 +149,7 @@
       </el-row>
       <div slot='footer' class="dialog-footer">
         <el-button @click="handleClose">取 消</el-button>
-        <el-button type="primary" @click="handleSave">保 存</el-button>
+        <el-button type="primary" @click="handleSave">确 认</el-button>
       </div>
     </el-dialog>
   </div>
@@ -173,7 +215,7 @@ export default {
         mainRiskType: null,
         businessNature: null,
         remark: null,
-        type: 1,
+        type: 0,
       },
       id: null,
       options: regionData,
@@ -201,10 +243,10 @@ export default {
         ],
         enterpriseCode: [
           { validator: this.$formRules.validatorCredit, trigger: 'blur' },
-          this.$formRules.checkLen(),
+          this.$formRules.checkLen(32),
           this.$formRules.checkNecessary('请输入统一社会信用代码'),
         ],
-        enterpriseName: [this.$formRules.checkNecessary('请输入企业名称')],
+        enterpriseName: [this.$formRules.checkLen(100), this.$formRules.checkNecessary('请输入企业名称')],
         selectedOptions: [this.$formRules.checkNecessary('请选择省市区')],
         enterpriseType: [this.$formRules.checkNecessary('请选择企业类型')],
         mainRiskType: [this.$formRules.checkNecessary('请选择主要危险类型')],
@@ -220,9 +262,14 @@ export default {
           this.$formRules.checkNecessary('请输入负责人手机'),
           { validator: this.$formRules.checkPhone, trigger: 'blur' },
         ],
-        enterpriseLeaderPhone: [{ validator: this.$formRules.checkPhone, trigger: 'blur' }],
-        fax: [this.$formRules.checkLen(), { validator: this.$formRules.checkNumber, trigger: 'blur' }],
+        enterpriseLeaderPhone: [
+          this.$formRules.checkLen(50),
+          { validator: this.$formRules.checkTel, trigger: 'blur' },
+          this.$formRules.checkNecessary('请输入主要负责人电话'),
+        ],
+        fax: [this.$formRules.checkLen(50), { validator: this.$formRules.checkFax, trigger: 'blur' }],
         email: [
+          this.$formRules.checkLen(50),
           { validator: this.$formRules.checkEmail, trigger: 'blur' },
           this.$formRules.checkNecessary('请输入通讯地址'),
         ],
@@ -260,7 +307,7 @@ export default {
     handleClose() {
       this.resetForm('form')
       this.$emit('update:visible', false)
-      this.$emit('ok')
+      // this.$emit('ok')
     },
     handleSave() {
       this.$refs.form.validate((valid) => {
@@ -282,7 +329,7 @@ export default {
             addEnterprise(this.form).then((res) => {
               if (res.data.data) {
                 that.handleClose()
-                that.msgSuccess('新增成功')
+                that.msgSuccess('注册成功')
               }
             })
           }
