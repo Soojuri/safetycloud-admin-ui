@@ -42,7 +42,7 @@
           <el-table-column prop="deviceNo" align='center' label="设备编号" />
           <el-table-column prop="deviceName" align='center' label="设备名称" />
           <el-table-column align='center' prop='deviceModel' label='设备型号' />
-          <el-table-column prop="enterpriseName" align='center' label="企业名称" />
+          <el-table-column prop="enterpriseName" align='center' label="所属企业" />
           <!-- <el-table-column align='center' label='所属分组'>
             <template slot-scope="scope">
               <el-tag v-if="scope.row.groupName">{{scope.row.groupName}}</el-tag>
