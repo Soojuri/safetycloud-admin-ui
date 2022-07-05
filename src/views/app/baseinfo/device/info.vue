@@ -71,7 +71,7 @@
           <el-description-item label="企业名称" :value="form.enterpriseName" :span="8" />
           <el-description-item label="设备名称" :value="form.deviceName" :span="8" />
           <el-description-item label="设备类型" :value="formatDeviceType(form)" :span="8" />
-          <el-description-item label="父级设备" :value="form.parentId" :span="8" />
+          <!-- <el-description-item label="父级设备" :value="form.parentId" :span="8" /> -->
           <el-description-item label="物联产品" :value="form.productName" :span="8" />
           <el-description-item label="设备型号" :value="form.deviceModel" :span="8" />
           <el-description-item label="设备厂商" :value="form.manufacturers" :span="8" />
@@ -82,7 +82,7 @@
           <el-description-item label="创建时间" :value="parseTime(form.createTime)" :span="8" />
           <el-description-item label="更新人员" :value="form.updatorId" :span="8" />
           <el-description-item label="更新时间" :value="parseTime(form.updateTime)" :span="8" />
-          <el-description-item label="详细地址" :value="form.address" :span="8" />
+          <!-- <el-description-item label="详细地址" :value="form.address" :span="8" /> -->
           <el-description-item label="最后离线时间" :value="parseTime(form.lastOfflineTime)" :span="8" />
           <el-description-item label="备注" :value="form.remark" :span="24" />
         </el-description>
@@ -94,6 +94,7 @@
           <el-table-column prop="faultName" align='center' label="故障名称" />
           <el-table-column prop="faultType" align='center' label="故障类型">
             <template slot-scope="scope">
+              <span v-if="scope.row.faultType == 0">其他故障</span>
               <span v-if="scope.row.faultType == 1">网络通信</span>
               <span v-if="scope.row.faultType == 2">设备断电</span>
               <span v-if="scope.row.faultType == 3">设备损坏</span>

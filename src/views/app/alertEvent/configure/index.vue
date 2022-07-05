@@ -2,14 +2,21 @@
   <div class="sub-page">
     <div class="g-card">
       <el-form ref="queryParams" :model="queryParams" inline>
-        <el-form-item label="启用状态" prop="status">
-          <el-select v-model="queryParams.status" placeholder="启用状态">
+        <el-form-item label="状态" prop="status">
+          <el-select v-model="queryParams.status" placeholder="状态">
             <el-option label="启用" :value="1" />
             <el-option label="禁用" :value="0" />
           </el-select>
         </el-form-item>
         <el-form-item label="规则名称" prop="configName" :rules="[$formRules.checkLen()]">
           <el-input v-model="queryParams.configName" placeholder="请输入规则名称"></el-input>
+        </el-form-item>
+        <el-form-item label='事件模型' prop='algorithmId'>
+          <el-select v-model="queryParams.algorithmId" placeholder="请选择事件模型">
+            <el-option v-for="item in dict.algorithmIds" :key="item.algorithmId" :label="item.algorithmName"
+                       :value="item.algorithmId">
+            </el-option>
+          </el-select>
         </el-form-item>
         <el-form-item class="ml-xl">
           <el-button type="primary" @click="handleQuery">搜 索</el-button>
@@ -23,12 +30,8 @@
         <div class="g-table">
           <el-table v-loading="loading" border :data="tableData">
             <el-table-column prop="configName" align="center" label="规则名称" />
-            <!-- <el-table-column prop="noticeType" align="center" label="公告类型" width="80">
-              <template slot-scope="scope">
-                <span v-if="scope.row.noticeType == 1">通知</span>
-                <span v-if="scope.row.noticeType == 2">公告</span>
-              </template>
-            </el-table-column> -->
+            <el-table-column prop="algorithmName" align="center" label="事件模型" />
+            <el-table-column prop="messageConfigName" align="center" label="消息配置" />
             <el-table-column prop="status" align="center" label="状态">
               <template slot-scope="scope">
                 <span v-if="scope.row.status == 1" style="color: #67c23a">
@@ -47,11 +50,12 @@
             <el-table-column label="操作" align="center">
               <template slot-scope="scope">
                 <el-button size="mini" type="text" @click="handleEdit(scope.row)">编辑</el-button>
-                <el-button size="mini" type="text" @click="handleDelete(scope.row)">删除
+                <el-button size="mini" :disabled='scope.row.status == 1?true:false' type="text"
+                           @click="handleDelete(scope.row)">删除
                 </el-button>
                 <el-button type="text" v-if="scope.row.status == 1 " @click="handleStop(scope.row)">禁用</el-button>
                 <el-button type="text" v-if="scope.row.status == 0 " @click="handleStart(scope.row)">启用</el-button>
-                <el-button size="mini" type="text" @click="handleDetails(scope.row)">详情</el-button>
+                <!-- <el-button size="mini"  type="text" @click="handleDetails(scope.row)">详情</el-button> -->
               </template>
             </el-table-column>
           </el-table>
@@ -71,7 +75,14 @@
 
 <script>
 import PopForm from './popForm.vue'
-import { getAlertEventConfigList, delAlertEventConfig, putAlertEventConfig } from '@/api/app/alertEvent/alertEvent.js'
+import {
+  getAlgorithmList,
+  getAlertEventConfigList,
+  delAlertEventConfig,
+  putAlertEventConfig,
+  updateStatus,
+} from '@/api/app/alertEvent/alertEvent.js'
+import { getConfigList } from '@/api/app/news/news.js'
 import { mapGetters } from 'vuex'
 export default {
   components: { PopForm },
@@ -82,6 +93,7 @@ export default {
         current: 1,
         status: null,
         configName: null,
+        algorithmId: null,
       },
       total: 0,
       tableData: [],
@@ -99,10 +111,13 @@ export default {
   watch: {},
   //挂载完成（可以访问DOM元素）
   mounted() {
-    this.getDicts('space_protocol_type').then((res) => {
-      this.dict.protocolType = res.data.data
-      this.getList()
+    getConfigList({ size: 10000, current: 1 }).then((res) => {
+      this.dict.messageConfigId = res.data.data.records
     })
+    getAlgorithmList({ size: 10000, current: 1 }).then((res) => {
+      this.dict.algorithmIds = res.data.data.records
+    })
+    this.getList()
   },
   //方法集合
   methods: {
@@ -125,7 +140,7 @@ export default {
     },
     handleEdit(row) {
       // if (!this.permissions.notice_edit) return this.msgWarn('权限不足')
-      this.formOptions.data.id = row.noticeId
+      this.formOptions.data.id = row.configId
       this.formOptions.visible = true
     },
     handleQuery() {
@@ -149,7 +164,7 @@ export default {
         type: 'warning',
       })
         .then(() => {
-          return delAlertEventConfig(row.noticeId)
+          return delAlertEventConfig(row.configId)
         })
         .then((res) => {
           if (res.data.data) {
@@ -159,7 +174,7 @@ export default {
         })
     },
     handleStart(row) {
-      putAlertEventConfig({ configId: row.configId, status: 1 }).then((res) => {
+      updateStatus({ configId: row.configId, status: 1 }).then((res) => {
         if (res.data.data) {
           this.msgSuccess('启用成功')
           this.getList()
@@ -167,18 +182,24 @@ export default {
       })
     },
     handleStop(row) {
-      putAlertEventConfig({ configId: row.configId, status: 0 }).then((res) => {
+      updateStatus({ configId: row.configId, status: 0 }).then((res) => {
         if (res.data.data) {
           this.msgSuccess('禁用成功')
           this.getList()
         }
       })
     },
+    formatType(row) {
+      return this.selectDictLabel(this.dict.algorithmIds, row.algorithmId)
+    },
+    formatMessageType(row) {
+      return this.selectDictLabel(this.dict.messageConfigId, row.configId)
+    },
     handleDetails(row) {
       // if (!this.permissions.camera_space_view) return this.msgWarn('权限不足')
-      const id = row.deviceId
+      const id = row.eventId
       this.$router.push({
-        path: '/app/baseinfo/device/info/index/',
+        path: '/app/event/manual/info/index/',
         query: { id },
       })
     },

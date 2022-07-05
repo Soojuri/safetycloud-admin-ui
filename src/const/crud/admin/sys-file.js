@@ -56,7 +56,8 @@ export const tableOption = {
     {
       label: '文件类型',
       prop: 'type',
-      addDisplay: false
+      addDisplay: false,
+      search: true
     },
     {
       label: '文件大小',
@@ -66,7 +67,8 @@ export const tableOption = {
     {
       label: '上传人',
       prop: 'createUser',
-      addDisplay: false
+      addDisplay: false,
+      search: true
     },
     {
       width: 180,

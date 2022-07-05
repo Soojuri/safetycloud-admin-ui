@@ -6,14 +6,14 @@
         <el-input v-model="dataForm.templateName" placeholder="模板名称"></el-input>
       </el-form-item>
       <el-form-item label='模板上传'>
-        <el-upload action="/api/admin/systemplate/upload" :limit="1" :data="dataForm"
+        <el-upload action="/api/admin/systemplate/upload" :limit="1" :data="dataForm" ref="upload"
                    :before-upload="handleBeforeUpload" :on-success="handleSuccess" :headers="headers">
           <el-button type="primary">点击上传</el-button>
         </el-upload>
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
-      <el-button @click="visible = false">取消</el-button>
+      <el-button @click="handleClose">取消</el-button>
     </span>
   </el-dialog>
 </template>
@@ -43,12 +43,18 @@ export default {
     //上传成功
     handleSuccess(res, file, fileList) {
       if (res.code == 0) {
+        this.resetForm('dataForm')
         this.visible = false
+        this.$refs.upload.clearFiles()
         this.$emit('refreshDataList')
         this.msgSuccess('上传成功!')
       } else {
         this.msgWarn('上传失败')
       }
+    },
+    handleClose() {
+      this.resetForm('dataForm')
+      this.visible = false
     },
     handleBeforeUpload(file) {
       let res = false

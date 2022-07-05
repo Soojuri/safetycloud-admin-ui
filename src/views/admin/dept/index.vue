@@ -30,7 +30,8 @@
                 <el-input v-model="form.name" :disabled="formEdit" placeholder="请输入名称" />
               </el-form-item>
               <el-form-item label="排序" prop="sort">
-                <el-input v-model="form.sort" :disabled="formEdit" type="number" placeholder="请输入排序" />
+                <el-input v-model="form.sort" :disabled="formEdit" type="number" :minlength="0" :maxlength="100"
+                          placeholder="请输入排序" />
               </el-form-item>
               <el-form-item v-if="formStatus == 'update'">
                 <el-button type="primary" @click="update">更新

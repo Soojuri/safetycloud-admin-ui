@@ -86,6 +86,7 @@ export default {
         })
     },
     searchChange(form, done) {
+      this.searchForm = form
       this.page.currentPage = 1
       this.getList(this.page, form)
       done()

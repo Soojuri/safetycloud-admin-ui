@@ -6,7 +6,7 @@
       <avue-crud ref="crud" :page.sync="page" :data="tableData" :permission="permissionList"
                  :table-loading="tableLoading" :option="tableOption" @on-load="getList" @row-update="handleUpdate"
                  @row-save="handleSave" @search-change="searchChange" @size-change="sizeChange"
-                 @current-change="currentChange" @row-del="rowDel">
+                 @search-reset="handleClear" @current-change="currentChange" @row-del="rowDel">
         <template slot-scope="scope" slot="menu">
           <el-button v-if="permissions.sys_dict_add" type="text" size="small" icon="el-icon-menu"
                      @click="handleItem(scope.row,scope.index)">字典项
@@ -120,6 +120,11 @@ export default {
       this.page.currentPage = 1
       this.getList(this.page, form)
       done()
+    },
+    handleClear() {
+      this.searchForm = {}
+      this.page.currentPage = 1
+      this.getList(this.page)
     },
     sizeChange(pageSize) {
       this.page.pageSize = pageSize

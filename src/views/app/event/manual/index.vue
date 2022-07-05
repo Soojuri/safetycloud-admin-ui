@@ -156,6 +156,8 @@
               <!-- <el-button :disabled="scope.row.handleResult == 4 || scope.row.handleResult == 3 || scope.row.handleResult == 2"
                          size="mini" type="text"  @click="handleSingleEvent(scope.row.eventId)">
                 上报城运</el-button> -->
+              <el-button size="mini" type="text" @click="handleDelete(scope.row)">删除
+              </el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -170,7 +172,7 @@
 </template>
 
 <script>
-import { getEventList, getCount, updateEventStatus, reportEvent } from '@/api/app/event/manual'
+import { getEventList, getCount, updateEventStatus, reportEvent, delEvent } from '@/api/app/event/manual'
 import { mapGetters } from 'vuex'
 export default {
   components: {},
@@ -366,6 +368,26 @@ export default {
     },
     eventLevelFormat(row) {
       return this.selectDictLabel(this.dict.eventLevel, row.eventLevel)
+    },
+    handleDelete(row) {
+      // if (!this.permissions.baseinfo_tdeviceworkorder_delete) {
+      //   return this.msgWarn('权限不足')
+      // }
+      const that = this
+      this.$confirm('是否确认删除', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      })
+        .then(() => {
+          return delEvent(row.eventId)
+        })
+        .then((res) => {
+          if (res.data.data) {
+            that.msgSuccess('删除成功')
+            that.handleClear()
+          }
+        })
     },
   },
 }

@@ -1,6 +1,15 @@
 <template>
   <div class="mod-config">
     <basic-container>
+      <el-form ref="queryParams" :model="queryParams" inline>
+        <el-form-item label="模板名称" prop="templateName" :rules="[$formRules.checkLen()]">
+          <el-input v-model="queryParams.templateName" placeholder="请输入模板名称"></el-input>
+        </el-form-item>
+        <el-form-item class="ml-xl">
+          <el-button type="primary" @click="handleQuery">搜 索</el-button>
+          <el-button @click="handleClear">清 空</el-button>
+        </el-form-item>
+      </el-form>
       <el-form :inline="true" :model="dataForm" @keyup.enter.native="getDataList()">
         <el-form-item>
           <el-button icon="el-icon-plus" type="primary" @click="addOrUpdateHandle()">新增</el-button>
@@ -23,6 +32,7 @@
             <template slot-scope="scope">
               <el-button type="text" size="small" @click="deleteHandle(scope.row)">删除
               </el-button>
+              <!-- <el-button size="mini" type="text" @click="addOrUpdateHandle(scope.row)">编辑</el-button> -->
             </template>
           </el-table-column>
         </el-table>
@@ -50,6 +60,11 @@ export default {
       dataForm: {
         key: '',
       },
+      queryParams: {
+        size: 10,
+        current: 1,
+        templateName: null,
+      },
       dataList: [],
       pageIndex: 1,
       pageSize: 10,
@@ -75,12 +90,25 @@ export default {
         Object.assign({
           current: this.pageIndex,
           size: this.pageSize,
+          templateName: this.queryParams.templateName,
         })
       ).then((response) => {
         this.dataList = response.data.data.records
         this.totalPage = response.data.data.total
       })
       this.dataListLoading = false
+    },
+    handleQuery() {
+      const that = this
+      this.$refs.queryParams.validate((valid) => {
+        if (valid) {
+          that.getDataList()
+        }
+      })
+    },
+    handleClear() {
+      this.resetForm('queryParams')
+      this.getDataList()
     },
     // 每页数
     sizeChangeHandle(val) {
@@ -103,7 +131,7 @@ export default {
     },
     // 删除
     deleteHandle(row) {
-      if (!this.permissions.template_delete) return this.msgWarn('权限不足')
+      // if (!this.permissions.template_delete) return this.msgWarn('权限不足')
       this.$confirm(`是否确认删除:${row.templateName}`, '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',

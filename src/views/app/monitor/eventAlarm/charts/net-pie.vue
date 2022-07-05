@@ -81,7 +81,7 @@ export default {
         legend: {
           show: true,
           icon: 'circle',
-          left: '45%',
+          left: '40%',
           top: '5%',
           orient: 'vertical',
           data: nameList,
@@ -90,7 +90,7 @@ export default {
             lineHeight: 30,
             rich: {
               a: {
-                width: 48,
+                width: 46,
               },
               b: {
                 width: 30,

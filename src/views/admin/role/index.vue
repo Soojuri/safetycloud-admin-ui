@@ -6,7 +6,7 @@
       <avue-crud ref="crud" :option="tableOption" :data="list" :page.sync="page" v-model="form"
                  :table-loading="listLoading" :before-open="handleOpenBefore" @on-load="getList"
                  @search-change="searchChange" @refresh-change="refreshChange" @size-change="sizeChange"
-                 @current-change="currentChange" @row-update="update" @row-save="create">
+                 @current-change="currentChange" @row-update="update" @search-reset="handleClear" @row-save="create">
 
         <template slot="menuLeft">
           <el-button v-if="roleManager_btn_add" class="filter-item" type="primary" icon="el-icon-plus"
@@ -163,6 +163,11 @@ export default {
       this.page.currentPage = 1
       this.getList(this.page, form)
       done()
+    },
+    handleClear() {
+      this.searchForm = {}
+      this.page.currentPage = 1
+      this.getList(this.page)
     },
     sizeChange(pageSize) {
       this.page.pageSize = pageSize
