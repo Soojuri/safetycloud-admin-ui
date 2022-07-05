@@ -5,6 +5,9 @@
         <el-form-item label="订单编号" prop="orderCode" :rules="[$formRules.checkLen()]">
           <el-input v-model="queryParams.orderCode" placeholder="请输入订单编号"></el-input>
         </el-form-item>
+        <el-form-item label="订单名称" prop="orderName" :rules="[$formRules.checkLen()]">
+          <el-input v-model="queryParams.orderName" placeholder="请输入订单名称"></el-input>
+        </el-form-item>
         <el-form-item label="订单状态" prop="orderStatus">
           <el-select v-model="queryParams.orderStatus" placeholder="请选择">
             <el-option label="等待支付" :value="1" />
@@ -14,6 +17,10 @@
             <el-option label="全额退款" :value="5" />
             <el-option label="异常处理" :value="6" />
           </el-select>
+        </el-form-item>
+        <el-form-item label='支付时间'>
+          <el-date-picker value-format='timestamp' v-model='payDateRange' type='datetimerange' range-separator='至'
+                          start-placeholder='开始时间' end-placeholder='结束时间' :default-time="['00:00:00', '23:59:59']" />
         </el-form-item>
         <el-form-item class="ml-xl">
           <el-button type="primary" @click="handleQuery">查 询</el-button>
@@ -27,6 +34,7 @@
         <div class="g-table">
           <el-table v-loading="loading" border :data="tableData">
             <el-table-column prop="orderCode" align='center' label="订单编号" />
+            <el-table-column prop="orderName" align='center' label="订单名称" />
             <el-table-column prop="orderType" align='center' label="订单类型">
               <template slot-scope="scope">
                 <span v-if="scope.row.orderType == 1">终端设备订单</span>
@@ -107,6 +115,8 @@ export default {
         current: 1,
         orderCode: null,
         orderStatus: null,
+        orderName: null,
+        payTime: []
       },
       total: 0,
       tableData: [],
@@ -119,6 +129,7 @@ export default {
       },
       loading: false,
       transactType: [],
+      payDateRange: []
     }
   },
   watch: {},
@@ -134,6 +145,7 @@ export default {
   methods: {
     getList() {
       this.loading = true
+      this.queryParams.payTime = this.payDateRange
       getProductOrderList(this.queryParams)
         .then((res) => {
           this.loading = false
