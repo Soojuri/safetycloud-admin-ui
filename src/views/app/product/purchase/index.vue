@@ -5,8 +5,8 @@
         <el-form-item label="产品名称" prop="productName">
           <el-input v-model="queryParams.productName" placeholder="请输入产品名称"></el-input>
         </el-form-item>
-        <el-form-item label="所属企业" prop="enterpriseName">
-          <el-input v-model="queryParams.enterpriseName" placeholder="请输入所属企业"></el-input>
+        <el-form-item label="企业名称" prop="enterpriseName">
+          <el-input v-model="queryParams.enterpriseName" placeholder="请输入企业名称"></el-input>
         </el-form-item>
         <el-form-item label="缴费状态" prop="payStatus">
           <el-select v-model="queryParams.payStatus" placeholder="请选择缴费状态">
@@ -166,10 +166,18 @@ export default {
         })
         .then((res) => {
           if (res.data.data) {
+            that.handleCurrentPageCalculateByDelete()
             that.msgSuccess('删除成功')
             that.handleClear()
           }
         })
+    },
+    handleCurrentPageCalculateByDelete(){
+      // 减少一条数据后向上取整 获得总页数
+      const totalPage = Math.ceil((this.total - 1) / this.queryParams.size)
+      this.queryParams.current = this.queryParams.current > totalPage ? totalPage : this.queryParams.current
+      // 只有一条数据时,删除后,当前页码设置为 1
+      this.queryParams.current = this.queryParams.current < 1 ? 1 : this.queryParams.current
     },
     handleDetails(row) {
       if (!this.permissions.camera_space_view) return this.msgWarn('权限不足')
