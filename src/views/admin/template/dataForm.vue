@@ -20,6 +20,7 @@
 
 <script>
 import store from '@/store'
+import { getStore, setStore } from '@/util/store'
 export default {
   data() {
     return {
@@ -27,6 +28,8 @@ export default {
       canSubmit: false,
       headers: {
         Authorization: 'Bearer ' + store.getters.access_token,
+        'TENANT-ID': getStore({ name: 'tenantId_video' }),
+        'SYSTEM-TYPE': 2,
       },
       dataForm: {
         templateName: '',
