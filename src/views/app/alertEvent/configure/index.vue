@@ -47,7 +47,7 @@
             <el-table-column prop="createTime" align="center" label="发现时间">
               <template slot-scope="scope">{{parseTime(scope.row.createTime)}}</template>
             </el-table-column>
-            <el-table-column label="操作" align="center">
+            <el-table-column label="操作" align="center" width="200">
               <template slot-scope="scope">
                 <el-button size="mini" type="text" @click="handleEdit(scope.row)">编辑</el-button>
                 <el-button size="mini" :disabled='scope.row.status == 1?true:false' type="text"
@@ -55,7 +55,7 @@
                 </el-button>
                 <el-button type="text" v-if="scope.row.status == 1 " @click="handleStop(scope.row)">禁用</el-button>
                 <el-button type="text" v-if="scope.row.status == 0 " @click="handleStart(scope.row)">启用</el-button>
-                <!-- <el-button size="mini"  type="text" @click="handleDetails(scope.row)">详情</el-button> -->
+                <el-button size="mini" type="text" @click="handleDetail(scope.row)">详情</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -69,6 +69,28 @@
       <pop-form v-if="formOptions.visible" :dict="dict" :visible.sync="formOptions.visible" :data="formOptions.data"
                 @ok="getList()">
       </pop-form>
+      <!-- 详情弹窗 -->
+      <el-dialog :visible="diaVisible" width="500px" title="详情" append-to-body :close-on-click-modal='false'
+                 @close="diaVisible = false">
+        <el-descriptions :column="1" border size="medium" class="mt-xl">
+          <el-descriptions-item label="规则名称"> {{ arr.configName }}
+          </el-descriptions-item>
+          <el-descriptions-item label="事件模型"> {{ arr.algorithmName }}
+          </el-descriptions-item>
+          <el-descriptions-item label="消息配置"> {{ arr.messageConfigName }}
+          </el-descriptions-item>
+          <el-descriptions-item label="更新人"> {{ arr.updator }}
+          </el-descriptions-item>
+          <el-descriptions-item label="创建人"> {{ arr.creator }}
+          </el-descriptions-item>
+          <el-descriptions-item label="状态">
+            {{ arr.status == 1?'启用':'禁用' }}
+          </el-descriptions-item>
+        </el-descriptions>
+        <div slot='footer'>
+          <el-button type="primary" @click="diaVisible = false">确 定</el-button>
+        </div>
+      </el-dialog>
     </div>
   </div>
 </template>
@@ -97,12 +119,14 @@ export default {
       },
       total: 0,
       tableData: [],
+      arr: [],
       dict: {},
       formOptions: {
         visible: false,
         data: {},
       },
       loading: false,
+      diaVisible: false,
     }
   },
   computed: {
@@ -142,6 +166,10 @@ export default {
       // if (!this.permissions.notice_edit) return this.msgWarn('权限不足')
       this.formOptions.data.id = row.configId
       this.formOptions.visible = true
+    },
+    handleDetail(row) {
+      this.diaVisible = true
+      this.arr = row
     },
     handleQuery() {
       const that = this

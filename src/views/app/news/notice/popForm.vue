@@ -81,7 +81,7 @@ export default {
         noticeType: [this.$formRules.checkNecessary('请选择公告类型')],
         releaseTime: [this.$formRules.checkNecessary('请选择发布时间')],
         // releaseStatus: [this.$formRules.checkNecessary('请选择状态')],
-        noticeContent: [this.$formRules.checkNecessary('请输入公告内容')],
+        noticeContent: [this.$formRules.checkLen(200), this.$formRules.checkNecessary('请输入公告内容')],
       },
     }
   },

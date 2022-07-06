@@ -66,6 +66,7 @@
                 <el-button size="mini" type="text" @click="handleEdit(scope.row)">编辑</el-button>
                 <el-button size="mini" type="text" @click="handleDelete(scope.row)">删除
                 </el-button>
+                <el-button size="mini" type="text" @click="handleDetail(scope.row)">详情</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -79,6 +80,30 @@
       <pop-form v-if="formOptions.visible" :dict="dict" :visible.sync="formOptions.visible" :data="formOptions.data"
                 @ok="getList()">
       </pop-form>
+      <!-- 详情弹窗 -->
+      <el-dialog :visible="diaVisible" width="500px" title="配置详情" append-to-body :close-on-click-modal='false'
+                 @close="diaVisible = false">
+        <el-descriptions :column="1" border size="medium" class="mt-xl">
+          <el-descriptions-item label="消息类型">
+            {{ arr.messageType == 0?'系统服务消息':arr.messageType == 1?'账户订单消息':arr.messageType == 2?'设备故障消息':arr.messageType == 3?'事件预警消息':'' }}
+          </el-descriptions-item>
+          <el-descriptions-item label="消息标题"> {{ arr.messageName }}
+          </el-descriptions-item>
+          <el-descriptions-item label="消息标识"> {{ arr.flagName }}
+          </el-descriptions-item>
+          <el-descriptions-item label="接收方式">
+            {{ arr.emailEnable == 1?'电子邮件':'' }}
+            {{ arr.smsEnable == 1?'短信':'' }}
+            {{ arr.systemEnable == 1?'站内信息':'' }}
+          </el-descriptions-item>
+          <el-descriptions-item label="消息状态">
+            {{ arr.messageStatus == 1?'正常':'关闭' }}
+          </el-descriptions-item>
+        </el-descriptions>
+        <div slot='footer'>
+          <el-button type="primary" @click="diaVisible = false">确 定</el-button>
+        </div>
+      </el-dialog>
     </div>
   </div>
 </template>
@@ -100,6 +125,7 @@ export default {
       },
       total: 0,
       protocolTypeDict: [], //协议类型字典
+      arr: [],
       tableData: [],
       dict: {},
       formOptions: {
@@ -107,6 +133,7 @@ export default {
         data: {},
       },
       loading: false,
+      diaVisible: false,
     }
   },
   computed: {
@@ -138,6 +165,10 @@ export default {
       // if (!this.permissions.notice_add) return this.msgWarn('权限不足')
       this.formOptions.visible = true
       this.formOptions.data = {}
+    },
+    handleDetail(row) {
+      this.diaVisible = true
+      this.arr = row
     },
     handleEdit(row) {
       // if (!this.permissions.notice_edit) return this.msgWarn('权限不足')
