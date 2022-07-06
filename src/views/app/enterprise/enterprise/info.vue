@@ -42,9 +42,9 @@
           </el-descriptions-item>
           <el-descriptions-item label="统一社会信用代码"> {{ form.enterpriseCode }}
           </el-descriptions-item>
-          <el-descriptions-item label="所属省市区">
+          <!-- <el-descriptions-item label="所属省市区">
             {{ form.province }}{{ form.city }}{{ form.county }}
-          </el-descriptions-item>
+          </el-descriptions-item> -->
           <el-descriptions-item label="详细地址"> {{ form.address }}
           </el-descriptions-item>
           <el-descriptions-item label="企业类型"> {{ formatType(form) }}

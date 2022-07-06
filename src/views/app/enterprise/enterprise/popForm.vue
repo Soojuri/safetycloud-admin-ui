@@ -31,10 +31,10 @@
               <el-form-item label='企业名称' prop='enterpriseName'>
                 <el-input size='small' v-model='form.enterpriseName' placeholder='请输入企业名称'></el-input>
               </el-form-item>
-              <el-form-item label="所属省市区" prop="selectedOptions">
+              <!-- <el-form-item label="所属省市区" prop="selectedOptions">
                 <el-cascader style="width:100%" size="large" :options="options" v-model="form.selectedOptions">
                 </el-cascader>
-              </el-form-item>
+              </el-form-item> -->
               <el-form-item label="企业类型" prop="enterpriseType">
                 <el-select v-model="form.enterpriseType" placeholder="请选择企业类型">
                   <!-- <el-option v-for="item in dict.enterpriseType" :label="item.label" :value="parseInt(item.value)"
@@ -247,7 +247,7 @@ export default {
           this.$formRules.checkNecessary('请输入统一社会信用代码'),
         ],
         enterpriseName: [this.$formRules.checkLen(100), this.$formRules.checkNecessary('请输入企业名称')],
-        selectedOptions: [this.$formRules.checkNecessary('请选择省市区')],
+        // selectedOptions: [this.$formRules.checkNecessary('请选择省市区')],
         enterpriseType: [this.$formRules.checkNecessary('请选择企业类型')],
         mainRiskType: [this.$formRules.checkNecessary('请选择主要危险类型')],
         businessNature: [this.$formRules.checkNecessary('请选择企业性质')],

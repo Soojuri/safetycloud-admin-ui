@@ -33,10 +33,10 @@
                 </el-option>
               </el-select>
             </el-form-item>
-            <el-form-item label="省市区" prop="selectedOptions">
+            <!-- <el-form-item label="省市区" prop="selectedOptions">
               <el-cascader style="width:100%" size="large" :options="options" v-model="form.selectedOptions">
               </el-cascader>
-            </el-form-item>
+            </el-form-item> -->
             <el-form-item label="设备地址" prop="deviceAddress">
               <el-input v-model="form.deviceAddress" maxlength="255" @focus="openAmap" placeholder="请选择设备地址" />
             </el-form-item>
@@ -129,7 +129,7 @@ export default {
           this.$formRules.checkNecessary('请输入设备编号'),
           this.$formRules.checkLen(32),
         ],
-        selectedOptions: [this.$formRules.checkNecessary('请选择省市区')],
+        // selectedOptions: [this.$formRules.checkNecessary('请选择省市区')],
         deviceAddress: [this.$formRules.checkNecessary('请选择设备地址')],
         productId: [this.$formRules.checkNecessary('请选择物联产品')],
       },

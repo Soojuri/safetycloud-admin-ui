@@ -1,4 +1,3 @@
-<!-- 故障管理-工单管理 -->
 <template>
   <div class="sub-page">
     <div class="g-card">
@@ -31,11 +30,11 @@
           <el-table v-loading="loading" border :data="tableData">
             <el-table-column prop="enterpriseCode" align='center' label="统一社会信用代码" />
             <el-table-column prop="enterpriseName" align='center' label="企业名称" />
-            <el-table-column prop="province" align='center' label="所属省市区">
+            <!-- <el-table-column prop="province" align='center' label="所属省市区">
               <template slot-scope="scope">
                 <span>{{ scope.row.province }}{{ scope.row.city }}{{ scope.row.county }}</span>
               </template>
-            </el-table-column>
+            </el-table-column> -->
             <el-table-column prop="enterpriseType" align='center' label="企业类型">
               <template slot-scope="scope">
                 <span>{{ formatType(scope.row) }}</span>

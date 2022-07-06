@@ -76,7 +76,7 @@
           <el-description-item label="设备型号" :value="form.deviceModel" :span="8" />
           <el-description-item label="设备厂商" :value="form.manufacturers" :span="8" />
           <el-description-item label="所属空间" :value="form.spaceName" :span="8" />
-          <el-description-item label="所属省市区" :value="form.city" :span="8" />
+          <!-- <el-description-item label="所属省市区" :value="form.city" :span="8" /> -->
           <el-description-item label="设备地址" :value="form.deviceAddress" :span="8" />
           <el-description-item label="创建人员" :value="form.creatorId" :span="8" />
           <el-description-item label="创建时间" :value="parseTime(form.createTime)" :span="8" />
