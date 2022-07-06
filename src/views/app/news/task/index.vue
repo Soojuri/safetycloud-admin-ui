@@ -8,7 +8,7 @@
             <el-option label="事件任务" :value="2" />
           </el-select>
         </el-form-item>
-        <el-form-item label="选择日期" prop="createTime">
+        <el-form-item label="选择任务创建日期" prop="createTime">
           <el-date-picker v-model="value" type="datetimerange" range-separator="至" start-placeholder="开始日期"
                           end-placeholder="结束日期" value-format="timestamp">
           </el-date-picker>
@@ -46,8 +46,8 @@
             <el-table-column prop="updateTime" align="center" label="更新时间" width="160">
               <template slot-scope="scope">{{parseTime(scope.row.updateTime)}}</template>
             </el-table-column>
-            <el-table-column prop="creatorId" align="center" label="创建人" width="100" />
-            <el-table-column prop="creatorId" align="center" label="接收人" width="100" />
+            <el-table-column prop="creatorName" align="center" label="创建人" width="100" />
+            <el-table-column prop="receiverName" align="center" label="接收人" width="100" />
             <el-table-column prop="status" align="center" label="状态">
               <template slot-scope="scope">
                 <span v-if="scope.row.status == 0" style="color: #409eff">
@@ -64,10 +64,16 @@
                 </span>
               </template>
             </el-table-column>
-            <el-table-column label="操作" align="center">
+            <el-table-column label="操作" align="center" width="200">
               <template slot-scope="scope">
                 <!-- <el-button size="mini"  type="text" @click="handleEdit(scope.row)">编辑</el-button> -->
                 <el-button size="mini" type="text" @click="handleDelete(scope.row)">删除
+                </el-button>
+                <el-button size="mini" type="text" @click="handleDetail(scope.row)">详情</el-button>
+                <el-button size="mini" type="text" :disabled="scope.row.status == 2?true:false"
+                           @click="handleReject(scope.row)">驳回
+                </el-button>
+                <el-button size="mini" type="text" @click="handleDeal(scope.row)">处理
                 </el-button>
               </template>
             </el-table-column>
@@ -82,13 +88,31 @@
       <pop-form v-if="formOptions.visible" :dict="dict" :visible.sync="formOptions.visible" :data="formOptions.data"
                 @ok="getList()">
       </pop-form>
+      <!-- 详情弹窗 -->
+      <el-dialog :visible="diaVisible" width="500px" title="任务详情" append-to-body :close-on-click-modal='false'
+                 @close="diaVisible = false">
+        <el-descriptions :column="1" border size="medium" class="mt-xl">
+          <el-descriptions-item label="工单名称"> {{ arr.name }}
+          </el-descriptions-item>
+          <el-descriptions-item label="目标设备"> {{ arr.deviceName }}
+          </el-descriptions-item>
+          <el-descriptions-item label="设备编号"> {{ arr.no }}
+          </el-descriptions-item>
+          <el-descriptions-item label="故障时间"> {{ parseTime(arr.createTime) }}
+          </el-descriptions-item>
+        </el-descriptions>
+        <div slot='footer'>
+          <el-button type="primary" @click="diaVisible = false">确 定</el-button>
+        </div>
+      </el-dialog>
     </div>
   </div>
 </template>
 
 <script>
+import { getWorkOrderInfo } from '@/api/app/fault/workOrder'
 import PopForm from './popForm.vue'
-import { getTaskList, delTask, putTask } from '@/api/app/news/news.js'
+import { getTaskList, delTask, putTask, putTaskReject } from '@/api/app/news/news.js'
 import { mapGetters } from 'vuex'
 export default {
   components: { PopForm },
@@ -104,6 +128,7 @@ export default {
       },
       total: 0,
       tableData: [],
+      arr: [],
       value: [],
       dict: {},
       formOptions: {
@@ -111,6 +136,7 @@ export default {
         data: {},
       },
       loading: false,
+      diaVisible: false,
     }
   },
   computed: {
@@ -164,6 +190,26 @@ export default {
       this.queryParams.endTime = null
       this.resetForm('queryParams')
       this.getList()
+    },
+    handleDetail(row) {
+      this.diaVisible = true
+      getWorkOrderInfo(row.workOrderId).then((res) => {
+        this.arr = res.data.data
+      })
+    },
+    handleDeal(row) {
+      this.$router.push({
+        path: '/app/fault/workOrder/index/',
+      })
+    },
+    handleReject(row) {
+      putTaskReject(row.workOrderId).then((res) => {
+        if (res.data.data.data) {
+          this.msgSuccess('驳回成功')
+        } else {
+          this.msgError(res.data.data.msg)
+        }
+      })
     },
     handleDelete(row) {
       // if (!this.permissions.notice_delete) return this.msgWarn('权限不足')

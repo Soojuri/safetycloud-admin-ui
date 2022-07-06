@@ -44,14 +44,19 @@
                 </span>
               </template>
             </el-table-column>
-            <el-table-column prop="createTime" align="center" label="创建时间">
-              <template slot-scope="scope">{{parseTime(scope.row.createTime)}}</template>
+            <el-table-column prop="releaseTime" align="center" label="发布时间">
+              <template slot-scope="scope">{{parseTime(scope.row.releaseTime)}}</template>
             </el-table-column>
             <el-table-column label="操作" align="center">
               <template slot-scope="scope">
                 <el-button size="mini" type="text" @click="handleEdit(scope.row)">编辑</el-button>
                 <el-button size="mini" type="text" @click="handleDelete(scope.row)">删除
                 </el-button>
+                <el-button size="mini" type="text" v-if="scope.row.status == 0" @click="handleStatus(scope.row, 1)">发布
+                </el-button>
+                <el-button size="mini" type="text" v-if="scope.row.status == 1" @click="handleStatus(scope.row, 0)">撤回
+                </el-button>
+                <el-button size="mini" type="text" @click="handleDetail(scope.row)">详情</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -65,6 +70,22 @@
       <pop-form v-if="formOptions.visible" :dict="dict" :visible.sync="formOptions.visible" :data="formOptions.data"
                 @ok="getList()">
       </pop-form>
+      <!-- 详情弹窗 -->
+      <el-dialog :visible="diaVisible" width="500px" title="通知详情" append-to-body :close-on-click-modal='false'
+                 @close="diaVisible = false">
+        <el-descriptions :column="1" border size="medium" class="mt-xl">
+          <el-descriptions-item label="公告标题"> {{ arr.noticeTitle }}
+          </el-descriptions-item>
+          <el-descriptions-item label="公告内容">
+            <div v-html="arr.noticeContent"></div>
+          </el-descriptions-item>
+          <el-descriptions-item label="发布时间"> {{ parseTime(arr.releaseTime) }}
+          </el-descriptions-item>
+        </el-descriptions>
+        <div slot='footer'>
+          <el-button type="primary" @click="diaVisible = false">确 定</el-button>
+        </div>
+      </el-dialog>
     </div>
   </div>
 </template>
@@ -84,6 +105,7 @@ export default {
         status: null,
       },
       total: 0,
+      arr: [],
       tableData: [],
       dict: {},
       formOptions: {
@@ -91,6 +113,7 @@ export default {
         data: {},
       },
       loading: false,
+      diaVisible: false,
     }
   },
   computed: {
@@ -122,6 +145,25 @@ export default {
       // if (!this.permissions.notice_add) return this.msgWarn('权限不足')
       this.formOptions.visible = true
       this.formOptions.data = {}
+    },
+    handleStatus(row, status) {
+      putAnnouncement({ noticeId: row.noticeId, status: status }).then((res) => {
+        if (res.data) {
+          if (status == 1) {
+            this.msgSuccess('发布成功')
+          }
+          if (status == 0) {
+            this.msgSuccess('撤回成功')
+          }
+          this.getList()
+        } else {
+          this.msgError(res.data.data.msg)
+        }
+      })
+    },
+    handleDetail(row) {
+      this.diaVisible = true
+      this.arr = row
     },
     handleEdit(row) {
       // if (!this.permissions.notice_edit) return this.msgWarn('权限不足')

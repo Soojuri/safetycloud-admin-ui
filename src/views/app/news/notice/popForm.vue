@@ -79,6 +79,7 @@ export default {
       rules: {
         noticeTitle: [this.$formRules.checkLen(50), this.$formRules.checkNecessary('请输入公告标题')],
         noticeType: [this.$formRules.checkNecessary('请选择公告类型')],
+        releaseTime: [this.$formRules.checkNecessary('请选择发布时间')],
         // releaseStatus: [this.$formRules.checkNecessary('请选择状态')],
         noticeContent: [this.$formRules.checkNecessary('请输入公告内容')],
       },

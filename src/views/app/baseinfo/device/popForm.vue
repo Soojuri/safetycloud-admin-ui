@@ -72,6 +72,7 @@
 </template>
 
 <script>
+import { rule } from '@/util/validateRules'
 import { addDeviceInfo, putDeviceInfo, getDeviceInfo, getProductList } from '@/api/app/baseinfo/device.js'
 import { getEnterpriseList } from '@/api/app/enterprise/enterprise.js'
 import { regionData, CodeToText, TextToCode } from 'element-china-area-data'
@@ -108,6 +109,7 @@ export default {
         deviceAddress: null,
         productId: null,
         productName: null,
+        enterpriseId: null,
       },
       lng: '',
       lat: '',
@@ -122,7 +124,11 @@ export default {
       rules: {
         deviceName: [this.$formRules.checkLen(), this.$formRules.checkNecessary('请输入设备名称')],
         deviceType: [this.$formRules.checkNecessary('请选择设备类型')],
-        deviceId: [this.$formRules.checkNecessary('请输入设备编号'), this.$formRules.checkLen(32)],
+        deviceId: [
+          { validator: this.$formRules.validatorNo, trigger: 'blur' },
+          this.$formRules.checkNecessary('请输入设备编号'),
+          this.$formRules.checkLen(32),
+        ],
         selectedOptions: [this.$formRules.checkNecessary('请选择省市区')],
         deviceAddress: [this.$formRules.checkNecessary('请选择设备地址')],
         productId: [this.$formRules.checkNecessary('请选择物联产品')],

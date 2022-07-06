@@ -21,6 +21,9 @@ const addTask = (params) => postAction("/notifyMessage/tnotifyusertask/", params
 const delTask = (id) => deleteAction('/notifyMessage/tnotifyusertask/' + id);
 const putTask = (params) => putAction('/notifyMessage/tnotifyusertask', params);
 
+//任务驳回
+const putTaskReject = (id) => putAction(`/notifyMessage/tnotifyusertask/workOrderId/${id}/reject`);
+
 // 通知公告 增删改查
 const getAnnouncementList = (params) => getAction('/notifyMessage/sysnotice/page', params);
 const getAnnouncement = (id) => getAction("/notifyMessage/sysnotice/" + id);
@@ -54,6 +57,7 @@ export {
   addTask,
   delTask,
   putTask,
+  putTaskReject,
   getAnnouncementList,
   getAnnouncement,
   addAnnouncement,

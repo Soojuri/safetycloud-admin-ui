@@ -36,6 +36,15 @@ export const rule = {
       callback()
     }
   },
+  // 校验身份证号码
+  checkIdCard(rule, value, callback) {
+    let reg = /^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/
+    if (value && (!(reg).test(value))) {
+      callback(new Error('请输入正确的身份证号码'))
+    } else {
+      callback()
+    }
+  },
   checkUrl(rule, value, callback) {
     let reg = /^((https|http|ftp|rtsp|mms):\/\/)(([0-9a-z_!~*'().&=+$%-]+: )?[0-9a-z_!~*'().&=+$%-]+@)?(([0-9]{1,3}.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z].[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/;
     if (value && (!(reg).test(value))) {
@@ -148,6 +157,18 @@ export const rule = {
       callback()
     }
   },
+  /**
+   * 校验 不能输入中文
+   * 编号校验
+   */
+  // validatorNo(rule, value, callback) {
+  //   let reg = /[\u4E00-\u9FA5]/g
+  //   if (value && (!(reg).test(value))) {
+  //     callback(new Error('请输入英文和数字'))
+  //   } else {
+  //     callback()
+  //   }
+  // },
 
   /**
    * 校验首尾空白字符的正则表达式
@@ -225,6 +246,23 @@ export const rule = {
         callback()
       } else {
         callback(new Error('请输入正确的电话座机格式'))
+      }
+    }, 100)
+  },
+  /**
+   * 校验不能输入中文
+   *
+   */
+  validatorNo(rule, value, callback) {
+    const reg = /^[\u4E00-\u9FA5]+$/
+    if (!value) {
+      return callback(new Error('不能为空'))
+    }
+    setTimeout(() => {
+      if (!reg.test(value)) {
+        callback()
+      } else {
+        callback(new Error('请输入英文和数字'))
       }
     }, 100)
   },
