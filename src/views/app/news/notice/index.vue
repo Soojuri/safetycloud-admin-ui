@@ -52,7 +52,7 @@
                 <el-button size="mini" type="text" @click="handleEdit(scope.row)">编辑</el-button>
                 <el-button size="mini" type="text" @click="handleDelete(scope.row)">删除
                 </el-button>
-                <el-button size="mini" type="text" v-if="scope.row.status == 0" @click="handleStatus(scope.row, 1)">发布
+                <el-button size="mini" type="text" v-if="scope.row.status == 0" @click="handleRelease(scope.row)">发布
                 </el-button>
                 <el-button size="mini" type="text" v-if="scope.row.status == 1" @click="handleStatus(scope.row, 0)">撤回
                 </el-button>
@@ -92,7 +92,7 @@
 
 <script>
 import PopForm from './popForm.vue'
-import { getAnnouncementList, delAnnouncement, putAnnouncement } from '@/api/app/news/news.js'
+import { getAnnouncementList, delAnnouncement, putAnnouncement, addRelease } from '@/api/app/news/news.js'
 import { mapGetters } from 'vuex'
 export default {
   components: { PopForm },
@@ -145,6 +145,16 @@ export default {
       // if (!this.permissions.notice_add) return this.msgWarn('权限不足')
       this.formOptions.visible = true
       this.formOptions.data = {}
+    },
+    handleRelease(row) {
+      addRelease(row.noticeId).then((res) => {
+        if (res.data) {
+          this.msgSuccess('发布成功')
+          this.getList()
+        } else {
+          this.msgError(res.data.data.msg)
+        }
+      })
     },
     handleStatus(row, status) {
       putAnnouncement({ noticeId: row.noticeId, status: status }).then((res) => {

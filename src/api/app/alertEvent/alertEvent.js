@@ -12,6 +12,8 @@ const getAlertEventConfig = (id) => getAction("/eventtask/talerteventconfig/" + 
 const addAlertEventConfig = (params) => postAction("/eventtask/talerteventconfig", params);
 const delAlertEventConfig = (id) => deleteAction('/eventtask/talerteventconfig/' + id);
 const putAlertEventConfig = (params) => putAction('/eventtask/talerteventconfig/', params);
+//修改事件配置状态
+const updateStatus = (params) => postAction("/eventtask/talerteventconfig/updateStatus", params);
 
 // 事件算法模型信息表 增删改查
 const getAlgorithmList = (params) => getAction('/eventtask/talerteventalgorithm/page', params);
@@ -26,6 +28,7 @@ export {
   addAlertEventConfig,
   delAlertEventConfig,
   putAlertEventConfig,
+  updateStatus,
   getAlgorithmList,
   getAlgorithmInfo,
   addAlgorithm,

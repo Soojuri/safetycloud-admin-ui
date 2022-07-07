@@ -250,11 +250,11 @@ export const rule = {
     }, 100)
   },
   /**
-   * 校验不能输入中文
+   * 校验输入英文和数字
    *
    */
   validatorNo(rule, value, callback) {
-    const reg = /^[\u4E00-\u9FA5]+$/
+    const reg = /[^\d|a-z|A-Z]/
     if (!value) {
       return callback(new Error('不能为空'))
     }

@@ -109,6 +109,9 @@
       </div>
       <div class="tit">资质证书</div>
       <div class="g-table mt-xl">
+        <div class="g-opera">
+          <el-button type="primary" icon='el-icon-plus' @click="handleAdd">新 增</el-button>
+        </div>
         <el-table v-loading="loading" border :data="tableData">
           <el-table-column prop="certificateGainDate" align="center" label="发证日期" width="160">
             <template slot-scope="scope">{{parseTime(scope.row.certificateGainDate)}}</template>
@@ -127,8 +130,8 @@
           <el-table-column prop="certificateInstitution" align='center' label="发证单位" />
           <el-table-column label="操作" align='center' width="250">
             <template slot-scope="scope">
-              <el-button size="mini" icon="el-icon-info" type="text" @click="handleDetails(scope.row)">详情
-              </el-button>
+              <!-- <el-button size="mini" icon="el-icon-info" type="text" @click="handleDetails(scope.row)">详情
+              </el-button> -->
               <el-button size="mini" icon="el-icon-edit" type="text" @click="handleEdit(scope.row)">编辑
               </el-button>
               <el-button size="mini" icon="el-icon-delete" :disabled="scope.row.status == 1?true:false" type="text"
@@ -143,13 +146,23 @@
         </div>
       </div>
     </div>
+    <!-- 弹窗 -->
+    <pop-form v-if="formOptions.visible" :dict="dict" :visible.sync="formOptions.visible" :data="formOptions.data"
+              :enterpriseId="queryParams.enterpriseId" @ok="getList()">
+    </pop-form>
   </div>
   </div>
 </template>
 
 <script>
-import { getEnterprise, getEnterpriseInfoCertificateList } from '@/api/app/enterprise/enterprise.js'
+import PopForm from './certificatePopForm.vue'
+import {
+  getEnterprise,
+  getEnterpriseInfoCertificateList,
+  delEnterpriseInfoCertificate,
+} from '@/api/app/enterprise/enterprise.js'
 export default {
+  components: { PopForm },
   data() {
     return {
       form: {},
@@ -158,7 +171,11 @@ export default {
         current: 1,
         enterpriseId: null,
       },
-
+      dict: {},
+      formOptions: {
+        visible: false,
+        data: {},
+      },
       loading: false,
       list: [],
       enterpriseType: [],
@@ -208,6 +225,45 @@ export default {
           this.form = res.data.data
         })
       }
+    },
+    handleAdd() {
+      // if (!this.permissions.notice_add) return this.msgWarn('权限不足')
+      this.formOptions.data.enterpriseId = this.$route.query.id
+      console.log(this.$route.query.id)
+      this.formOptions.visible = true
+      this.formOptions.data = {}
+    },
+    handleEdit(row) {
+      // if (!this.permissions.notice_edit) return this.msgWarn('权限不足')
+      this.formOptions.data.enterpriseId = this.$route.query.id
+      this.formOptions.data.id = row.certificateId
+      this.formOptions.visible = true
+    },
+    handleDelete(row) {
+      // if (!this.permissions.notice_delete) return this.msgWarn('权限不足')
+      const that = this
+      this.$confirm('是否确认删除', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      })
+        .then(() => {
+          return delEnterpriseInfoCertificate(row.certificateId)
+        })
+        .then((res) => {
+          if (res.data.data) {
+            that.handleCurrentPageCalculateByDelete()
+            that.msgSuccess('删除成功')
+            that.handleClear()
+          }
+        })
+    },
+    handleCurrentPageCalculateByDelete() {
+      // 减少一条数据后向上取整 获得总页数
+      const totalPage = Math.ceil((this.total - 1) / this.queryParams.size)
+      this.queryParams.current = this.queryParams.current > totalPage ? totalPage : this.queryParams.current
+      // 只有一条数据时,删除后,当前页码设置为 1
+      this.queryParams.current = this.queryParams.current < 1 ? 1 : this.queryParams.current
     },
     formatType(row) {
       return this.selectDictLabel(this.enterpriseType, row.enterpriseType)

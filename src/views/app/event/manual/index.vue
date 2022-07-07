@@ -265,6 +265,8 @@ export default {
       const that = this
       this.$refs.queryParams.validate((valid) => {
         if (valid) {
+          that.queryParams.current = 1
+          that.queryParams.size = 10
           that.getList()
         }
       })
@@ -384,10 +386,18 @@ export default {
         })
         .then((res) => {
           if (res.data.data) {
+            that.handleCurrentPageCalculateByDelete()
             that.msgSuccess('删除成功')
             that.handleClear()
           }
         })
+    },
+    handleCurrentPageCalculateByDelete() {
+      // 减少一条数据后向上取整 获得总页数
+      const totalPage = Math.ceil((this.total - 1) / this.queryParams.size)
+      this.queryParams.current = this.queryParams.current > totalPage ? totalPage : this.queryParams.current
+      // 只有一条数据时,删除后,当前页码设置为 1
+      this.queryParams.current = this.queryParams.current < 1 ? 1 : this.queryParams.current
     },
   },
 }

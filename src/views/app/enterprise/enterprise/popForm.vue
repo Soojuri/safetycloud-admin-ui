@@ -267,7 +267,11 @@ export default {
           { validator: this.$formRules.checkTel, trigger: 'blur' },
           this.$formRules.checkNecessary('请输入主要负责人电话'),
         ],
-        fax: [this.$formRules.checkLen(50), { validator: this.$formRules.checkFax, trigger: 'blur' }],
+        fax: [
+          this.$formRules.checkNecessary('请输入传真'),
+          this.$formRules.checkLen(50),
+          { validator: this.$formRules.checkFax, trigger: 'blur' },
+        ],
         email: [
           this.$formRules.checkLen(50),
           { validator: this.$formRules.checkEmail, trigger: 'blur' },
@@ -296,18 +300,18 @@ export default {
       if (this.id) {
         getEnterprise(this.id).then((res) => {
           this.form = res.data.data
-          this.form.selectedOptions = [
-            TextToCode[this.form.province].code,
-            TextToCode[this.form.province][this.form.city].code,
-            TextToCode[this.form.province][this.form.city][this.form.county].code,
-          ]
+          // this.form.selectedOptions = [
+          //   TextToCode[this.form.province].code,
+          //   TextToCode[this.form.province][this.form.city].code,
+          //   TextToCode[this.form.province][this.form.city][this.form.county].code,
+          // ]
         })
       }
     },
     handleClose() {
       this.resetForm('form')
       this.$emit('update:visible', false)
-      // this.$emit('ok')
+      this.$emit('ok')
     },
     handleSave() {
       this.$refs.form.validate((valid) => {
@@ -315,9 +319,9 @@ export default {
           const that = this
           this.form.password = serveEncrypt(this.form.password, this.publicKey)
           this.form.password2 = serveEncrypt(this.form.password2, this.publicKey)
-          this.form.province = CodeToText[this.form.selectedOptions[0]]
-          this.form.city = CodeToText[this.form.selectedOptions[1]]
-          this.form.county = CodeToText[this.form.selectedOptions[2]]
+          // this.form.province = CodeToText[this.form.selectedOptions[0]]
+          // this.form.city = CodeToText[this.form.selectedOptions[1]]
+          // this.form.county = CodeToText[this.form.selectedOptions[2]]
           if (that.id) {
             putEnterprise(this.form).then((res) => {
               if (res.data.data) {

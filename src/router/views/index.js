@@ -12,13 +12,13 @@ export default [{
     }]
   },
   {
-    path: '/app/camera/space/info/',
+    path: '/app/baseinfo/space/info/',
     component: Layout,
     children: [{
       path: 'index',
       name: '空间目录详情',
       component: () =>
-        import( /* webpackChunkName: "page" */ '@/views/app/camera/space/info.vue')
+        import( /* webpackChunkName: "page" */ '@/views/app/baseinfo/space/info.vue')
     }]
   },
   {
@@ -96,7 +96,7 @@ export default [{
       component: () =>
         import( /* webpackChunkName: "page" */ '@/views/app/product/pay/details.vue')
     }]
-  },{
+  }, {
     path: '/app/product/software/details/',
     component: Layout,
     children: [{

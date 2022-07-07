@@ -19,8 +19,9 @@
           </el-select>
         </el-form-item>
         <el-form-item label='支付时间' prop="payTime">
-          <el-date-picker value-format='timestamp' v-model='queryParams.payTime' type='datetimerange' range-separator='至'
-                          start-placeholder='开始时间' end-placeholder='结束时间' :default-time="['00:00:00', '23:59:59']" />
+          <el-date-picker value-format='timestamp' v-model='queryParams.payTime' type='datetimerange'
+                          range-separator='至' start-placeholder='开始时间' end-placeholder='结束时间'
+                          :default-time="['00:00:00', '23:59:59']" />
         </el-form-item>
         <el-form-item class="ml-xl">
           <el-button type="primary" @click="handleQuery">查 询</el-button>
@@ -82,11 +83,11 @@
             <el-table-column prop="payTime" align='center' label="支付时间">
               <template slot-scope="scope">{{parseTime(scope.row.payTime)}}</template>
             </el-table-column>
-            <!-- <el-table-column label="操作" align='center' width="250">
+            <el-table-column label="操作" align='center'>
               <template slot-scope="scope">
-                <el-button size="mini"  type="text" @click="handleDetails(scope.row)">详情</el-button>
+                <el-button size="mini" type="text" @click="handleDetails(scope.row)">详情</el-button>
               </template>
-            </el-table-column> -->
+            </el-table-column>
           </el-table>
         </div>
         <div class="g-page-x mt-m">
@@ -98,6 +99,53 @@
       <pop-form v-if="formOptions.visible" :dict="dict" :visible.sync="formOptions.visible" :data="formOptions.data"
                 @ok="getList()">
       </pop-form>
+      <!-- 详情弹窗 -->
+      <el-dialog :visible="diaVisible" width="500px" title="订单详情" append-to-body :close-on-click-modal='false'
+                 @close="diaVisible = false">
+        <el-descriptions :column="1" border size="medium" class="mt-xl">
+          <el-descriptions-item label="订单编号"> {{ arr.orderCode }}
+          </el-descriptions-item>
+          <el-descriptions-item label="订单名称"> {{ arr.orderName }}
+          </el-descriptions-item>
+          <el-descriptions-item label="下单账号"> {{ arr.createName }}
+          </el-descriptions-item>
+          <el-descriptions-item label="支付金额"> {{ arr.orderMoney }}
+          </el-descriptions-item>
+          <el-descriptions-item label="下单时间"> {{ parseTime(arr.createTime) }}
+          </el-descriptions-item>
+          <el-descriptions-item label="支付时间"> {{ parseTime(arr.payTime) }}
+          </el-descriptions-item>
+          <el-descriptions-item label="支付方式">
+            <span v-if="arr.payChannel == 1">钱包支付</span>
+            <span v-if="arr.payChannel == 2">微信支付</span>
+            <span v-if="arr.payChannel == 3">支付宝</span>
+            <span v-if="arr.payChannel == 4">线下支付</span>
+          </el-descriptions-item>
+          <el-descriptions-item label="订单状态">
+            <span v-if="arr.orderStatus == 1" style="color: #409eff">
+              等待支付
+            </span>
+            <span v-if="arr.orderStatus == 2" style="color: #67c23a">
+              交易完成
+            </span>
+            <span v-if="arr.orderStatus == 3" style="color: #909399">
+              交易关闭
+            </span>
+            <span v-if="arr.orderStatus == 4" style="color: #f56c6c">
+              交易失败
+            </span>
+            <span v-if="arr.orderStatus == 5" style="color: #f56c6c">
+              全额退款
+            </span>
+            <span v-if="arr.orderStatus == 6" style="color: #e6a23c">
+              异常处理
+            </span>
+          </el-descriptions-item>
+        </el-descriptions>
+        <div slot='footer'>
+          <el-button type="primary" @click="diaVisible = false">确 定</el-button>
+        </div>
+      </el-dialog>
     </div>
   </div>
 </template>
@@ -116,7 +164,7 @@ export default {
         orderCode: null,
         orderStatus: null,
         orderName: null,
-        payTime: []
+        payTime: [],
       },
       total: 0,
       tableData: [],
@@ -127,6 +175,8 @@ export default {
         visible: false,
         data: {},
       },
+      diaVisible: false,
+      arr: [],
       loading: false,
       transactType: [],
     }
@@ -201,12 +251,9 @@ export default {
         })
     },
     handleDetails(row) {
-      if (!this.permissions.camera_space_view) return this.msgWarn('权限不足')
-      const id = row.orderId
-      this.$router.push({
-        path: '/app/camera/space/info/index/',
-        query: { id },
-      })
+      // if (!this.permissions.camera_space_view) return this.msgWarn('权限不足')
+      this.diaVisible = true
+      this.arr = row
     },
   },
 }

@@ -22,6 +22,13 @@
                 <el-option label="传感器算法模型" :value="2" />
               </el-select>
             </el-form-item>
+            <el-form-item label='设备产品' prop='deviceProductId'>
+              <el-select v-model="form.deviceProductId" placeholder="请选择设备产品">
+                <el-option v-for="item in deviceProductList" :key="item.deviceProductId" :label="item.productName"
+                           :value="item.deviceProductId">
+                </el-option>
+              </el-select>
+            </el-form-item>
             <el-form-item label='模型详细介绍' prop='algorithmDetail'>
               <editor :value="form.algorithmDetail" :height="200" v-model="form.algorithmDetail"></editor>
             </el-form-item>
@@ -48,6 +55,7 @@
 </template>
 
 <script>
+import { getProductList } from '@/api/app/baseinfo/product.js'
 import Editor from '@/components/Editor'
 import ImageUpload from '@/components/ImageUpload'
 import { getAlgorithmInfo, addAlgorithm, putAlgorithm } from '@/api/app/alertEvent/alertEvent.js'
@@ -84,12 +92,15 @@ export default {
         algorithmDetail: null,
         logoUrl: null,
         backgroundUrl: null,
+        deviceProductId: null,
         remark: null,
       },
       id: null,
+      deviceProductList: [],
       rules: {
         algorithmName: [this.$formRules.checkLen(), this.$formRules.checkNecessary('请输入算法模型名称')],
         enable: [this.$formRules.checkNecessary('请选择状态')],
+        deviceProductId: [this.$formRules.checkNecessary('请选择设备产品')],
         shortDescription: [this.$formRules.checkNecessary('请请输入一句话产品描述')],
         algorithmDetail: [this.$formRules.checkNecessary('请输入产品详细介绍')],
         algorithmType: [this.$formRules.checkNecessary('请选择模型分类')],
@@ -115,6 +126,9 @@ export default {
           this.form = res.data.data
         })
       }
+      getProductList({ size: 1000, current: 1 }).then((res) => {
+        this.deviceProductList = res.data.data.records
+      })
     },
     handleClose() {
       this.resetForm('form')

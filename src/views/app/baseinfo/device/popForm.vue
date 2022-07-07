@@ -164,11 +164,11 @@ export default {
       if (this.id) {
         getDeviceInfo(this.id).then((res) => {
           this.form = res.data.data
-          this.form.selectedOptions = [
-            TextToCode[this.form.province].code,
-            TextToCode[this.form.province][this.form.city].code,
-            TextToCode[this.form.province][this.form.city][this.form.county].code,
-          ]
+          // this.form.selectedOptions = [
+          //   TextToCode[this.form.province].code,
+          //   TextToCode[this.form.province][this.form.city].code,
+          //   TextToCode[this.form.province][this.form.city][this.form.county].code,
+          // ]
         })
       }
     },
@@ -209,9 +209,9 @@ export default {
       const that = this
       this.$refs.form.validate((valid) => {
         if (valid) {
-          this.form.province = CodeToText[this.form.selectedOptions[0]]
-          this.form.city = CodeToText[this.form.selectedOptions[1]]
-          this.form.county = CodeToText[this.form.selectedOptions[2]]
+          // this.form.province = CodeToText[this.form.selectedOptions[0]]
+          // this.form.city = CodeToText[this.form.selectedOptions[1]]
+          // this.form.county = CodeToText[this.form.selectedOptions[2]]
           if (that.id) {
             putDeviceInfo(this.form).then((res) => {
               if (res.data.data) {

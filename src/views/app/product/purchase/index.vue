@@ -51,12 +51,10 @@
             <el-table-column prop="payTime" align='center' label="支付时间">
               <template slot-scope="scope">{{parseTime(scope.row.payTime)}}</template>
             </el-table-column>
-            <el-table-column label="操作" align='center' width="250">
-<!--              <template slot-scope="scope">-->
-<!--                <el-button size="mini"  type="text" @click="handleDelete(scope.row)">详情</el-button>-->
-<!--              </template>-->
+            <el-table-column label="操作" align='center'>
               <template slot-scope="scope">
-                <el-button size="mini"  type="text" @click="handleDelete(scope.row)">删除</el-button>
+                <el-button size="mini" type="text" @click="handleDetails(scope.row)">详情</el-button>
+                <el-button size="mini" type="text" @click="handleDelete(scope.row)">删除</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -70,6 +68,42 @@
       <pop-form v-if="formOptions.visible" :dict="dict" :visible.sync="formOptions.visible" :data="formOptions.data"
                 @ok="getList()">
       </pop-form>
+      <!-- 详情弹窗 -->
+      <el-dialog :visible="diaVisible" width="500px" title="产品购买记录详情" append-to-body :close-on-click-modal='false'
+                 @close="diaVisible = false">
+        <el-descriptions :column="1" border size="medium" class="mt-xl">
+          <el-descriptions-item label="企业名称"> {{ arr.enterpriseName }}
+          </el-descriptions-item>
+          <el-descriptions-item label="购买产品名称"> {{ arr.productName }}
+          </el-descriptions-item>
+          <el-descriptions-item label="购买数量"> {{ arr.productCount }}
+          </el-descriptions-item>
+          <el-descriptions-item label="订单金额"> {{ arr.orderMoney }}
+          </el-descriptions-item>
+          <el-descriptions-item label="支付人员"> {{ arr.payName }}
+          </el-descriptions-item>
+          <el-descriptions-item label="备注"> {{ arr.remark }}
+          </el-descriptions-item>
+          <el-descriptions-item label="购买时间"> {{ parseTime(arr.createTime) }}
+          </el-descriptions-item>
+          <el-descriptions-item label="支付时间"> {{ parseTime(arr.payTime) }}
+          </el-descriptions-item>
+          <el-descriptions-item label="缴费状态">
+            <span v-if="arr.payStatus == 0" style="color: #409eff">
+              未缴费
+            </span>
+            <span v-if="arr.payStatus == 1" style="color: #67c23a">
+              已缴费
+            </span>
+            <span v-if="arr.payStatus == 2" style="color: #f56c6c">
+              已退款
+            </span>
+          </el-descriptions-item>
+        </el-descriptions>
+        <div slot='footer'>
+          <el-button type="primary" @click="diaVisible = false">确 定</el-button>
+        </div>
+      </el-dialog>
     </div>
   </div>
 </template>
@@ -100,6 +134,8 @@ export default {
       },
       loading: false,
       transactType: [],
+      diaVisible: false,
+      arr: [],
     }
   },
   watch: {},
@@ -172,7 +208,7 @@ export default {
           }
         })
     },
-    handleCurrentPageCalculateByDelete(){
+    handleCurrentPageCalculateByDelete() {
       // 减少一条数据后向上取整 获得总页数
       const totalPage = Math.ceil((this.total - 1) / this.queryParams.size)
       this.queryParams.current = this.queryParams.current > totalPage ? totalPage : this.queryParams.current
@@ -180,12 +216,9 @@ export default {
       this.queryParams.current = this.queryParams.current < 1 ? 1 : this.queryParams.current
     },
     handleDetails(row) {
-      if (!this.permissions.camera_space_view) return this.msgWarn('权限不足')
-      const id = row.orderId
-      this.$router.push({
-        path: '/app/camera/space/info/index/',
-        query: { id },
-      })
+      // if (!this.permissions.camera_space_view) return this.msgWarn('权限不足')
+      this.diaVisible = true
+      this.arr = row
     },
   },
 }

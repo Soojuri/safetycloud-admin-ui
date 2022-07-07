@@ -26,7 +26,15 @@
           <el-table v-loading="loading" border :data="tableData">
             <el-table-column prop="spaceName" align='center' label="空间名称" />
             <el-table-column prop="deviceCount" align='center' label="设备数量" />
-            <el-table-column prop="remark" align='center' label="空间描述" />
+            <el-table-column prop="remark" align='center' label="空间描述">
+              <template slot-scope="scope">
+                <el-tooltip class="item" effect="dark" :content="scope.row.remark" placement="top">
+                  <div style="text-overflow:ellipsis; white-space:nowrap; overflow: hidden; ">
+                    {{scope.row.remark}}
+                  </div>
+                </el-tooltip>
+              </template>
+            </el-table-column>
             <el-table-column prop="status" align='center' label="空间状态">
               <template slot-scope="scope">
                 <template v-if="scope.row.status == 0">

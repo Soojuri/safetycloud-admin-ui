@@ -192,10 +192,14 @@ export default {
       this.getList()
     },
     handleDetail(row) {
-      this.diaVisible = true
-      getWorkOrderInfo(row.workOrderId).then((res) => {
-        this.arr = res.data.data
-      })
+      getWorkOrderInfo(row.workOrderId)
+        .then((res) => {
+          this.diaVisible = true
+          this.arr = res.data.data
+        })
+        .catch(() => {
+          this.msgError('无工单数据')
+        })
     },
     handleDeal(row) {
       this.$router.push({
