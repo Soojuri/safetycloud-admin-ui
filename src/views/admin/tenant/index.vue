@@ -4,8 +4,8 @@
     <basic-container>
       <avue-crud ref="crud" :page.sync="page" :data="tableData" :permission="permissionList"
                  :table-loading="tableLoading" :option="tableOption" @on-load="getList" @search-change="searchChange"
-                 @refresh-change="refreshChange" @size-change="sizeChange" @current-change="currentChange"
-                 @row-update="handleUpdate" @row-save="handleSave" @row-del="rowDel" />
+                 @refresh-change="refreshChange" @search-reset="handleClear" @size-change="sizeChange"
+                 @current-change="currentChange" @row-update="handleUpdate" @row-save="handleSave" @row-del="rowDel" />
     </basic-container>
   </div>
 </template>
@@ -107,6 +107,10 @@ export default {
     },
     refreshChange() {
       this.getList(this.page)
+    },
+    handleClear() {
+      this.searchForm = {}
+      this.getList(1)
     },
     sizeChange(pageSize) {
       this.page.pageSize = pageSize

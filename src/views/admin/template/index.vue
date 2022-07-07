@@ -5,6 +5,9 @@
         <el-form-item label="模板名称" prop="templateName" :rules="[$formRules.checkLen()]">
           <el-input v-model="queryParams.templateName" placeholder="请输入模板名称"></el-input>
         </el-form-item>
+        <el-form-item label="模板类型" prop="type">
+          <el-input v-model="queryParams.type" placeholder="请输入模板类型"></el-input>
+        </el-form-item>
         <el-form-item class="ml-xl">
           <el-button type="primary" @click="handleQuery">搜 索</el-button>
           <el-button @click="handleClear">清 空</el-button>
@@ -22,6 +25,8 @@
           </el-table-column>
           <el-table-column prop="templateName" align="center" header- label="模板名称">
           </el-table-column>
+          <el-table-column prop="type" align="center" header- label="模板类型">
+          </el-table-column>
           <el-table-column prop="fileSize" align="center" header- label="文件大小">
           </el-table-column>
           <el-table-column prop="createUser" align="center" header- label="创建用户">
@@ -32,7 +37,7 @@
             <template slot-scope="scope">
               <el-button type="text" size="small" @click="deleteHandle(scope.row)">删除
               </el-button>
-              <!-- <el-button size="mini" type="text" @click="addOrUpdateHandle(scope.row)">编辑</el-button> -->
+              <el-button size="mini" type="text" @click="handleEdit(scope.row)">编辑</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -46,12 +51,24 @@
       </div>
       <!-- 弹窗, 新增 / 修改 -->
       <table-form v-if="addOrUpdateVisible" ref="addOrUpdate" @refreshDataList="getDataList"></table-form>
+      <!-- 编辑弹窗 -->
+      <el-dialog :visible="diaVisible" width="500px" title="编辑" append-to-body :close-on-click-modal='false'
+                 @close="diaVisible = false">
+        <el-form :model="form" :rules="dataRule" ref="form" @keyup.enter.native="dataFormSubmit()" label-width="80px">
+          <el-form-item label="模板名称" prop="templateName" :rules="[$formRules.checkLen(32)]">
+            <el-input v-model="form.templateName" placeholder="模板名称"></el-input>
+          </el-form-item>
+        </el-form>
+        <div slot='footer'>
+          <el-button type="primary" @click="dataFormSubmit()">确 定</el-button>
+        </div>
+      </el-dialog>
     </basic-container>
   </div>
 </template>
 
 <script>
-import { getTemplateList, delTemplate } from '@/api/admin/template'
+import { getTemplateList, delTemplate, putTemplate } from '@/api/admin/template'
 import TableForm from './dataForm'
 import { mapGetters } from 'vuex'
 export default {
@@ -60,10 +77,18 @@ export default {
       dataForm: {
         key: '',
       },
+      form: {
+        templateName: '',
+        id: null,
+      },
+      dataRule: {
+        templateName: [{ required: true, message: '模板名称不能为空', trigger: 'blur' }],
+      },
       queryParams: {
         size: 10,
         current: 1,
         templateName: null,
+        type: null,
       },
       dataList: [],
       pageIndex: 1,
@@ -71,6 +96,7 @@ export default {
       totalPage: 0,
       dataListLoading: false,
       addOrUpdateVisible: false,
+      diaVisible: false,
     }
   },
   components: {
@@ -127,6 +153,22 @@ export default {
       this.addOrUpdateVisible = true
       this.$nextTick(() => {
         this.$refs.addOrUpdate.init(id)
+      })
+    },
+    handleEdit(row) {
+      this.diaVisible = true
+      this.form.templateName = row.templateName
+      this.form.id = row.id
+    },
+    dataFormSubmit() {
+      this.diaVisible = false
+      putTemplate(this.form).then((res) => {
+        if (res.data) {
+          this.msgSuccess('修改成功')
+          this.getDataList()
+        } else {
+          this.msgError(res.data.data.msg)
+        }
       })
     },
     // 删除
