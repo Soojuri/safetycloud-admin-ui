@@ -50,7 +50,7 @@
       <!-- 弹窗 -->
       <el-dialog :visible="visible" width="888px" title="事件日志详情" append-to-body :close-on-click-modal='false'
                  @close="handleClose">
-        <el-descriptions :column="2" size="medium" class="mt-xl">
+        <el-descriptions :column="2" size="medium" border class="mt-xl">
           <el-descriptions-item label="事件ID" :value="1"> {{ list.eventId }}
           </el-descriptions-item>
           <!-- <el-descriptions-item label="事件名称" :value="2"> {{ list.eventName }}

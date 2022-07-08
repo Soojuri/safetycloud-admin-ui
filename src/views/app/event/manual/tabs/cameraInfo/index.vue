@@ -19,13 +19,13 @@
       <el-button class="mt-m" type="primary" @click="handleInfo(list)">查看设备详情</el-button>
     </div>
     <div class="row">
-      <div class="col left">
+      <!-- <div class="col left">
         <div class="tit" style="height: 28px">事件关联快照</div>
         <el-image style="height:15vw;width:28vw" :src="info.eventCaptureUrl && info.eventCaptureUrl.indexOf('http') !=-1?
                   info.eventCaptureUrl :imagePath + info.eventCaptureUrl" :fit="fit" :preview-src-list="[info.eventCaptureUrl && info.eventCaptureUrl.indexOf('http') !=-1?
                   info.eventCaptureUrl :imagePath + info.eventCaptureUrl]">
         </el-image>
-      </div>
+      </div> -->
       <!-- <div class="col right">
         <div class="tit">
           <span class="video">事件关联录像</span>

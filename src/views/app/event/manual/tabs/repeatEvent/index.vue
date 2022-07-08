@@ -18,11 +18,11 @@
             <el-table-column prop="createTime" label="发现时间" align="center">
               <template slot-scope="scope">{{parseTime(scope.row.createTime)}}</template>
             </el-table-column>
-            <el-table-column label="操作" align="center">
+            <!-- <el-table-column label="操作" align="center">
               <template slot-scope="scope">
                 <el-button type="text" @click="handleDetails(scope.row)">详情</el-button>
               </template>
-            </el-table-column>
+            </el-table-column> -->
           </el-table>
         </div>
         <div class="g-page-x mt-m">

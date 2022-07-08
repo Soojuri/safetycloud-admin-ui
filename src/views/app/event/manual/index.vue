@@ -211,6 +211,7 @@ export default {
     })
     this.getDicts('event_level').then((res) => {
       this.dict.eventLevel = res.data.data
+      this.getList()
     })
     this.getDicts('report_type').then((res) => {
       this.dict.reportType = res.data.data
@@ -221,7 +222,6 @@ export default {
     this.getDicts('urban_operation_status').then((res) => {
       this.dict.urbanOperationAction = res.data.data
     })
-    this.getList()
     this.getStatic()
   },
   methods: {
