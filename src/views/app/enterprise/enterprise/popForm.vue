@@ -316,6 +316,7 @@ export default {
     handleSave() {
       this.$refs.form.validate((valid) => {
         if (valid) {
+          console.log(444)
           const that = this
           this.form.password = serveEncrypt(this.form.password, this.publicKey)
           this.form.password2 = serveEncrypt(this.form.password2, this.publicKey)
@@ -323,19 +324,30 @@ export default {
           // this.form.city = CodeToText[this.form.selectedOptions[1]]
           // this.form.county = CodeToText[this.form.selectedOptions[2]]
           if (that.id) {
-            putEnterprise(this.form).then((res) => {
-              if (res.data.data) {
-                that.handleClose()
-                that.msgSuccess('修改成功')
-              }
-            })
+            putEnterprise(this.form)
+              .then((res) => {
+                if (res.data.data) {
+                  that.handleClose()
+                  that.msgSuccess('修改成功')
+                }
+              })
+              .catch(() => {
+                this.form.password = null
+                this.form.password2 = null
+              })
           } else {
-            addEnterprise(this.form).then((res) => {
-              if (res.data.data) {
-                that.handleClose()
-                that.msgSuccess('注册成功')
-              }
-            })
+            addEnterprise(this.form)
+              .then((res) => {
+                console.log(333)
+                if (res.data.data) {
+                  that.handleClose()
+                  that.msgSuccess('注册成功')
+                }
+              })
+              .catch(() => {
+                this.form.password = null
+                this.form.password2 = null
+              })
           }
         }
       })
