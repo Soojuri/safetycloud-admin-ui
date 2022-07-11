@@ -43,9 +43,9 @@
             <el-table-column prop="createTime" align="center" label="创建时间" width="160">
               <template slot-scope="scope">{{parseTime(scope.row.createTime)}}</template>
             </el-table-column>
-            <el-table-column prop="updateTime" align="center" label="更新时间" width="160">
+            <!-- <el-table-column prop="updateTime" align="center" label="更新时间" width="160">
               <template slot-scope="scope">{{parseTime(scope.row.updateTime)}}</template>
-            </el-table-column>
+            </el-table-column> -->
             <el-table-column prop="creatorName" align="center" label="创建人" width="100" />
             <el-table-column prop="receiverName" align="center" label="接收人" width="100" />
             <el-table-column prop="status" align="center" label="状态">
@@ -210,6 +210,7 @@ export default {
       putTaskReject(row.workOrderId).then((res) => {
         if (res.data.data.data) {
           this.msgSuccess('驳回成功')
+          this.handleClear()
         } else {
           this.msgError(res.data.data.msg)
         }
