@@ -80,17 +80,12 @@ export const tableOption = {
       type: 'number',
       prop: 'code',
       rules: [{
-          required: true,
-          message: '请输入租户编号',
-          trigger: 'blur'
-        },
-        {
-          min: 0,
-          max: 32,
-          message: '长度在 0 到 32 个字符',
-          trigger: 'blur'
-        }
-      ]
+        required: true,
+        message: '请输入租户编号',
+        trigger: 'blur'
+      }],
+      minRows: 0,
+      maxRows: 999,
     },
     {
       label: '开始时间',
