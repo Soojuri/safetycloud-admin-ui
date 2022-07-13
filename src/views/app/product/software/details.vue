@@ -52,7 +52,7 @@
           <el-table-column label="操作" align="center">
             <template slot-scope="scope">
               <el-button size="mini" icon="el-icon-info" type="text"
-                         @click="$router.push('/app/algorithm/manage/details/index?id=' + scope.row.algorithmId)">查看
+                         @click="handleDetails(scope.row)">查看
               </el-button>
             </template>
           </el-table-column>
@@ -63,7 +63,51 @@
         </div>
       </div>
     </div>
-  </div>
+    <!-- 详情弹窗 -->
+    <el-dialog :visible="diaVisible" width="500px" title="订单记录详情" append-to-body :close-on-click-modal='false'
+               @close="diaVisible = false">
+      <el-descriptions :column="1" border size="medium" class="mt-xl">
+        <el-descriptions-item label="企业名称"> {{ arr.enterpriseName }}
+        </el-descriptions-item>
+        <el-descriptions-item label="购买产品名称"> {{ arr.productName }}
+        </el-descriptions-item>
+        <el-descriptions-item label="购买数量"> {{ arr.productCount }}
+        </el-descriptions-item>
+        <el-descriptions-item label="订单金额"> {{ arr.orderMoney }}
+        </el-descriptions-item>
+        <el-descriptions-item label="支付人员"> {{ arr.payName }}
+        </el-descriptions-item>
+        <el-descriptions-item label="备注"> {{ arr.remark }}
+        </el-descriptions-item>
+        <el-descriptions-item label="购买时间"> {{ parseTime(arr.createTime) }}
+        </el-descriptions-item>
+        <el-descriptions-item label="支付时间"> {{ parseTime(arr.payTime) }}
+        </el-descriptions-item>
+        <el-descriptions-item label="订单状态">
+          <span v-if="arr.orderStatus == 1" style="color: #409eff">
+                  等待支付
+          </span>
+          <span v-if="arr.orderStatus == 2" style="color: #67c23a">
+                  交易完成
+          </span>
+          <span v-if="arr.orderStatus == 3" style="color: #909399">
+                  交易关闭
+          </span>
+          <span v-if="arr.orderStatus == 4" style="color: #f56c6c">
+                  交易失败
+          </span>
+          <span v-if="arr.orderStatus == 5" style="color: #f56c6c">
+                  全额退款
+          </span>
+          <span v-if="arr.orderStatus == 6" style="color: #e6a23c">
+                  异常处理
+          </span>
+        </el-descriptions-item>
+      </el-descriptions>
+      <div slot='footer'>
+        <el-button type="primary" @click="diaVisible = false">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -85,6 +129,8 @@ export default {
       algorithmCategory: [],
       id: null,
       total1: 0,
+      diaVisible: false,
+      arr: [],
     }
   },
   computed: {},
@@ -119,6 +165,11 @@ export default {
     formatType(row) {
       return this.selectDictLabel(this.algorithmCategory, row.algorithmCategory)
     },
+    handleDetails(row) {
+      // if (!this.permissions.camera_space_view) return this.msgWarn('权限不足')
+      this.diaVisible = true
+      this.arr = row
+    }
   },
 }
 </script>

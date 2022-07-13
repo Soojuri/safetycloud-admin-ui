@@ -39,37 +39,82 @@
       <div class="tit">订单列表</div>
       <div class="g-table mt-xl">
         <el-table v-loading="loading" :data="list" border>
-          <el-table-column prop="orderId" show-overflow-tooltip2 align="center" label="订单ID" />
-          <el-table-column prop="enterpriseName" align="center" label="企业名称" />
-          <el-table-column prop="orderMoney" align="center" label="订单金额" />
-          <el-table-column prop="productCount" align="center" label="订单数量" />
+          <el-table-column prop="orderId" show-overflow-tooltip2 align="center" label="订单ID"/>
+          <el-table-column prop="enterpriseName" align="center" label="企业名称"/>
+          <el-table-column prop="orderMoney" align="center" label="订单金额"/>
+          <el-table-column prop="productCount" align="center" label="订单数量"/>
           <el-table-column prop="createTime" align='center' label="下单时间">
-            <template slot-scope="scope">{{parseTime(scope.row.createTime)}}</template>
+            <template slot-scope="scope">{{ parseTime(scope.row.createTime) }}</template>
           </el-table-column>
           <el-table-column prop="payTime" align='center' label="支付时间">
-            <template slot-scope="scope">{{parseTime(scope.row.payTime)}}</template>
+            <template slot-scope="scope">{{ parseTime(scope.row.payTime) }}</template>
           </el-table-column>
           <el-table-column label="操作" align="center">
             <template slot-scope="scope">
               <el-button size="mini" icon="el-icon-info" type="text"
-                         @click="$router.push('/app/algorithm/manage/details/index?id=' + scope.row.algorithmId)">查看
+                         @click="handleDetails(scope.row)">查看
               </el-button>
             </template>
           </el-table-column>
         </el-table>
         <div class="g-page-x mt-m">
           <pagination :pageSizes="[10,20,50,100]" :total="total1" :page.sync="Params.current" :limit.sync="Params.size"
-                      @pagination="getList" />
+                      @pagination="getList"/>
         </div>
       </div>
     </div>
-  </div>
+    <!-- 详情弹窗 -->
+    <el-dialog :visible="diaVisible" width="500px" title="订单记录详情" append-to-body :close-on-click-modal='false'
+               @close="diaVisible = false">
+      <el-descriptions :column="1" border size="medium" class="mt-xl">
+        <el-descriptions-item label="企业名称"> {{ arr.enterpriseName }}
+        </el-descriptions-item>
+        <el-descriptions-item label="购买产品名称"> {{ arr.productName }}
+        </el-descriptions-item>
+        <el-descriptions-item label="购买数量"> {{ arr.productCount }}
+        </el-descriptions-item>
+        <el-descriptions-item label="订单金额"> {{ arr.orderMoney }}
+        </el-descriptions-item>
+        <el-descriptions-item label="支付人员"> {{ arr.payName }}
+        </el-descriptions-item>
+        <el-descriptions-item label="备注"> {{ arr.remark }}
+        </el-descriptions-item>
+        <el-descriptions-item label="购买时间"> {{ parseTime(arr.createTime) }}
+        </el-descriptions-item>
+        <el-descriptions-item label="支付时间"> {{ parseTime(arr.payTime) }}
+        </el-descriptions-item>
+        <el-descriptions-item label="订单状态">
+          <span v-if="arr.orderStatus == 1" style="color: #409eff">
+                  等待支付
+          </span>
+          <span v-if="arr.orderStatus == 2" style="color: #67c23a">
+                  交易完成
+          </span>
+          <span v-if="arr.orderStatus == 3" style="color: #909399">
+                  交易关闭
+          </span>
+          <span v-if="arr.orderStatus == 4" style="color: #f56c6c">
+                  交易失败
+          </span>
+          <span v-if="arr.orderStatus == 5" style="color: #f56c6c">
+                  全额退款
+          </span>
+          <span v-if="arr.orderStatus == 6" style="color: #e6a23c">
+                  异常处理
+          </span>
+        </el-descriptions-item>
+      </el-descriptions>
+      <div slot='footer'>
+        <el-button type="primary" @click="diaVisible = false">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
-import { getProductInfo } from '@/api/app/product/product.js'
-import { getProductOrderList } from '@/api/app/product/order.js'
+import {getProductInfo} from '@/api/app/product/product.js'
+import {getProductOrderList} from '@/api/app/product/order.js'
+
 export default {
   data() {
     return {
@@ -85,6 +130,8 @@ export default {
       edgeCategory: [],
       id: null,
       total1: 0,
+      diaVisible: false,
+      arr: [],
     }
   },
   computed: {},
@@ -119,26 +166,35 @@ export default {
     formatType(row) {
       return this.selectDictLabel(this.edgeCategory, row.edgeCategory)
     },
+    handleDetails(row) {
+      // if (!this.permissions.camera_space_view) return this.msgWarn('权限不足')
+      this.diaVisible = true
+      this.arr = row
+    }
   },
 }
 </script>
 <style lang='scss' scoped>
 .g-card {
   font-size: 16px;
+
   .information {
     display: flex;
     margin: 13px 0;
+
     img {
       width: 403px;
       height: 151px;
     }
   }
 }
+
 .tit {
   font-size: 18px;
   display: flex;
   align-items: flex-start;
   margin: 13px 0;
+
   &::before {
     content: '';
     height: 20px;
