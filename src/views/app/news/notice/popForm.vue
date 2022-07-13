@@ -65,6 +65,7 @@ export default {
     return {
       headers: {
         Authorization: 'Bearer ' + store.getters.access_token,
+        'TENANT-ID': 2
       },
       form: {
         noticeTitle: null,
