@@ -77,11 +77,11 @@
               </el-select>
             </el-form-item>
             <el-form-item label='设备编号' prop='deviceId'>
-              <el-input style="width:200px" size='small' v-model='queryParams.deviceId' placeholder='请输入设备ID'>
+              <el-input style="width:200px" size='small' v-model.trim='queryParams.deviceId' placeholder='请输入设备ID'>
               </el-input>
             </el-form-item>
             <el-form-item label='设备名称' prop='deviceName'>
-              <el-input style="width:200px" size='small' v-model='queryParams.deviceName' placeholder='请输入设备名称'>
+              <el-input style="width:200px" size='small' v-model.trim='queryParams.deviceName' placeholder='请输入设备名称'>
               </el-input>
             </el-form-item>
             <!-- <el-form-item label='所属企业' prop='enterpriseName'>

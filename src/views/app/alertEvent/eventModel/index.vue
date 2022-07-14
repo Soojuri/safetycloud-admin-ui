@@ -3,7 +3,7 @@
     <div class="g-card">
       <el-form ref="queryParams" :model="queryParams" inline>
         <el-form-item label="算法模型名称" prop="algorithmName" :rules="[$formRules.checkLen()]">
-          <el-input v-model="queryParams.algorithmName" placeholder="请输入算法模型名称"></el-input>
+          <el-input v-model.trim="queryParams.algorithmName" placeholder="请输入算法模型名称"></el-input>
         </el-form-item>
         <el-form-item label="算法模型分类" prop="algorithmType">
           <el-select v-model="queryParams.algorithmType" placeholder="请选择算法模型分类">

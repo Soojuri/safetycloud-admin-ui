@@ -31,6 +31,18 @@
                      @click="handlePermission(scope.row,scope.index)">权限
           </el-button>
         </template>
+        <template slot="roleNameSearch" slot-scope="{row,size}">
+          <el-input placeholder="请输入 角色名称" :size="size" v-model="searchForm.roleName" @keyup.native="trimInput(searchForm,'roleName')"></el-input>
+        </template>
+        <template slot="roleCodeSearch" slot-scope="{row,size}">
+          <el-input placeholder="请输入 角色标识" :size="size" v-model="searchForm.roleCode" @keyup.native="trimInput(searchForm,'roleCode')"></el-input>
+        </template>
+        <template slot="dsTypeSearch" slot-scope="{row,size}">
+          <el-select v-model="searchForm.dsType" placeholder="请选择 数据权限" >
+            <el-option v-for="item in dict.dictType" :label="item.label" :value="item.value" :key="item.value">
+            </el-option>
+          </el-select>
+        </template>
       </avue-crud>
     </basic-container>
     <el-dialog :visible.sync="dialogPermissionVisible" :close-on-click-modal="false" title="分配权限">
@@ -54,6 +66,8 @@ import { tableOption } from '@/const/crud/admin/role'
 import { fetchTree } from '@/api/admin/dept'
 import { fetchMenuTree } from '@/api/admin/menu'
 import { mapGetters } from 'vuex'
+import {pickBy} from "lodash";
+import {validatenull} from "@/util/validate";
 
 export default {
   name: 'TableRole',
@@ -86,6 +100,21 @@ export default {
       roleManager_btn_edit: false,
       roleManager_btn_del: false,
       roleManager_btn_perm: false,
+      dict:{
+        dictType:[{
+          label: '全部',
+          value: '0'
+        }, {
+          label: '自定义',
+          value: '1'
+        }, {
+          label: '本级及子级',
+          value: '2'
+        }, {
+          label: '本级',
+          value: '3'
+        }]
+      }
     }
   },
   created() {
@@ -159,9 +188,12 @@ export default {
       this.getList(this.page)
     },
     searchChange(form, done) {
-      this.searchForm = form
+      // this.searchForm = form
+      this.searchForm = pickBy({
+        ...this.searchForm,
+      })
       this.page.currentPage = 1
-      this.getList(this.page, form)
+      this.getList(this.page, this.searchForm)
       done()
     },
     handleClear() {

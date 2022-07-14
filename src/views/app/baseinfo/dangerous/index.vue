@@ -4,7 +4,7 @@
     <div class="g-card">
       <el-form ref="queryParams" :model="queryParams" inline>
         <el-form-item label="危险品编号" prop="goodsNo" :rules="[$formRules.checkLen()]">
-          <el-input v-model="queryParams.goodsNo" placeholder="请输入危险品编号"></el-input>
+          <el-input v-model.trim="queryParams.goodsNo" placeholder="请输入危险品编号"></el-input>
         </el-form-item>
         <el-form-item label="是否为危险化学品" prop="isDangerousChemicals">
           <el-select v-model="queryParams.isDangerousChemicals" placeholder="请选择">

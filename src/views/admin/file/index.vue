@@ -97,6 +97,8 @@ export default {
     },
     handleClear() {
       this.searchForm.fileName = null
+      this.searchForm.type = null
+      this.searchForm.createUser = null
       this.getList(1)
     },
     sizeChange(pageSize) {

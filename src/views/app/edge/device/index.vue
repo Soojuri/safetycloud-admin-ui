@@ -4,7 +4,7 @@
     <div class="g-card">
       <el-form ref="queryParams" :model="queryParams" inline label-width="80px">
         <el-form-item label='设备名称' prop='edgeDeviceName'>
-          <el-input size='small' v-model='queryParams.edgeDeviceName' placeholder='请输入设备名称'></el-input>
+          <el-input size='small' v-model.trim='queryParams.edgeDeviceName' placeholder='请输入设备名称'></el-input>
         </el-form-item>
         <el-form-item class="ml-xl">
           <el-button icon="el-icon-search" type="primary" @click="handleQuery">搜 索</el-button>

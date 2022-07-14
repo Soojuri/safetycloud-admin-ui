@@ -30,8 +30,7 @@
                 <el-input v-model="form.name" :disabled="formEdit" placeholder="请输入名称" />
               </el-form-item>
               <el-form-item label="排序" prop="sort">
-                <el-input v-model="form.sort" :disabled="formEdit" type="number" :minlength="0" :maxlength="100"
-                          placeholder="请输入排序" />
+                <el-input v-model="form.sort" :disabled="formEdit" type="number" placeholder="请输入排序" />
               </el-form-item>
               <el-form-item v-if="formStatus == 'update'">
                 <el-button type="primary" @click="update">更新
@@ -81,7 +80,10 @@ export default {
           { required: true, message: '请输入部门名称', trigger: 'blur' },
           { min: 3, max: 32, message: '长度在 3 到 32 个字符', trigger: 'blur' },
         ],
-        sort: [{ required: true, message: '请输入排序值', trigger: 'blur' }],
+        sort: [
+          { min: 0, max: 3, message: '请输入0-999之间的数字', trigger: 'blur' },
+          { required: true, message: '请输入排序值', trigger: 'blur' },
+        ],
       },
       labelPosition: 'right',
       form: {

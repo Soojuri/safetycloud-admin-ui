@@ -3,7 +3,7 @@
     <div class="mt-xl">
       <el-form ref="queryParams" :model="queryParams" inline label-width="80px">
         <el-form-item label="设备编号" prop="deviceNo" :rules="[$formRules.checkLen(32)]">
-          <el-input v-model="queryParams.deviceNo" placeholder="请输入设备编号"></el-input>
+          <el-input v-model.trim="queryParams.deviceNo" placeholder="请输入设备编号"></el-input>
         </el-form-item>
 
         <el-form-item label="状态" prop="status">
@@ -24,7 +24,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label='设备IP' prop='deviceIp' :rules="[$formRules.checkLen(50)]">
-          <el-input size='small' v-model='queryParams.deviceIp' placeholder='请输入设备IP'>
+          <el-input size='small' v-model.trim='queryParams.deviceIp' placeholder='请输入设备IP'>
           </el-input>
         </el-form-item>
         <el-form-item label="空间目录" prop="spaceId">

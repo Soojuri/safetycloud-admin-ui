@@ -3,10 +3,10 @@
     <div class="g-card">
       <el-form ref="queryParams" :model="queryParams" inline label-width="100px">
         <el-form-item label="摄像头编号" prop="deviceNo">
-          <el-input v-model="queryParams.deviceNo" placeholder="请输入摄像头编号"></el-input>
+          <el-input v-model.trim="queryParams.deviceNo" placeholder="请输入摄像头编号"></el-input>
         </el-form-item>
         <el-form-item label="摄像头名称" prop="deviceName">
-          <el-input v-model="queryParams.deviceName" placeholder="请输入摄像头名称"></el-input>
+          <el-input v-model.trim="queryParams.deviceName" placeholder="请输入摄像头名称"></el-input>
         </el-form-item>
         <el-form-item label="操作类型" prop="logType">
           <el-select v-model="queryParams.logType" placeholder="操作类型">

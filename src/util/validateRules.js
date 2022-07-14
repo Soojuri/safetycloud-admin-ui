@@ -182,6 +182,14 @@ export const rule = {
       callback()
     }
   },
+  checkAllSpace(rule,value,callback){
+    let reg = /\s+/g
+    if (reg.test(value)) {
+      callback(new Error('请输入非空格信息'))
+    } else {
+      callback()
+    }
+  },
   /**
    * 校验手机号
    *

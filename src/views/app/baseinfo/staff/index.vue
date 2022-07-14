@@ -4,7 +4,7 @@
     <div class="g-card">
       <el-form ref="queryParams" :model="queryParams" inline label-width="70px">
         <el-form-item label="规则编号" prop="staffId" :rules="[$formRules.checkLen()]">
-          <el-input v-model="queryParams.staffId" placeholder="请输入设备名称"></el-input>
+          <el-input v-model.trim="queryParams.staffId" placeholder="请输入设备名称"></el-input>
         </el-form-item>
         <el-form-item label="状态" prop="status">
           <el-select v-model="queryParams.status" placeholder="请选择" style="width: 120px">

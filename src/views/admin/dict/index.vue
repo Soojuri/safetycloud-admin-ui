@@ -1,5 +1,3 @@
-
-
 <template>
   <div class="execution">
     <basic-container>
@@ -7,31 +5,44 @@
                  :table-loading="tableLoading" :option="tableOption" @on-load="getList" @row-update="handleUpdate"
                  @row-save="handleSave" @search-change="searchChange" @size-change="sizeChange"
                  @search-reset="handleClear" @current-change="currentChange" @row-del="rowDel">
+        <template slot="typeSearch" slot-scope="{row,size}">
+          <el-input placeholder="请输入类型" :size="size" v-model="searchForm.type" @keyup.native="trimInput(searchForm,'type')"></el-input>
+        </template>
+        <template slot="systemSearch" slot-scope="{row,size}">
+          <el-select v-model="searchForm.system" placeholder="请选择">
+            <el-option v-for="item in dict.dictType" :label="item.label" :value="item.value" :key="item.value">
+            </el-option>
+          </el-select>
+        </template>
         <template slot-scope="scope" slot="menu">
           <el-button v-if="permissions.sys_dict_add" type="text" size="small" icon="el-icon-menu"
                      @click="handleItem(scope.row,scope.index)">字典项
           </el-button>
         </template>
+
       </avue-crud>
     </basic-container>
     <el-dialog :visible.sync="dialogFormVisible" title="字典项管理" width="90%" @close="dictItemVisible">
       <avue-crud ref="crudItem" :page.sync="itemPage" :data="tableDictItemData" :permission="permissionList"
                  v-model="form" :before-open="handleBeforeOpen" :option="tableDictItemOption"
                  @size-change="itemSizeChange" @current-change="itemCurrentChange" @row-update="handleItemUpdate"
-                 @row-save="handleItemSave" @row-del="rowItemDel" />
+                 @row-save="handleItemSave" @row-del="rowItemDel"/>
     </el-dialog>
   </div>
 </template>
 
 <script>
-import { addItemObj, addObj, delItemObj, delObj, fetchItemList, fetchList, putItemObj, putObj } from '@/api/admin/dict'
-import { tableDictItemOption, tableOption } from '@/const/crud/admin/dict'
-import { mapGetters } from 'vuex'
+import {addItemObj, addObj, delItemObj, delObj, fetchItemList, fetchList, putItemObj, putObj} from '@/api/admin/dict'
+import {tableDictItemOption, tableOption} from '@/const/crud/admin/dict'
+import {mapGetters} from 'vuex'
+import {validatenull} from "@/util/validate";
+import {pickBy} from "lodash";
 
 export default {
   name: 'Dict',
   data() {
     return {
+      search: {},
       searchForm: {},
       form: {
         type: undefined,
@@ -55,6 +66,7 @@ export default {
       tableLoading: false,
       tableOption: tableOption,
       tableDictItemOption: tableDictItemOption,
+      dict:{}
     }
   },
   computed: {
@@ -66,6 +78,12 @@ export default {
         editBtn: this.vaildData(this.permissions.sys_dict_edit, false),
       }
     },
+  },
+  mounted() {
+    this.getDicts('dict_type').then((res) => {
+      this.dict.dictType = res.data.data
+      this.getList()
+    })
   },
   methods: {
     //======字典表格相关=====
@@ -99,7 +117,8 @@ export default {
           this.getList(this.page)
           this.msgSuccess('删除成功')
         })
-        .catch(function () {})
+        .catch(function () {
+        })
     },
     handleUpdate: function (row, index, done) {
       putObj(row).then(() => {
@@ -116,9 +135,12 @@ export default {
       })
     },
     searchChange(form, done) {
-      this.searchForm = form
+
+      this.searchForm = pickBy({
+        ...this.searchForm,
+      })
       this.page.currentPage = 1
-      this.getList(this.page, form)
+      this.getList(this.page, this.searchForm)
       done()
     },
     handleClear() {
@@ -150,7 +172,7 @@ export default {
             current: this.itemPage.currentPage,
             size: this.itemPage.pageSize,
           },
-          { dictId: this.dictId }
+          {dictId: this.dictId}
         )
       ).then((response) => {
         this.tableDictItemData = response.data.data.records
@@ -197,8 +219,10 @@ export default {
           this.getDictItemList()
           this.msgSuccess('删除成功')
         })
-        .catch(function () {})
+        .catch(function () {
+        })
     },
+
   },
 }
 </script>
@@ -207,9 +231,11 @@ export default {
 ::v-deep .el-icon-search {
   display: none;
 }
+
 ::v-deep .el-icon-delete {
   display: none;
 }
+
 ::v-deep .el-icon-menu {
   display: none;
 }

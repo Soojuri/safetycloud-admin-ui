@@ -29,12 +29,12 @@
         <el-input v-model="form.path" placeholder="请输入路由地址" />
       </el-form-item>
       <el-form-item label="权限标识" prop="permission" v-if="form.type === '1'">
-        <el-input v-model="form.permission" placeholder="请权限标识" maxlength="50" />
+        <el-input v-model="form.permission" placeholder="请权限标识" maxlength="32" />
       </el-form-item>
       <el-row>
         <el-col :span="12">
           <el-form-item label="排序" prop="sort">
-            <el-input-number v-model="form.sort" controls-position="right" :min="0" />
+            <el-input-number v-model="form.sort" controls-position="right" :min="0" :max="999" />
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -95,9 +95,12 @@ export default {
       rules: {
         name: [this.$formRules.checkLen(50), { required: true, message: '菜单名称不能为空', trigger: 'blur' }],
         sort: [{ required: true, message: '菜单顺序不能为空', trigger: 'blur' }],
-        path: [this.$formRules.checkLen(50), { required: true, message: '路由地址不能为空', trigger: 'blur' }],
+        path: [this.$formRules.checkLen(100), { required: true, message: '路由地址不能为空', trigger: 'blur' }],
         keepAlive: [{ required: true, message: '路由缓冲不能为空', trigger: 'blur' }],
-        permission: [this.$formRules.checkLen(50), { required: true, message: '权限标识不能为空', trigger: 'blur' }],
+        permission: [
+          // { validator: this.$formRules.validatorNo, trigger: 'blur' },
+          { required: true, message: '权限标识不能为空', trigger: 'blur' },
+        ],
       },
     }
   },

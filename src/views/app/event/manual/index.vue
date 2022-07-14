@@ -35,10 +35,12 @@
             </el-select>
           </el-form-item>
           <el-form-item label='事件编号' prop='eventNo'>
-            <el-input size='small' v-model='queryParams.eventNo' placeholder='请输入事件编号'></el-input>
+            <el-input size='small' v-model.trim='queryParams.eventNo' placeholder='请输入事件编号' @keyup.native="trimInput">
+            </el-input>
           </el-form-item>
           <el-form-item label='事件名称' prop='eventName'>
-            <el-input size='small' v-model='queryParams.eventName' placeholder='请输入事件名称'></el-input>
+            <el-input size='small' v-model.trim='queryParams.eventName' placeholder='请输入事件名称' @keyup.native="trimInput">
+            </el-input>
           </el-form-item>
           <el-form-item label="处理结果" prop="handleResult">
             <el-select style="width:191px;" v-model="queryParams.handleResult" placeholder="请选择处理结果">
@@ -110,12 +112,12 @@
           </el-table-column>
           <el-table-column prop="eventLevel" align="center" label="事件等级" :formatter='eventLevelFormat'>
           </el-table-column>
-          <el-table-column prop="algorithmName" align="center" label="算法模型">
-          </el-table-column>
+          <!-- <el-table-column prop="algorithmName" align="center" label="算法模型">
+          </el-table-column> -->
           <el-table-column prop="deviceName" align="center" label="目标设备">
           </el-table-column>
-          <el-table-column prop="spaceName" align="center" label="所属空间">
-          </el-table-column>
+          <!-- <el-table-column prop="spaceName" align="center" label="所属空间">
+          </el-table-column> -->
           <el-table-column prop="eventStatus" align="center" label="事件状态">
             <template slot-scope="scope">
               <template v-if="scope.row.eventStatus == 0">

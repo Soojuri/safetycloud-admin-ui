@@ -3,10 +3,10 @@
     <div class="g-card">
       <el-form ref="queryParams" :model="queryParams" inline label-width="70px">
         <el-form-item label="产品名称" prop="productName">
-          <el-input v-model="queryParams.productName" placeholder="请输入产品名称"></el-input>
+          <el-input v-model.trim="queryParams.productName" placeholder="请输入产品名称"></el-input>
         </el-form-item>
         <el-form-item label="企业名称" prop="enterpriseName">
-          <el-input v-model="queryParams.enterpriseName" placeholder="请输入企业名称"></el-input>
+          <el-input v-model.trim="queryParams.enterpriseName" placeholder="请输入企业名称"></el-input>
         </el-form-item>
         <el-form-item label="缴费状态" prop="payStatus">
           <el-select v-model="queryParams.payStatus" placeholder="请选择缴费状态">

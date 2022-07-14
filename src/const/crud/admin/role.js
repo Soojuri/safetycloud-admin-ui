@@ -34,6 +34,7 @@ export const tableOption = {
       }
     ],
     'search': true,
+    searchSlot: true
   }, {
     label: '角色标识',
     prop: 'roleCode',
@@ -57,6 +58,7 @@ export const tableOption = {
       }
     ],
     'search': true,
+    searchSlot: true
   }, {
 
     label: '角色描述',
@@ -96,6 +98,7 @@ export const tableOption = {
       value: 3
     }],
     'search': true,
+    searchSlot: true
   }, {
     label: '',
     prop: 'dsScope',

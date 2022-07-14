@@ -4,10 +4,10 @@
     <div class="g-card">
       <el-form ref="queryParams" :model="queryParams" inline label-width="70px">
         <el-form-item label="车辆名称" prop="carName" :rules="[$formRules.checkLen()]">
-          <el-input v-model="queryParams.carName" placeholder="请输入车辆名称"></el-input>
+          <el-input v-model.trim="queryParams.carName" placeholder="请输入车辆名称"></el-input>
         </el-form-item>
         <el-form-item label="车牌号" prop="carNo" :rules="[$formRules.checkLen()]">
-          <el-input v-model="queryParams.carNo" placeholder="请输入车牌号"></el-input>
+          <el-input v-model.trim="queryParams.carNo" placeholder="请输入车牌号"></el-input>
         </el-form-item>
         <el-form-item label="状态" prop="status">
           <el-select v-model="queryParams.status" placeholder="请选择" style="width: 120px">

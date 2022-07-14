@@ -21,6 +21,7 @@ export const tableOption = {
     label: '类型',
     prop: 'type',
     search: true,
+    searchSlot: true,
     editDisabled: true,
     rules: [{
         required: true,
@@ -29,7 +30,7 @@ export const tableOption = {
       },
       rule.checkLen(50),
       {
-        validator: rule.checkSpace,
+        validator: rule.checkAllSpace,
         trigger: 'blur'
       }
     ]
@@ -57,7 +58,8 @@ export const tableOption = {
       message: '请选择字典类型',
       trigger: 'blur'
     }],
-    search: true
+    search: true,
+    searchSlot: true
   }, {
     label: '备注信息',
     prop: 'remarks',

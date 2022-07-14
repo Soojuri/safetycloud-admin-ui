@@ -5,7 +5,7 @@
     <div class="g-card">
       <el-form class="flex-nowrap" :model='queryParams' ref='queryForm' :inline='true' label-width="110px">
         <el-form-item label='搜索内容' prop='keyword'>
-          <el-input style="width:250px" size='small' v-model='queryParams.keyword' placeholder='请输入SIP服务国标编号/级联名称'>
+          <el-input style="width:250px" size='small' v-model.trim='queryParams.keyword' placeholder='请输入SIP服务国标编号/级联名称'>
           </el-input>
         </el-form-item>
         <el-form-item label="状态" prop="status">

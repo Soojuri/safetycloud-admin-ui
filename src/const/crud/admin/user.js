@@ -127,45 +127,51 @@ export const tableOption = {
       width: 100,
       label: "密码最长使用期限(天)",
       prop: "passwdMaxDays",
-      type: 'number',
+      // type: 'number',
       hide: true,
       span: 12,
-      mock: {
-        type: 'number',
-        max: 1,
-        min: 2,
-      },
       valueDefault: 0,
-      minRows: 0,
-      maxRows: 999,
       row: true,
       rules: [{
-        required: false,
-        message: '请输入最长使用期限',
-      }, {
-        validator: validatePasswdMaxDays,
+          required: false,
+          message: '请输入最长使用期限',
+        }, {
+          validator: validatePasswdMaxDays,
 
-      }, ]
+        }, {
+          validator: rule.checkNumber,
+          trigger: 'blur',
+        },
+        {
+          min: 0,
+          max: 3,
+          message: '请输入0-999间的数字',
+          trigger: 'blur',
+        },
+      ]
     }, {
       width: 100,
       label: "密码最短使用期限(天)",
       prop: "passwdMinDays",
-      type: 'number',
+      // type: 'number',
       hide: true,
       span: 12,
-      mock: {
-        type: 'number',
-        max: 1,
-        min: 2,
-      },
       valueDefault: 3,
-      minRows: 0,
-      maxRows: 998,
       row: true,
       rules: [{
-        validator: validatePasswdMinDays,
+          validator: rule.checkNumber,
+          trigger: 'blur',
+        },
+        {
+          min: 0,
+          max: 3,
+          message: '请输入0-999间的数字',
+          trigger: 'blur',
+        }, {
+          validator: validatePasswdMinDays,
 
-      }, ]
+        },
+      ]
     }, {
       label: '所属部门',
       prop: 'deptId',

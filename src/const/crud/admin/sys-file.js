@@ -31,7 +31,7 @@ export const tableOption = {
       propsHttp: {
         res: 'data'
       },
-      tip: '上传同步至文件服务器',
+      tip: '上传同步至文件服务器,且不超过500kb',
       action: "/admin/sys-file/upload"
     },
     {
