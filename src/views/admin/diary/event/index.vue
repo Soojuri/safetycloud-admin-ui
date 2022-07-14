@@ -3,7 +3,7 @@
     <div class="g-card">
       <el-form ref="queryParams" :model="queryParams" inline label-width="80px">
         <el-form-item label="事件名称" prop="eventName">
-          <el-input v-model="queryParams.eventName" placeholder="请输入事件名称"></el-input>
+          <el-input v-model.trim="queryParams.eventName" placeholder="请输入事件名称"></el-input>
         </el-form-item>
         <el-form-item label="操作类型" prop="operationType">
           <el-select v-model="queryParams.operationType" placeholder="操作类型">

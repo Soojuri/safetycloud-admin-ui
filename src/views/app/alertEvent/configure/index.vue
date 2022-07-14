@@ -9,7 +9,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="规则名称" prop="configName" :rules="[$formRules.checkLen()]">
-          <el-input v-model="queryParams.configName" placeholder="请输入规则名称"></el-input>
+          <el-input v-model.trim="queryParams.configName" placeholder="请输入规则名称"></el-input>
         </el-form-item>
         <el-form-item label='事件模型' prop='algorithmId'>
           <el-select v-model="queryParams.algorithmId" placeholder="请选择事件模型">

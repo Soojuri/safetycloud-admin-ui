@@ -6,7 +6,7 @@
       <div class="g-filter">
         <el-form class="flex-nowrap" :model='queryParams' ref='queryForm' :inline='true' label-width="110px">
           <el-form-item label='通道名称' prop='channelName'>
-            <el-input size='small' v-model='queryParams.channelName' placeholder='请输入设备名称'></el-input>
+            <el-input size='small' v-model.trim='queryParams.channelName' placeholder='请输入设备名称'></el-input>
           </el-form-item>
           <el-form-item class="filter-btn">
             <el-button type='primary' @click='handleQuery'>查询</el-button>

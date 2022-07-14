@@ -35,11 +35,11 @@
             </el-select>
           </el-form-item>
           <el-form-item label='事件编号' prop='eventNo'>
-            <el-input size='small' v-model='queryParams.eventNo' placeholder='请输入事件编号' @keyup.native="trimInput">
+            <el-input size='small' v-model.trim='queryParams.eventNo' placeholder='请输入事件编号' @keyup.native="trimInput">
             </el-input>
           </el-form-item>
           <el-form-item label='事件名称' prop='eventName'>
-            <el-input size='small' v-model='queryParams.eventName' placeholder='请输入事件名称' @keyup.native="trimInput">
+            <el-input size='small' v-model.trim='queryParams.eventName' placeholder='请输入事件名称' @keyup.native="trimInput">
             </el-input>
           </el-form-item>
           <el-form-item label="处理结果" prop="handleResult">

@@ -4,10 +4,10 @@
     <div class="g-card">
       <el-form ref="queryParams" :model="queryParams" inline label-width="120px">
         <el-form-item label='边缘计算池ID' prop='edgePoolId'>
-          <el-input size='small' v-model='queryParams.edgePoolId' placeholder='请输入边缘计算池ID'></el-input>
+          <el-input size='small' v-model.trim='queryParams.edgePoolId' placeholder='请输入边缘计算池ID'></el-input>
         </el-form-item>
         <el-form-item label='边缘计算池名称' prop='poolName'>
-          <el-input size='small' v-model='queryParams.poolName' placeholder='请输入边缘计算池名称'></el-input>
+          <el-input size='small' v-model.trim='queryParams.poolName' placeholder='请输入边缘计算池名称'></el-input>
         </el-form-item>
         <el-form-item class="ml-xl">
           <el-button icon="el-icon-search" type="primary" @click="handleQuery">搜 索</el-button>

@@ -5,7 +5,7 @@
     <div class="g-card">
       <el-form class="flex-nowrap" :model='queryParams' ref='queryForm' :inline='true'>
         <el-form-item label='搜索内容' prop='keyword'>
-          <el-input size='small' v-model='queryParams.keyword' placeholder='请输入设备名称/国标编号'>
+          <el-input size='small' v-model.trim='queryParams.keyword' placeholder='请输入设备名称/国标编号'>
           </el-input>
         </el-form-item>
         <el-form-item label="设备厂家" prop="producer">

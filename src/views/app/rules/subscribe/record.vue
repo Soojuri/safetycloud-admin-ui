@@ -4,7 +4,7 @@
     <div class="g-card">
       <el-form ref="queryParams" :model="queryParams" inline label-width="80px">
         <el-form-item label='配置名称' prop='subscriptionName'>
-          <el-input size='small' v-model='queryParams.subscriptionName' placeholder='请输入配置名称'></el-input>
+          <el-input size='small' v-model.trim='queryParams.subscriptionName' placeholder='请输入配置名称'></el-input>
         </el-form-item>
         <el-form-item label="状态" prop="isSuccess">
           <el-select v-model="queryParams.isSuccess" placeholder="请选择">

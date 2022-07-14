@@ -3,10 +3,10 @@
     <div class="g-card">
       <el-form ref="queryParams" :model="queryParams" inline label-width="80px">
         <el-form-item label="公告标题" prop="noticeTitle" :rules="[$formRules.checkLen()]">
-          <el-input v-model="queryParams.noticeTitle" placeholder="请输入公告标题"></el-input>
+          <el-input v-model.trim="queryParams.noticeTitle" placeholder="请输入公告标题"></el-input>
         </el-form-item>
         <el-form-item label="操作人员" prop="createBy" :rules="[$formRules.checkLen()]">
-          <el-input v-model="queryParams.createBy" placeholder="请输入操作人员"></el-input>
+          <el-input v-model.trim="queryParams.createBy" placeholder="请输入操作人员"></el-input>
         </el-form-item>
         <el-form-item label="类型" prop="noticeType">
           <el-select v-model="queryParams.noticeType" placeholder="公告类型">

@@ -5,7 +5,7 @@
     <div class="g-card">
       <el-form class="flex-nowrap" :model='queryParams' ref='queryParams' :inline='true' label-width="110px">
         <el-form-item label='平台名称' prop='platformName'>
-          <el-input style="width:250px" size='small' v-model='queryParams.platformName' placeholder='请输入平台名称'>
+          <el-input style="width:250px" size='small' v-model.trim='queryParams.platformName' placeholder='请输入平台名称'>
           </el-input>
         </el-form-item>
         <el-form-item label="状态" prop="status">

@@ -3,7 +3,7 @@
     <div class="g-card">
       <el-form class="flex-nowrap" :model='queryParams' ref='queryForm' :inline='true'>
         <el-form-item label='配置名称' prop='subscriptionName'>
-          <el-input size='small' v-model='queryParams.subscriptionName' placeholder='请输入'>
+          <el-input size='small' v-model.trim='queryParams.subscriptionName' placeholder='请输入'>
           </el-input>
         </el-form-item>
         <el-form-item label="状态" prop="status">

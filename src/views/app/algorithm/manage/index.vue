@@ -51,10 +51,10 @@
       <!-- 如果内容不局限于一行三列，可以使用flex-nowrap限制 -->
       <el-form ref="queryParams" class="mt-m" inline :model="queryParams">
         <el-form-item prop="algorithmName" label="算法名称">
-          <el-input v-model="queryParams.algorithmName" placeholder="请输入算法名称"></el-input>
+          <el-input v-model.trim="queryParams.algorithmName" placeholder="请输入算法名称"></el-input>
         </el-form-item>
         <el-form-item prop="algorithmCapabilitySet" label="能力标签">
-          <el-input v-model="queryParams.algorithmCapabilitySet" placeholder="请输入"></el-input>
+          <el-input v-model.trim="queryParams.algorithmCapabilitySet" placeholder="请输入"></el-input>
         </el-form-item>
         <el-form-item label='算法分类' prop='algorithmPackageId'>
           <el-select v-model="queryParams.algorithmPackageId" placeholder="请选择算法分类">

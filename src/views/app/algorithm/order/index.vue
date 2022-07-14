@@ -3,7 +3,7 @@
     <div class="g-card">
       <el-form ref="queryParams" :model="queryParams" inline>
         <el-form-item label="订单ID" prop="orderId" :rules="[$formRules.checkLen(50)]">
-          <el-input v-model="queryParams.orderId" placeholder="请输入订单ID"></el-input>
+          <el-input v-model.trim="queryParams.orderId" placeholder="请输入订单ID"></el-input>
         </el-form-item>
         <el-form-item label="状态" prop="status">
           <el-select v-model="queryParams.status" placeholder="请选择">

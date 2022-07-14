@@ -3,10 +3,10 @@
     <div class="g-card">
       <el-form ref="queryParams" :model="queryParams" inline>
         <el-form-item label="统一社会信用代码" prop="enterpriseCode">
-          <el-input v-model="queryParams.enterpriseCode" placeholder="请输入统一社会信用代码"></el-input>
+          <el-input v-model.trim="queryParams.enterpriseCode" placeholder="请输入统一社会信用代码"></el-input>
         </el-form-item>
         <el-form-item label="企业名称" prop="enterpriseName">
-          <el-input v-model="queryParams.enterpriseName" placeholder="请输入企业名称"></el-input>
+          <el-input v-model.trim="queryParams.enterpriseName" placeholder="请输入企业名称"></el-input>
         </el-form-item>
         <el-form-item label="状态" prop="status">
           <el-select v-model="queryParams.status" placeholder="请选择" style="width: 120px">

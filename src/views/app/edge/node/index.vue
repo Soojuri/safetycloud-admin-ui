@@ -38,7 +38,7 @@
           <el-input size='small' v-model='queryParams.id' placeholder='请输入边缘节点ID'></el-input>
         </el-form-item> -->
         <el-form-item label='节点名称' prop='name'>
-          <el-input size='small' v-model='queryParams.name' placeholder='请输入节点名称'></el-input>
+          <el-input size='small' v-model.trim='queryParams.name' placeholder='请输入节点名称'></el-input>
         </el-form-item>
         <el-form-item class="ml-xl">
           <el-button icon="el-icon-search" type="primary" @click="handleQuery">搜 索</el-button>

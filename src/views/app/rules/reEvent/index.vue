@@ -21,7 +21,7 @@
     </div> -->
       <el-form :model='queryParams' ref='queryParams' :inline='true' label-width="80px">
         <el-form-item label='规则名称' prop='ruleName'>
-          <el-input size='small' v-model='queryParams.ruleName' placeholder='请输入规则名称'>
+          <el-input size='small' v-model.trim='queryParams.ruleName' placeholder='请输入规则名称'>
           </el-input>
         </el-form-item>
         <el-form-item label="状态" prop="status">

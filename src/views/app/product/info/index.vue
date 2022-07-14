@@ -4,7 +4,7 @@
     <div class="g-card">
       <el-form ref="queryParams" :model="queryParams" inline label-width="70px">
         <el-form-item label="订单编号" prop="orderCode" :rules="[$formRules.checkLen()]">
-          <el-input v-model="queryParams.orderCode" placeholder="请输入订单编号"></el-input>
+          <el-input v-model.trim="queryParams.orderCode" placeholder="请输入订单编号"></el-input>
         </el-form-item>
         <el-form-item label="订单状态" prop="orderStatus">
           <el-select v-model="queryParams.orderStatus" placeholder="请选择">

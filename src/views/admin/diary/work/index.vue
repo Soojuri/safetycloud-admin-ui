@@ -3,10 +3,10 @@
     <div class="g-card">
       <el-form ref="queryParams" :model="queryParams" inline label-width="80px">
         <el-form-item label="作业ID" prop="taskId">
-          <el-input v-model="queryParams.taskId" placeholder="请输入作业ID"></el-input>
+          <el-input v-model.trim="queryParams.taskId" placeholder="请输入作业ID"></el-input>
         </el-form-item>
         <el-form-item label="作业名称" prop="taskName">
-          <el-input v-model="queryParams.taskName" placeholder="请输入作业名称"></el-input>
+          <el-input v-model.trim="queryParams.taskName" placeholder="请输入作业名称"></el-input>
         </el-form-item>
         <el-form-item label="操作结果" prop="status">
           <el-select v-model="queryParams.status" placeholder="操作结果">
