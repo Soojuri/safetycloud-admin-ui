@@ -55,7 +55,7 @@
       <el-dialog :visible="diaVisible" width="500px" title="编辑" append-to-body :close-on-click-modal='false'
                  @close="diaVisible = false">
         <el-form :model="form" :rules="dataRule" ref="form" @keyup.enter.native="dataFormSubmit()" label-width="80px">
-          <el-form-item label="模板名称" prop="templateName" :rules="[$formRules.checkLen(32)]">
+          <el-form-item label="模板名称" prop="templateName">
             <el-input v-model="form.templateName" placeholder="模板名称"></el-input>
           </el-form-item>
         </el-form>
@@ -82,7 +82,7 @@ export default {
         id: null,
       },
       dataRule: {
-        templateName: [{ required: true, message: '模板名称不能为空', trigger: 'blur' }],
+        templateName: [{ required: true, message: '模板名称不能为空', trigger: 'blur' },this.$formRules.checkLen(32)],
       },
       queryParams: {
         size: 10,
@@ -162,13 +162,17 @@ export default {
       this.form.id = row.id
     },
     dataFormSubmit() {
-      this.diaVisible = false
-      putTemplate(this.form).then((res) => {
-        if (res.data) {
-          this.msgSuccess('修改成功')
-          this.getDataList()
-        } else {
-          this.msgError(res.data.data.msg)
+      this.$refs.form.validate((valid)=>{
+        if(valid){
+          putTemplate(this.form).then((res) => {
+            if (res.data) {
+              this.msgSuccess('修改成功')
+              this.getDataList()
+              this.diaVisible = false
+            } else {
+              this.msgError(res.data.data.msg)
+            }
+          })
         }
       })
     },
