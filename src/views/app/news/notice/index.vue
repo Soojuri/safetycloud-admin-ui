@@ -3,7 +3,7 @@
     <div class="g-card">
       <el-form ref="queryParams" :model="queryParams" inline>
         <el-form-item label="公告标题" prop="noticeTitle" :rules="[$formRules.checkLen()]">
-          <el-input v-model="queryParams.noticeTitle" placeholder="请输入公告标题" @keyup.native="trimInput"></el-input>
+          <el-input v-model.trim="queryParams.noticeTitle" placeholder="请输入公告标题"></el-input>
         </el-form-item>
         <el-form-item label="状态" prop="status">
           <el-select v-model="queryParams.status" placeholder="状态">
