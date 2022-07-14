@@ -21,7 +21,8 @@
 
 <script>
 import store from '@/store'
-import { getStore, setStore } from '@/util/store'
+import {getStore, setStore} from '@/util/store'
+
 export default {
   data() {
     return {
@@ -29,14 +30,14 @@ export default {
       canSubmit: false,
       headers: {
         Authorization: 'Bearer ' + store.getters.access_token,
-        'TENANT-ID': getStore({ name: 'tenantId_video' }),
+        'TENANT-ID': getStore({name: 'tenantId_video'}),
         'SYSTEM-TYPE': 2,
       },
       dataForm: {
         templateName: '',
       },
       dataRule: {
-        templateName: [{ required: true, message: '模板名称不能为空', trigger: 'blur' }],
+        templateName: [{required: true, message: '模板名称不能为空', trigger: 'blur'},this.$formRules.checkLen()],
       },
     }
   },
@@ -66,10 +67,15 @@ export default {
         if (valid) {
           const typeList = ['.xlsx', '.xls']
           const isExcel = typeList.find((item) => file.name.indexOf(item) != -1) ? true : false
+          //是否小于5M
+          const isLt = file.size / 1024 / 1024 < 5
           if (!isExcel) {
             this.msgError('请上传xlsx,xls格式的模板！')
           }
-          res = isExcel
+          if (!isLt) {
+            this.msgError('请上传小于5M的摸板！')
+          }
+          res = isExcel && isLt
         } else {
           res = false
         }
