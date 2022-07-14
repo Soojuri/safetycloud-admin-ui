@@ -15,7 +15,8 @@ import {
   selectDictLabel,
   selectDictLabels,
   formatNumber,
-  downBlobFile
+  downBlobFile,
+  trimInput
 } from './util/util'
 import {
   parseTime
@@ -65,6 +66,7 @@ Vue.prototype.IMAGE_PATH = imagePath
 Vue.prototype.formatNumber = formatNumber
 Vue.prototype.downBlobFile = downBlobFile
 Vue.prototype.$formRules = rule
+Vue.prototype.trimInput = trimInput
 Vue.use(ElementUI, {
   size: 'small',
   menuType: 'text'

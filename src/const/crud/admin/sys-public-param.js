@@ -31,6 +31,7 @@ export const tableOption = {
   column: [{
       label: '名称',
       search: true,
+      searchSlot: true,
       prop: 'publicName',
       rules: [{
           required: true,

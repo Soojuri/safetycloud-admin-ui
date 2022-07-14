@@ -41,6 +41,7 @@ export const tableOption = {
       label: '租户名称',
       prop: 'name',
       search: true,
+      searchSlot: true,
       rules: [{
           required: true,
           message: '请输入租户名称',
@@ -59,6 +60,7 @@ export const tableOption = {
       prop: 'tenantType',
       type: 'select',
       search: true,
+      searchSlot: true,
       rules: [{
         required: true,
         message: '请选择租户类型',
@@ -127,7 +129,8 @@ export const tableOption = {
       type: 'radio',
       border: true,
       dicUrl: '/admin/dict/type/status_type',
-      search: true
+      search: true,
+      searchSlot: true
     }
   ]
 }

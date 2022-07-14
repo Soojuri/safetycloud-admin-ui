@@ -511,3 +511,11 @@ export function downBlobFile(url, query, fileName) {
 
   });
 }
+
+// 清除input框输入的空格
+export function trimInput(obj,keyName){
+  if (!validatenull(obj[keyName])) {
+    obj[keyName] = obj[keyName].replace(/\s+/g, '')
+  }
+}
+

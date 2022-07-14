@@ -3,7 +3,7 @@
     <basic-container>
       <el-form ref="queryParams" :model="queryParams" inline>
         <el-form-item label="模板名称" prop="templateName" :rules="[$formRules.checkLen()]">
-          <el-input v-model="queryParams.templateName" placeholder="请输入模板名称"></el-input>
+          <el-input v-model="queryParams.templateName" placeholder="请输入模板名称" @keyup.native="trimInput(queryParams,'templateName')"></el-input>
         </el-form-item>
         <el-form-item label="模板类型" prop="type">
           <el-input v-model="queryParams.type" placeholder="请输入模板类型"></el-input>
@@ -117,6 +117,8 @@ export default {
           current: this.pageIndex,
           size: this.pageSize,
           templateName: this.queryParams.templateName,
+          type: this.queryParams.type
+
         })
       ).then((response) => {
         this.dataList = response.data.data.records

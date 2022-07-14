@@ -4,10 +4,10 @@
     <div class="g-card">
       <el-form ref="queryParams" :model="queryParams" inline>
         <el-form-item label="设备编号" prop="deviceNo" :rules="[$formRules.checkLen()]">
-          <el-input v-model="queryParams.deviceNo" placeholder="请输入设备编号"></el-input>
+          <el-input v-model="queryParams.deviceNo" placeholder="请输入设备编号" @keyup.native="trimInput(queryParams,'deviceNo')"></el-input>
         </el-form-item>
         <el-form-item label="设备名称" prop="deviceName" :rules="[$formRules.checkLen()]">
-          <el-input v-model="queryParams.deviceName" placeholder="请输入设备名称"></el-input>
+          <el-input v-model="queryParams.deviceName" placeholder="请输入设备名称" @keyup.native="trimInput(queryParams,'deviceName')"></el-input>
         </el-form-item>
         <el-form-item label="状态" prop="status">
           <el-select v-model="queryParams.status" placeholder="请选择状态" style="width: 150px">

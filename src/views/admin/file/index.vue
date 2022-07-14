@@ -6,6 +6,15 @@
                  :table-loading="tableLoading" :option="tableOption" :upload-after="uploadAfter" @on-load="getList"
                  @search-change="searchChange" @search-reset="handleClear" @refresh-change="refreshChange"
                  @size-change="sizeChange" @current-change="currentChange" @row-del="rowDel">
+        <template slot="fileNameSearch" slot-scope="{row,size}">
+          <el-input placeholder="请输入 文件名" :size="size" v-model="searchForm.fileName" @keyup.native="trimInput(searchForm,'fileName')"></el-input>
+        </template>
+        <template slot="typeSearch" slot-scope="{row,size}">
+          <el-input placeholder="请输入 文件类型" :size="size" v-model="searchForm.type" @keyup.native="trimInput(searchForm,'type')"></el-input>
+        </template>
+        <template slot="createUserSearch" slot-scope="{row,size}">
+          <el-input placeholder="请输入 上传人" :size="size" v-model="searchForm.createUser" @keyup.native="trimInput(searchForm,'createUser')"></el-input>
+        </template>
         <template slot="menu" slot-scope="scope">
           <el-button type="text" size="small" icon="el-icon-download" @click="download(scope.row, scope.index)">下载
           </el-button>
@@ -19,8 +28,9 @@
 import { delObj, fetchList } from '@/api/admin/sys-file'
 import { tableOption } from '@/const/crud/admin/sys-file'
 import { mapGetters } from 'vuex'
-import { handleDown } from '@/util/util'
+import {compactObject, handleDown} from '@/util/util'
 import { validatenull } from '@/util/validate'
+import {pickBy} from "lodash";
 
 export default {
   name: 'sys-file',
@@ -86,9 +96,12 @@ export default {
         })
     },
     searchChange(form, done) {
-      this.searchForm = form
+      // this.searchForm = form
+      this.searchForm = pickBy({
+        ...this.searchForm,
+      })
       this.page.currentPage = 1
-      this.getList(this.page, form)
+      this.getList(this.page, this.searchForm)
       done()
     },
     refreshChange() {
@@ -96,7 +109,11 @@ export default {
       this.getList(this.page)
     },
     handleClear() {
-      this.searchForm.fileName = null
+      this.searchForm = {
+        fileName: null,
+        type: null,
+        createUser: null
+      }
       this.getList(1)
     },
     sizeChange(pageSize) {
@@ -115,6 +132,11 @@ export default {
       }
       done()
     },
+    trim(event){
+      if(!validatenull(event.target.value)){
+        event.target.value = event.target.value.replace(/\s+/g,'')
+      }
+    }
   },
 }
 </script>
