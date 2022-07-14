@@ -9,6 +9,7 @@
         <el-upload action="/api/admin/systemplate/upload" :limit="1" :data="dataForm" ref="upload"
                    :before-upload="handleBeforeUpload" :on-success="handleSuccess" :headers="headers">
           <el-button type="primary">点击上传</el-button>
+          <div slot="tip" class="el-upload__tip">只能上传xlsx,xls格式的模板</div>
         </el-upload>
       </el-form-item>
     </el-form>
