@@ -48,6 +48,7 @@ export default {
       return {
         Authorization: 'Bearer ' + store.getters.access_token,
         'TENANT-ID': getStore({ name: 'tenantId_video' }),
+        'SYSTEM-TYPE': 2,
       }
     },
   },
