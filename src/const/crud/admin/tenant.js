@@ -1,3 +1,6 @@
+import {
+  rule
+} from "@/util/validateRules"
 var startTime = undefined
 var endTime = undefined
 
@@ -41,7 +44,6 @@ export const tableOption = {
       label: '租户名称',
       prop: 'name',
       search: true,
-      searchSlot: true,
       rules: [{
           required: true,
           message: '请输入租户名称',
@@ -60,7 +62,6 @@ export const tableOption = {
       prop: 'tenantType',
       type: 'select',
       search: true,
-      searchSlot: true,
       rules: [{
         required: true,
         message: '请选择租户类型',
@@ -79,15 +80,23 @@ export const tableOption = {
     },
     {
       label: '租户编号',
-      type: 'number',
+      // type: 'number',
       prop: 'code',
       rules: [{
-        required: true,
-        message: '请输入租户编号',
-        trigger: 'blur'
-      }],
-      minRows: 0,
-      maxRows: 999,
+          validator: rule.checkNumber,
+          trigger: 'blur',
+        },
+        {
+          min: 0,
+          max: 3,
+          message: '请输入0-999间的数字',
+          trigger: 'blur',
+        }, {
+          required: true,
+          message: '请输入租户编号',
+          trigger: 'blur'
+        }
+      ],
     },
     {
       label: '开始时间',
@@ -129,8 +138,7 @@ export const tableOption = {
       type: 'radio',
       border: true,
       dicUrl: '/admin/dict/type/status_type',
-      search: true,
-      searchSlot: true
+      search: true
     }
   ]
 }
