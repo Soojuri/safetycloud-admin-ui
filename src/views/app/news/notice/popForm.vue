@@ -26,7 +26,7 @@
               </el-switch>
             </el-form-item>
             <el-form-item label='公告附件'>
-              <el-upload action="api/notifyMessage/sysnotice/upload" :on-error="handleUploadError"
+              <el-upload action="api/notifyMessage/sysnotice/upload" :before-upload="handleBeforeUpload" :on-error="handleUploadError"
                          :on-success="handleUploadSuccess" :headers="headers">
                 <el-button type="primary" icon="el-icon-upload">上传文件</el-button>
                 </el-button>
@@ -147,6 +147,25 @@ export default {
       } else {
         this.$message.success('上传成功')
       }
+    },
+    handleBeforeUpload(file) {
+      // const isJPG = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/gif'
+      const typeList = ['.csv','.xlsx', '.xls','.doc','.jpeg','.jpg','.pdf','.png']
+      const isJPG = typeList.find((item) => file.name.indexOf(item) != -1) ? true : false
+
+      const isLt2M = file.size / 1024 / 1024 < 5
+      if (!isJPG) {
+        this.msgError('请上传csv,xlsx,xls,doc,jpeg,jpg,pdf,png格式的文件！')
+      } else if (!isLt2M) {
+        this.msgError('上传文件大小不能超过 5MB!')
+      } else {
+        this.loading = this.$loading({
+          lock: true,
+          text: '上传中',
+          background: 'rgba(0, 0, 0, 0.7)',
+        })
+      }
+      return isJPG && isLt2M
     },
     //上传成功
     handleSuccess(res, file, fileList) {
