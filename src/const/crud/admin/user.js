@@ -197,6 +197,15 @@ export const tableOption = {
         trigger: 'blur'
       }]
     }, {
+      label: '邮箱',
+      prop: 'email',
+      value: '',
+      span: 24,
+      rules: [{
+        validator: rule.checkEmail,
+        trigger: 'blur',
+      }, ]
+    }, {
       label: '角色',
       prop: 'role',
       formslot: true,
