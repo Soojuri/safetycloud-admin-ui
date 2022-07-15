@@ -7,12 +7,12 @@
           <el-form :rules="rules" :model='form' label-width='120px' ref='form'>
             <el-form-item label='发证日期' prop='certificateGainDate'>
               <el-date-picker v-model="form.certificateGainDate" type="datetime" value-format="timestamp"
-                              placeholder="选择日期时间">
+                              placeholder="选择日期时间" :picker-options="pickerStartTime">
               </el-date-picker>
             </el-form-item>
             <el-form-item label='有效日期' prop='certificateValidDate'>
               <el-date-picker v-model="form.certificateValidDate" type="datetime" value-format="timestamp"
-                              placeholder="选择日期时间">
+                              placeholder="选择日期时间" :picker-options="pickerEndTime">
               </el-date-picker>
             </el-form-item>
             <el-form-item label='资质名称' prop='certificateName'>
@@ -87,6 +87,29 @@ export default {
     title() {
       return this.id ? '编辑' : '新增'
     },
+    pickerStartTime() {
+      let _this = this;
+      return {
+        disabledDate: time => {
+          if(_this.form.certificateValidDate){
+            let edtTime = _this.form.certificateValidDate;
+            return time.getTime() > edtTime
+          }
+
+        }
+      }
+    },
+    pickerEndTime() {
+      let _this = this;
+      return {
+        disabledDate: time => {
+          if(_this.form.certificateGainDate){
+            let startTime = _this.form.certificateGainDate;
+            return time.getTime() < startTime
+          }
+        }
+      }
+    }
   },
   watch: {},
   created() {
