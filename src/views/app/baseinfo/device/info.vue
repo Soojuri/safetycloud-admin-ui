@@ -84,7 +84,7 @@
           <el-description-item label="更新时间" :value="parseTime(form.updateTime)" :span="8" />
           <!-- <el-description-item label="详细地址" :value="form.address" :span="8" /> -->
           <el-description-item label="最后离线时间" :value="parseTime(form.lastOfflineTime)" :span="8" />
-          <el-description-item label="备注" :value="form.remark" :span="24" />
+          <el-description-item label="备注" :value="form.remark" :span="24" :contentStyle="{'word-break': 'break-all','word-wrap': 'break-word'}"/>
         </el-description>
       </div>
       <div class="tit">设备故障维修记录</div>
@@ -279,6 +279,7 @@ export default {
   .information {
     display: flex;
     margin: 13px 0;
+    flex-direction: column-reverse;
     img {
       width: 100%;
       height: 100%;
