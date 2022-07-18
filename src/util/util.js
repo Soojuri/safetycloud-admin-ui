@@ -412,6 +412,7 @@ export function compactObject(val) {
   const data = Array.isArray(val) ? val.filter(Boolean) : val
   return Object.keys(data).reduce(
     (acc, key) => {
+      console.log("acc:{},key:{}",acc,key)
       const value = data[key]
       if (Boolean(value))
         acc[key] = typeof value === 'object' ? compactObject(value) : value
@@ -517,5 +518,14 @@ export function trimInput(obj,keyName){
   if (!validatenull(obj[keyName])) {
     obj[keyName] = obj[keyName].replace(/\s+/g, '')
   }
+}
+
+// 清除对象中的空值字段
+export function getNotNull(obj){
+  return Object.keys(obj).forEach((key)=>{
+    if(obj[key]==="" || obj[key]===''){
+      delete obj[key]
+    }
+  })
 }
 
