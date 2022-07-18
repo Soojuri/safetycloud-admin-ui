@@ -21,7 +21,7 @@ export function addObj(obj) {
     url: '/admin/tenant',
     method: 'post',
     data: obj
-  })
+  }, {timeout: 30000})
 }
 
 export function getObj(id) {
