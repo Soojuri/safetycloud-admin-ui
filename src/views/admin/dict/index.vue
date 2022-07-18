@@ -102,6 +102,8 @@ export default {
         this.tableData = response.data.data.records
         this.page.total = response.data.data.total
         this.tableLoading = false
+      }).catch((e)=>{
+        this.tableLoading = false
       })
     },
     rowDel: function (row) {
