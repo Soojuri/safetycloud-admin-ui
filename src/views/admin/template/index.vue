@@ -122,8 +122,10 @@ export default {
       ).then((response) => {
         this.dataList = response.data.data.records
         this.totalPage = response.data.data.total
+        this.dataListLoading = false
+      }).catch((error)=>{
+        this.dataListLoading = false
       })
-      this.dataListLoading = false
     },
     handleQuery() {
       const that = this
