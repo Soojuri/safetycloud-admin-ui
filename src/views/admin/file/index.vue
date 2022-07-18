@@ -3,21 +3,28 @@
   <div class="execution">
     <basic-container>
       <avue-crud ref="crud" :page.sync="page" :data="tableData" :permission="permissionList"
-                 :table-loading="tableLoading" :option="tableOption" :upload-after="uploadAfter" @on-load="getList"
+                 :table-loading="tableLoading" :option="tableOption" :upload-before="handleBeforeUpload"
+                 :on-error="handleUploadError" :upload-after="uploadAfter" @on-load="getList"
                  @search-change="searchChange" @search-reset="handleClear" @refresh-change="refreshChange"
                  @size-change="sizeChange" @current-change="currentChange" @row-del="rowDel">
-        <template slot="fileNameSearch" slot-scope="{row,size}">
-          <el-input placeholder="请输入 文件名" :size="size" v-model="searchForm.fileName" @keyup.native="trimInput(searchForm,'fileName')"></el-input>
-        </template>
-        <template slot="typeSearch" slot-scope="{row,size}">
-          <el-input placeholder="请输入 文件类型" :size="size" v-model="searchForm.type" @keyup.native="trimInput(searchForm,'type')"></el-input>
-        </template>
-        <template slot="createUserSearch" slot-scope="{row,size}">
-          <el-input placeholder="请输入 上传人" :size="size" v-model="searchForm.createUser" @keyup.native="trimInput(searchForm,'createUser')"></el-input>
-        </template>
         <template slot="menu" slot-scope="scope">
           <el-button type="text" size="small" icon="el-icon-download" @click="download(scope.row, scope.index)">下载
           </el-button>
+        </template>
+        <template slot-scope="scope" slot="fileNameSearch">
+          <el-form-item>
+            <el-input v-model.trim="fileName" placeholder="请输入文件名" size="small" />
+          </el-form-item>
+        </template>
+        <template slot-scope="scope" slot="typeSearch">
+          <el-form-item>
+            <el-input v-model.trim="type" placeholder="请输入文件类型" size="small" />
+          </el-form-item>
+        </template>
+        <template slot-scope="scope" slot="createUserSearch">
+          <el-form-item>
+            <el-input v-model.trim="createUser" placeholder="请输入上传人" size="small" />
+          </el-form-item>
         </template>
       </avue-crud>
     </basic-container>
@@ -25,17 +32,23 @@
 </template>
 
 <script>
+import store from '@/store'
 import { delObj, fetchList } from '@/api/admin/sys-file'
 import { tableOption } from '@/const/crud/admin/sys-file'
 import { mapGetters } from 'vuex'
 import { handleDown } from '@/util/util'
 import { validatenull } from '@/util/validate'
-import {pickBy} from "lodash";
 
 export default {
   name: 'sys-file',
   data() {
     return {
+      headers: {
+        Authorization: 'Bearer ' + store.getters.access_token,
+      },
+      fileName: null,
+      type: null,
+      createUser: null,
       searchForm: {},
       tableData: [],
       page: {
@@ -60,13 +73,12 @@ export default {
   methods: {
     getList(page, params) {
       this.tableLoading = true
+      let fileName = this.fileName
+      let type = this.type
+      let createUser = this.createUser
       fetchList(
         Object.assign(
-          {
-            descs: 'create_time',
-            current: page.currentPage,
-            size: page.pageSize,
-          },
+          { fileName, type, createUser, descs: 'create_time', current: page.currentPage, size: page.pageSize },
           params,
           this.searchForm
         )
@@ -79,6 +91,33 @@ export default {
         .catch(() => {
           this.tableLoading = false
         })
+    },
+    handleUploadError() {
+      this.$notify({
+        type: 'error',
+        message: '上传失败',
+      })
+      this.loading.close()
+    },
+    handleBeforeUpload(file, loading) {
+      // const isJPG = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/gif'
+      const typeList = ['.csv', '.xlsx', '.xls', '.doc', '.jpeg', '.jpg', '.pdf', '.png']
+      const isJPG = typeList.find((item) => file.name.indexOf(item) != -1) ? true : false
+      const isLt2M = file.size / 1024 / 1024 < 5
+      if (!isJPG) {
+        this.msgError('请上传csv,xlsx,xls,doc,jpeg,jpg,pdf,png格式的文件！')
+        loading = false
+      } else if (!isLt2M) {
+        this.msgError('上传文件大小不能超过 5MB!')
+        loading = false
+      } else {
+        this.loading = this.$loading({
+          lock: true,
+          text: '上传中',
+          background: 'rgba(0, 0, 0, 0.7)',
+        })
+      }
+      return isJPG && isLt2M
     },
     rowDel: function (row, index) {
       var _this = this
@@ -96,12 +135,9 @@ export default {
         })
     },
     searchChange(form, done) {
-      // this.searchForm = form
-      this.searchForm = pickBy({
-        ...this.searchForm,
-      })
+      this.searchForm = form
       this.page.currentPage = 1
-      this.getList(this.page, this.searchForm)
+      this.getList(this.page, form)
       done()
     },
     refreshChange() {
@@ -109,9 +145,10 @@ export default {
       this.getList(this.page)
     },
     handleClear() {
-      this.searchForm.fileName = null
-      this.searchForm.type = null
-      this.searchForm.createUser = null
+      this.fileName = null
+      this.type = null
+      this.createUser = null
+      this.searchForm = {}
       this.getList(1)
     },
     sizeChange(pageSize) {

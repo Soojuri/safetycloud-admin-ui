@@ -31,7 +31,7 @@ export const tableOption = {
       propsHttp: {
         res: 'data'
       },
-      tip: '上传同步至文件服务器,且不超过500kb',
+      tip: '上传同步至文件服务器,且上传文件大小不能超过 5MB!',
       action: "/admin/sys-file/upload"
     },
     {
@@ -44,8 +44,8 @@ export const tableOption = {
       label: '文件名',
       prop: 'fileName',
       overHidden: true,
+      searchslot: true,
       search: true,
-      searchSlot: true,
       addDisplay: false
     },
     {
@@ -58,8 +58,8 @@ export const tableOption = {
       label: '文件类型',
       prop: 'type',
       addDisplay: false,
-      search: true,
-      searchSlot: true
+      searchslot: true,
+      search: true
     },
     {
       label: '文件大小',
@@ -70,8 +70,8 @@ export const tableOption = {
       label: '上传人',
       prop: 'createUser',
       addDisplay: false,
-      search: true,
-      searchSlot: true
+      searchslot: true,
+      search: true
     },
     {
       width: 180,
