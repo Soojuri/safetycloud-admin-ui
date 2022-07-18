@@ -101,8 +101,8 @@ export default {
         algorithmName: [this.$formRules.checkLen(), this.$formRules.checkNecessary('请输入算法模型名称')],
         enable: [this.$formRules.checkNecessary('请选择状态')],
         deviceProductId: [this.$formRules.checkNecessary('请选择设备产品')],
-        shortDescription: [this.$formRules.checkNecessary('请请输入一句话产品描述'),this.$formRules.checkLen(100)],
-        algorithmDetail: [this.$formRules.checkNecessary('请输入产品详细介绍')],
+        shortDescription: [this.$formRules.checkNecessary('请请输入一句话产品描述'), this.$formRules.checkLen(100)],
+        algorithmDetail: [this.$formRules.checkNecessary('请输入产品详细介绍'), this.$formRules.checkLen(500)],
         algorithmType: [this.$formRules.checkNecessary('请选择模型分类')],
       },
     }
