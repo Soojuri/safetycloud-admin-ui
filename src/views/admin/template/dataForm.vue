@@ -65,17 +65,23 @@ export default {
       let res = false
       this.$refs.dataForm.validate((valid) => {
         if (valid) {
+          console.log(file)
           const typeList = ['.xlsx', '.xls']
           const isExcel = typeList.find((item) => file.name.indexOf(item) != -1) ? true : false
           //是否小于5M
-          const isLt = file.size / 1024 / 1024 < 5
+          const isFileSizeLt = file.size / 1024 / 1024 < 5
+          //文件名是否小于50个字符
+          const isFileNameLt = file.name.length < 50
           if (!isExcel) {
             this.msgError('请上传xlsx,xls格式的模板！')
           }
-          if (!isLt) {
+          if (!isFileSizeLt) {
             this.msgError('请上传小于5M的摸板！')
           }
-          res = isExcel && isLt
+          if (!isFileNameLt) {
+            this.msgError('请上传文件名小于50个字符的摸板！')
+          }
+          res = isExcel && isFileSizeLt && isFileNameLt
         } else {
           res = false
         }
