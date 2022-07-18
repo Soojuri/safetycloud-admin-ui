@@ -45,6 +45,7 @@ export const tableOption = {
       prop: 'fileName',
       overHidden: true,
       search: true,
+      searchSlot: true,
       addDisplay: false
     },
     {
@@ -57,7 +58,8 @@ export const tableOption = {
       label: '文件类型',
       prop: 'type',
       addDisplay: false,
-      search: true
+      search: true,
+      searchSlot: true
     },
     {
       label: '文件大小',
@@ -68,7 +70,8 @@ export const tableOption = {
       label: '上传人',
       prop: 'createUser',
       addDisplay: false,
-      search: true
+      search: true,
+      searchSlot: true
     },
     {
       width: 180,
