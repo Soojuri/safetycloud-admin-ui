@@ -73,8 +73,8 @@ export default {
   mounted() {
     this.getDicts('status_type').then((res) => {
       this.dict.statusType = res.data.data
-      this.getList()
     })
+    this.getList()
   },
   methods: {
     getList(page, params) {

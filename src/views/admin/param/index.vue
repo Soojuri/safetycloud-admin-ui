@@ -57,8 +57,8 @@ export default {
   mounted() {
     this.getDicts('dict_type').then((res) => {
       this.dict.dictType = res.data.data
-      this.getList()
     })
+    this.getList()
   },
   methods: {
     getList(page, params) {
