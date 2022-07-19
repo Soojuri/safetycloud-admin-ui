@@ -104,6 +104,8 @@ export default {
       const typeList = ['.csv', '.xlsx', '.xls', '.doc', '.jpeg', '.jpg', '.pdf', '.png']
       const isJPG = typeList.find((item) => file.name.indexOf(item) != -1) ? true : false
       const isLt2M = file.size / 1024 / 1024 < 5
+      //文件名是否小于50个字符
+      const isFileNameLt = file.name.length < 50
       if (!isJPG) {
         this.msgError('请上传csv,xlsx,xls,doc,jpeg,jpg,pdf,png格式的文件！')
         loading()
@@ -112,6 +114,8 @@ export default {
         this.msgError('上传文件大小不能超过 5MB!')
         loading()
         loading = false
+      } else if (!isFileNameLt) {
+        this.msgError('请上传文件名小于50个字符的摸板！')
       } else {
         this.loading = this.$loading({
           lock: true,
