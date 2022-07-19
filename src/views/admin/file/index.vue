@@ -99,16 +99,18 @@ export default {
       })
       this.loading.close()
     },
-    handleBeforeUpload(file, loading) {
+    handleBeforeUpload(file, done, loading) {
       // const isJPG = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/gif'
       const typeList = ['.csv', '.xlsx', '.xls', '.doc', '.jpeg', '.jpg', '.pdf', '.png']
       const isJPG = typeList.find((item) => file.name.indexOf(item) != -1) ? true : false
       const isLt2M = file.size / 1024 / 1024 < 5
       if (!isJPG) {
         this.msgError('请上传csv,xlsx,xls,doc,jpeg,jpg,pdf,png格式的文件！')
+        loading()
         loading = false
       } else if (!isLt2M) {
         this.msgError('上传文件大小不能超过 5MB!')
+        loading()
         loading = false
       } else {
         this.loading = this.$loading({

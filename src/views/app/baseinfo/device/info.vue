@@ -84,7 +84,8 @@
           <el-description-item label="更新时间" :value="parseTime(form.updateTime)" :span="8" />
           <!-- <el-description-item label="详细地址" :value="form.address" :span="8" /> -->
           <el-description-item label="最后离线时间" :value="parseTime(form.lastOfflineTime)" :span="8" />
-          <el-description-item label="备注" :value="form.remark" :span="24" :contentStyle="{'word-break': 'break-all','word-wrap': 'break-word'}"/>
+          <el-description-item label="备注" :value="form.remark" :span="24"
+                               :contentStyle="{'word-break': 'break-all','word-wrap': 'break-word'}" />
         </el-description>
       </div>
       <div class="tit">设备故障维修记录</div>
@@ -122,8 +123,8 @@
               </span>
             </template>
           </el-table-column>
-          <el-table-column prop="creator" align='center' label="创建人" />
-          <el-table-column prop="repairer" align='center' label="修理人" />
+          <!-- <el-table-column prop="creator" align='center' label="创建人" />
+          <el-table-column prop="repairer" align='center' label="修理人" /> -->
           <el-table-column prop="repairTime" align='center' label="维修时间">
             <template slot-scope="scope">{{parseTime(scope.row.repairTime)}}</template>
           </el-table-column>

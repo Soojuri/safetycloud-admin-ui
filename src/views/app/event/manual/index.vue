@@ -158,7 +158,8 @@
               <!-- <el-button :disabled="scope.row.handleResult == 4 || scope.row.handleResult == 3 || scope.row.handleResult == 2"
                          size="mini" type="text"  @click="handleSingleEvent(scope.row.eventId)">
                 上报城运</el-button> -->
-              <el-button size="mini" type="text" @click="handleDelete(scope.row)">删除
+              <el-button size="mini" type="text" :disabled="scope.row.eventStatus === 1"
+                         @click="handleDelete(scope.row)">删除
               </el-button>
             </template>
           </el-table-column>
