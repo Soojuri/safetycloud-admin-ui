@@ -6,12 +6,13 @@
                  :table-loading="tableLoading" :before-open="beforeOpen" :option="tableOption" @on-load="getList"
                  @search-change="searchChange" @search-reset="searchReset" @refresh-change="refreshChange"
                  @size-change="sizeChange" @current-change="currentChange" @row-update="handleUpdate"
-                 @row-save="handleSave" @row-del="rowDel" >
+                 @row-save="handleSave" @row-del="rowDel">
         <template slot="publicNameSearch" slot-scope="{row,size}">
-          <el-input placeholder="请输入 名称" :size="size" v-model="searchForm.publicName" @keyup.native="trimInput(searchForm,'publicName')"></el-input>
+          <el-input placeholder="请输入 名称" :size="size" v-model.trim="searchForm.publicName"
+                    @keyup.native="trimInput(searchForm,'publicName')"></el-input>
         </template>
         <template slot="systemSearch" slot-scope="{row,size}">
-          <el-select v-model="searchForm.system" placeholder="请选择" >
+          <el-select v-model="searchForm.system" placeholder="请选择">
             <el-option v-for="item in dict.dictType" :label="item.label" :value="item.value" :key="item.value">
             </el-option>
           </el-select>
@@ -25,8 +26,8 @@
 import { addObj, delObj, fetchList, putObj } from '@/api/admin/sys-public-param'
 import { tableOption } from '@/const/crud/admin/sys-public-param'
 import { mapGetters } from 'vuex'
-import {validatenull} from "@/util/validate";
-import {pickBy} from "lodash";
+import { validatenull } from '@/util/validate'
+import { pickBy } from 'lodash'
 
 export default {
   name: 'Syspublicparam',
@@ -41,7 +42,7 @@ export default {
       },
       tableLoading: false,
       tableOption: tableOption,
-      dict:{}
+      dict: {},
     }
   },
   computed: {

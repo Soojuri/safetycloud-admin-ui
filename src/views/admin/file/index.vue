@@ -116,6 +116,8 @@ export default {
         loading = false
       } else if (!isFileNameLt) {
         this.msgError('请上传文件名小于50个字符的摸板！')
+        loading()
+        loading = false
       } else {
         this.loading = this.$loading({
           lock: true,
