@@ -4,9 +4,9 @@
     <basic-container>
       <avue-crud ref="crud" :page.sync="page" :data="tableData" :permission="permissionList"
                  :table-loading="tableLoading" :option="tableOption" :upload-before="handleBeforeUpload"
-                 :on-error="handleUploadError" :upload-after="uploadAfter" @on-load="getList"
-                 @search-change="searchChange" @search-reset="handleClear" @refresh-change="refreshChange"
-                 @size-change="sizeChange" @current-change="currentChange" @row-del="rowDel">
+                 :upload-after="uploadAfter" @on-load="getList" @search-change="searchChange"
+                 @search-reset="handleClear" @refresh-change="refreshChange" @size-change="sizeChange"
+                 @current-change="currentChange" @row-del="rowDel">
         <template slot="menu" slot-scope="scope">
           <el-button type="text" size="small" icon="el-icon-download" @click="download(scope.row, scope.index)">下载
           </el-button>
@@ -92,13 +92,6 @@ export default {
           this.tableLoading = false
         })
     },
-    handleUploadError() {
-      this.$notify({
-        type: 'error',
-        message: '上传失败',
-      })
-      this.loading.close()
-    },
     handleBeforeUpload(file, done, loading) {
       // const isJPG = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/gif'
       const typeList = ['.csv', '.xlsx', '.xls', '.doc', '.jpeg', '.jpg', '.pdf', '.png']
@@ -109,23 +102,17 @@ export default {
       if (!isJPG) {
         this.msgError('请上传csv,xlsx,xls,doc,jpeg,jpg,pdf,png格式的文件！')
         loading()
-        loading = false
       } else if (!isLt2M) {
         this.msgError('上传文件大小不能超过 5MB!')
         loading()
-        loading = false
       } else if (!isFileNameLt) {
         this.msgError('请上传文件名小于50个字符的摸板！')
         loading()
-        loading = false
-      } else {
-        this.loading = this.$loading({
-          lock: true,
-          text: '上传中',
-          background: 'rgba(0, 0, 0, 0.7)',
-        })
       }
-      return isJPG && isLt2M
+      if (isJPG && isLt2M && isFileNameLt) {
+        done()
+      }
+      return isJPG && isLt2M && isFileNameLt
     },
     rowDel: function (row, index) {
       var _this = this
