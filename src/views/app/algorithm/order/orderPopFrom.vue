@@ -88,7 +88,7 @@ export default {
       },
       id: null,
       rules: {
-        orderId: [this.$formRules.checkLen(32), this.$formRules.checkNecessary('请输入订单ID')],
+        orderId: [this.$formRules.checkLen(50), this.$formRules.checkNecessary('请输入订单ID')],
         streamingCount: [this.$formRules.checkNecessary('请输入视频流路数')],
         expirationTime: [this.$formRules.checkNecessary('请选择过期时间')],
         chargeMode: [this.$formRules.checkNecessary('请选择计费模式')],

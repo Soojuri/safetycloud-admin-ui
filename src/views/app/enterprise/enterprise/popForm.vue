@@ -243,7 +243,7 @@ export default {
         ],
         enterpriseCode: [
           { validator: this.$formRules.validatorCredit, trigger: 'blur' },
-          this.$formRules.checkLen(32),
+          this.$formRules.checkLen(50),
           this.$formRules.checkNecessary('请输入统一社会信用代码'),
         ],
         enterpriseName: [this.$formRules.checkLen(100), this.$formRules.checkNecessary('请输入企业名称')],

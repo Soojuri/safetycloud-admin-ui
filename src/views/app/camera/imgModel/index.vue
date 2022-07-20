@@ -2,7 +2,7 @@
   <div class="sub-page">
     <div class="mt-xl">
       <el-form ref="queryParams" :model="queryParams" inline label-width="80px">
-        <el-form-item label="设备编号" prop="deviceNo" :rules="[$formRules.checkLen(32)]">
+        <el-form-item label="设备编号" prop="deviceNo" :rules="[$formRules.checkLen(50)]">
           <el-input v-model.trim="queryParams.deviceNo" placeholder="请输入设备编号"></el-input>
         </el-form-item>
 

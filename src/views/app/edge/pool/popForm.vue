@@ -54,7 +54,7 @@ export default {
       form: {},
       id: null,
       rules: {
-        edgePoolId: [this.$formRules.checkLen(32), this.$formRules.checkNecessary('请输入运行池ID')],
+        edgePoolId: [this.$formRules.checkLen(50), this.$formRules.checkNecessary('请输入运行池ID')],
         poolName: [this.$formRules.checkLen(255), this.$formRules.checkNecessary('请输入运行池名称')],
       },
     }

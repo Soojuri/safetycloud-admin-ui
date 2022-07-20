@@ -197,7 +197,7 @@ export default {
       loading: false,
       rules: {
         eventName: [this.$formRules.checkLen()],
-        eventNo: [this.$formRules.checkLen(32)],
+        eventNo: [this.$formRules.checkLen(50)],
         deviceName: [this.$formRules.checkLen()],
       },
       staticData: {},

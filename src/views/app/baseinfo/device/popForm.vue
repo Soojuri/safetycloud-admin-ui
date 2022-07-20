@@ -127,7 +127,7 @@ export default {
         deviceId: [
           { validator: this.$formRules.validatorNo, trigger: 'blur' },
           this.$formRules.checkNecessary('请输入设备编号'),
-          this.$formRules.checkLen(32),
+          this.$formRules.checkLen(50),
         ],
         // selectedOptions: [this.$formRules.checkNecessary('请选择省市区')],
         deviceAddress: [this.$formRules.checkNecessary('请选择设备地址')],
