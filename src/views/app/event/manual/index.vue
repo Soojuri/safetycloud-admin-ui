@@ -146,8 +146,9 @@
           <el-table-column prop="eventDetectTime" align="center" label="发现时间" width="140">
             <template slot-scope="scope">{{parseTime(scope.row.eventDetectTime)}}</template>
           </el-table-column>
-          <el-table-column label="操作" align="center" width="200">
+          <el-table-column label="操作" align="center" width="230">
             <template slot-scope="scope">
+              <el-button size="mini" type="text" @click="handleDeal(scope.row)">处理</el-button>
               <el-button size="mini" type="text" @click="handleDetails(scope.row)">查看</el-button>
               <el-button :disabled="scope.row.handleResult === 4 || scope.row.reportResult === 2" size="mini"
                          type="text" @click="handleSingleEvent(scope.row.eventId,4,1)">误报
@@ -171,14 +172,18 @@
                     :limit.sync="queryParams.size" @pagination="getList" />
       </div>
     </div>
+    <deal-pop ref="dealPop" :closePop = 'closePop'></deal-pop>
   </div>
 </template>
 
 <script>
 import { getEventList, getCount, updateEventStatus, reportEvent, delEvent } from '@/api/app/event/manual'
 import { mapGetters } from 'vuex'
+import dealPop from './component/dealPop.vue'
 export default {
-  components: {},
+  components: {
+    dealPop
+  },
   data() {
     return {
       queryParams: {
@@ -228,6 +233,18 @@ export default {
     this.getStatic()
   },
   methods: {
+    // 打开处理弹窗
+    handleDeal(row){
+      console.log(this.$refs)
+      this.$refs.dealPop.dealRow = row
+      // this.$refs.dealPop.DealVisible = true
+      this.$refs.dealPop.showDealPop()
+    },
+    // 关闭处理弹窗
+    closePop(){
+      this.getList()
+      this.getStatic()
+    },
     getList() {
       this.loading = true
       this.queryParams.startTime = this.dateRange ? this.dateRange[0] : null
